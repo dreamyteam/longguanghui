@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+    <context:component-scan base-package="com.dreamy"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${connection_driver_class}"/>
+        <property name="idleConnectionTestPeriod"
+                  value="${jdbc_pool_c3p0_idle_connection_test_period}"/>
+        <property name="preferredTestQuery" value="${jdbc_pool_c3p0_preferred_test_query}"/>
+        <property name="maxIdleTime" value="${jdbc_pool_c3p0_max_idle_time}"/>
+        <property name="initialPoolSize" value="${jdbc_pool_c3p0_initial_pool_size}"/>
+        <property name="acquireIncrement" value="${jdbc_pool_c3p0_acquire_increment}"/>
+        <property name="acquireRetryAttempts" value="${jdbc_pool_c3p0_acquire_retry_attempts}"/>
+        <property name="user" value="${jdbc_connection_username}"/>
+        <property name="password" value="${jdbc_connection_password}"/>
+        <property name="jdbcUrl" value="${jdbc_connection_url}"/>
+        <property name="maxPoolSize" value="${jdbc_pool_c3p0_max_size}"/>
+        <property name="minPoolSize" value="${jdbc_pool_c3p0_min_size}"/>
+    </bean>
+
+    <!-- 创建SqlSessionFactory，同时指定数据源-->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:sqlmap-config.xml"/>
+        <property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dreamy.mapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+
+    <bean id="mapperInterceptor" class="com.dreamy.lgh.mapper.interceptor.MapperInterceptor">
+    </bean>
+    <aop:config>
+        <aop:advisor pointcut="execution(* com.dreamy.lgh.mapper..*(..))"
+                     advice-ref="mapperInterceptor"/>
+    </aop:config>
+    <import resource="applicationContext-redis.xml"/>
+</beans>
