@@ -1,1 +1,132 @@
-this is the add
+<div class="page-heading">
+    <h3>
+        会员管理
+    </h3>
+    <ul class="breadcrumb">
+        <li><a href="#">会员管理</a></li>
+        <li><a href="#">新增会员</a></li>
+    </ul>
+</div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <section class="panel">
+                <header class="panel-heading">
+                    基本信息
+                    <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                    <a href="javascript:;" class="fa fa-times"></a>
+                 </span>
+                </header>
+                <div class="panel-body">
+                    <form class="form-horizontal dt-form" role="form" action="/crawler/save" method="post">
+                        <input type="hidden" name="id" value="">
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">姓名</label>
+
+                            <div class="col-lg-5">
+                                <input type="text" class="required validate[required] form-control" value=""
+                                       name="name" placeholder="名字">
+
+                                <p class="help-block">注：名称长度在8~15之间</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">性别</label>
+
+                            <div class="col-lg-5">
+                                <input type="radio" name="sex" value="1">男 &nbsp;
+                                <input type="radio" name="set" value="2">女
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">手机号</label>
+
+                            <div class="col-lg-5">
+                                <input type="text" class="required validate[required] form-control" value=""
+                                       name="mobile" placeholder="手机号">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">生日</label>
+
+                            <div class="col-lg-5">
+                                <input type="text" class="required validate[required] form-control" value=""
+                                       name="birthday" placeholder="生日">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">地址</label>
+
+                            <div class="col-lg-5">
+                                <textarea type="text" class="required validate[required] form-control" value=""
+                                          name="address" placeholder="联系地址"></textarea>
+                            </div>
+                        </div>
+
+                        <header class="panel-heading">
+                            开通的会员信息
+                            <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                        </header>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">会员类型</label>
+
+                                <div class="col-lg-5">
+                                    <select class="required validate[required] form-control" name="type"
+                                            id="form-validation-field-0">
+                                        <option value="">选择会员类型</option>
+                                        #foreach($!memberType in $memberTypes)
+                                            <option value="$!memberType.getType()">$!memberType.getDescription()</option>
+                                        #end
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">会员时长</label>
+
+                                <div class="col-sm-5">
+                                    <select class="required validate[required] form-control" name="type"
+                                            id="form-validation-field-0">
+
+                                        <option value="">选择时长</option>
+                                        <option value="1">1年</option>
+                                        <option value="2">2年</option>
+                                        <option value="3">3年</option>
+                                        <option value="3">4年</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-check"></i>
+                                    提交
+                                </button>
+                                <button class="btn btn-default" type="button">取消</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

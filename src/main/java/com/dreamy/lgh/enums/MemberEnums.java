@@ -3,20 +3,23 @@ package com.dreamy.lgh.enums;
 /**
  * Created with IntelliJ IDEA.
  * User: yujianfu (yujianfu@duotin.com)
- * Date: 16/5/6
- * Time: 下午4:45
+ * Date: 16/5/16
+ * Time: 下午3:30
  */
-public enum BookRankTrendEnums {
-    keep(0, "持平"),
-    up(1, "上升"),
-    down(2, "下降");
-
+public enum MemberEnums {
+    vip(1, "VIP会员"),
+    diamond(2, "钻石会员"),
+    queue(3, "皇冠会员"),
+    top(4, "顶级会员");
     private Integer type;
     private String description;
 
-    BookRankTrendEnums(Integer type, String description) {
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
         this.type = type;
-        this.description = description;
     }
 
     public String getDescription() {
@@ -27,12 +30,9 @@ public enum BookRankTrendEnums {
         this.description = description;
     }
 
-    public Integer getType() {
+    MemberEnums(Integer type, String description) {
 
-        return type;
-    }
-
-    public void setType(Integer type) {
         this.type = type;
+        this.description = description;
     }
 }

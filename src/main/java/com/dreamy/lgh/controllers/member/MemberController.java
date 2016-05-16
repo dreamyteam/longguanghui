@@ -1,7 +1,9 @@
 package com.dreamy.lgh.controllers.member;
 
 import com.dreamy.lgh.controllers.LghController;
+import com.dreamy.lgh.enums.MemberEnums;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -21,7 +23,9 @@ public class MemberController extends LghController {
     }
 
     @RequestMapping("/add")
-    public String add() {
+    public String add(ModelMap map) {
+
+        map.put("memberTypes", MemberEnums.values());
         return "/member/add";
     }
 }
