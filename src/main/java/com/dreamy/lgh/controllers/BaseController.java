@@ -1,7 +1,7 @@
 package com.dreamy.lgh.controllers;
 
-import com.dreamy.beans.UserSession;
-import com.dreamy.domain.admin.AdminUser;
+import com.dreamy.lgh.beans.UserSession;
+import com.dreamy.lgh.domain.admin.AdminUser;
 import com.dreamy.utils.StringUtils;
 import com.dreamy.utils.WebUtils;
 import org.springframework.ui.ModelMap;

@@ -9,10 +9,10 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd
            http://www.springframework.org/schema/mvc
            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
-           >
+        >
 
     <context:component-scan base-package="com.dreamy.lgh"/>
-    <bean  class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="stringHttpMessageConverter"/>
@@ -25,7 +25,7 @@
                 <property name="propertyEditorRegistrars">
                     <array>
                         <bean
-                                class="com.dreamy.handlers.CustomPropertyEditorRegistrar"/>
+                                class="com.dreamy.lgh.handlers.CustomPropertyEditorRegistrar"/>
                     </array>
                 </property>
             </bean>
@@ -85,7 +85,6 @@
         <bean class="com.dreamy.lgh.interceptor.LghWebContentInterceptor"/>
 
     </mvc:interceptors>
-
 
 
 </beans>

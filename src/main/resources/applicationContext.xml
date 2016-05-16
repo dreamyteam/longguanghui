@@ -11,10 +11,10 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:jdbc_${model}.properties</value>
-                <value>classpath:rabbitmq_${model}.properties</value>
-                <value>classpath:redis_${model}.properties</value>
-                <value>classpath:mongodb_${model}.properties</value>
+                <!--<value>classpath:jdbc_${model}.properties</value>-->
+                <!--<value>classpath:rabbitmq_${model}.properties</value>-->
+                <value>classpath:redis_develop.properties</value>
+                <!--<value>classpath:mongodb_${model}.properties</value>-->
             </list>
         </property>
     </bean>
@@ -35,7 +35,7 @@
 
     <!-- Error handling -->
     <bean id="exceptionResolver"
-          class="com.dreamy.handlers.CustomSimpleMappingExceptionResolver">
+          class="com.dreamy.lgh.handlers.CustomSimpleMappingExceptionResolver">
         <property name="defaultErrorView">
             <value>/error/404</value>
         </property>
@@ -63,17 +63,18 @@
     </bean>
 
     <bean id="userSessionContainer"
-          class="com.dreamy.service.container.UserSessionContainerCacheImpl">
+          class="com.dreamy.lgh.service.container.UserSessionContainerCacheImpl">
         <property name="prefix" value="ipcool_sso_sid_"/>
     </bean>
 
-    <bean id="sessionCookieHandler" class="com.dreamy.handlers.CookieHandler">
+    <bean id="sessionCookieHandler" class="com.dreamy.lgh.handlers.CookieHandler">
         <property name="cookieName" value="IPCOOL_SSO_SESSIONID"/>
         <!--<property name="cookieDomain" value="/"/>-->
         <property name="cookiePath" value="/"/>
         <property name="httpOnly" value="true"/>
     </bean>
 
-    <import resource="classpath:applicationContext-dao.xml"/>
-    <import resource="classpath:mongodb.xml"/>
+    <import resource="classpath:applicationContext-redis.xml"/>
+    <!--<import resource="classpath:applicationContext-dao.xml"/>-->
+    <!--<import resource="classpath:mongodb.xml"/>-->
 </beans>

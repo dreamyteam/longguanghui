@@ -1,6 +1,6 @@
 package com.dreamy.lgh.interceptor;
 
-import com.dreamy.beans.UserSession;
+import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.controllers.LghBaseController;
 import com.dreamy.utils.HttpUtils;
 

@@ -1,10 +1,10 @@
 package com.dreamy.lgh.controllers;
 
-import com.dreamy.beans.UserSession;
-import com.dreamy.beans.UserSessionContainer;
-import com.dreamy.domain.admin.AdminUser;
-import com.dreamy.handlers.CookieHandler;
-import com.dreamy.service.iface.admin.AdminUserService;
+import com.dreamy.lgh.beans.UserSession;
+import com.dreamy.lgh.beans.UserSessionContainer;
+import com.dreamy.lgh.domain.admin.AdminUser;
+import com.dreamy.lgh.handlers.CookieHandler;
+import com.dreamy.lgh.service.iface.admin.AdminUserService;
 import com.dreamy.utils.CookieUtils;
 import com.dreamy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
