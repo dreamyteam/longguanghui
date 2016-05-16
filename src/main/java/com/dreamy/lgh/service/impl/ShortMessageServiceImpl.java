@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class ShortMessageServiceImpl implements ShortMessageService {
 
-    private static final String API_KEY = "203a5195ff139204e26ae66480a5b98d";
+    private static final String API_KEY = "93a1be01ead21e04bac79f8e75225f9f";
     private static final String API_SECRITE = "8d613058";
     private static final String REQUEST_URL = "https://sms.yunpian.com/v2/sms/single_send.json";
 
