@@ -1,3 +1,7 @@
+#if($pjax == 1)
+##    #parse("/common/nav-tab.vm")
+    $screen_content
+#else
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,24 +11,32 @@
     #if($!{cssName})
         <link href="/static/css/$!{cssName}.css" rel="stylesheet" type="text/css"/>
     #end
-    <link rel="stylesheet" type="text/css" href="http://ipcool.me/dist/pace-theme-minimal.css">
-    <script type="text/javascript" src="http://ipcool.me/dist/pace.min.js"></script>
-</head>
-<body>
 
-<div class="">
-    #parse("/common/top_bar.vm")
-    $screen_content
+
+</head>
+<body class="sticky-header">
+<div id="layout">
+
+    #parse("/common/header.vm")
+
+    #parse("/common/left_side.vm")
+
+    <div class="main-content">
+        $screen_content
+    </div>
     #parse("/common/footer.vm")
 </div>
-
-
 
     #parse("/common/footer_js.vm")
 
     #if($!{jsName})
     <script src="/static/js/$!{jsName}.js"></script>
     #end
+
+    #if(${jsName}=='tag/tagToContent')
+    <script src="/static/vendor/raty/raty-2.4.5/js/jquery.raty.js"></script>
+    #end
+
 </body>
 </html>
-
+#end

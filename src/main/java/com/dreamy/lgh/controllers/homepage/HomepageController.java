@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = {"", "/"})
 public class HomepageController extends LghController {
+
+    @Override
+    public boolean checkLogin() {
+        return false;
+    }
+
     @RequestMapping("")
     public String index() {
         return "/homepage/login";

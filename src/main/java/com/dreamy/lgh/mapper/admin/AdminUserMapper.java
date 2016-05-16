@@ -3,9 +3,11 @@ package com.dreamy.lgh.mapper.admin;
 import com.dreamy.lgh.domain.admin.AdminUser;
 import com.dreamy.lgh.domain.admin.AdminUserConditions;
 import java.util.List;
+
+import com.dreamy.lgh.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface AdminUserMapper {
+public interface AdminUserMapper extends BaseMapper<AdminUser,Integer,AdminUserConditions> {
     int countByExample(AdminUserConditions example);
 
     int deleteByExample(AdminUserConditions example);

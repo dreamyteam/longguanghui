@@ -1,0 +1,12 @@
+#macro(page $page)
+<script type="text/javascript" src="!${staticPath}/static/page/Page.js"></script>
+<form id="page_form" name="page_form" method="post">
+<div class="message">
+    共&nbsp;<i class="blue">${page.totalNum}</i>&nbsp;条记录，当前显示第&nbsp;<i class="blue">$!{page.currentPage}&nbsp;</i>页</div>
+    <ul class="paginList" id="page"></ul>
+</form>
+<script language="javascript">
+    var pages = new Page($!{page.currentPage}, $!{page.totalNum}, $!{page.pageSize});
+    pages.run("page", "${action}", pages);
+</script>
+    #end

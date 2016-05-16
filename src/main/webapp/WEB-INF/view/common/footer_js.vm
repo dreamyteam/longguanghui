@@ -1,0 +1,11 @@
+##$!assetUtils.getJsResourceByKey()
+<script src="http://c4.duotin.com/2014/java_assets_static/dist/js/dt.admin.common_pre.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/jquery.toastr/toastr.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/advanced-datatable/js/jquery.dataTables.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/data-tables/DT_bootstrap.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/iCheck/jquery.icheck.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/Bootstrap-3-Typeahead/bootstrap3-typeahead.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/vendor/jquery.zclip.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/dist/js/dt.admin.common.min.js"></script>
+<script src="http://c4.duotin.com/2014/java_assets_static/dist/js/dt.admin.custom.js"></script>

@@ -75,6 +75,6 @@
     </bean>
 
     <import resource="classpath:applicationContext-redis.xml"/>
-    <!--<import resource="classpath:applicationContext-dao.xml"/>-->
+    <import resource="classpath:applicationContext-dao.xml"/>
     <!--<import resource="classpath:mongodb.xml"/>-->
 </beans>

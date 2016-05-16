@@ -1,0 +1,38 @@
+<!-- left side start-->
+<div class="left-side sticky-left-side">
+
+    <!--logo and iconic logo start-->
+    <div class="logo">
+        <a view-target="nav-tab" class="pjax-url" href="index.html">
+            龙光汇管理系统
+        </a>
+    </div>
+    <div class="left-side-inner">
+        <!--sidebar nav start-->
+        <ul class="nav nav-pills nav-stacked custom-nav">
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
+                    <span>会员管理</span>
+                </a>
+                <ul class="sub-menu-list">
+
+                    <li class="active">
+                        <a href="/member/list">会员列表</a>
+                    </li>
+                    <li>
+                        <a href="/member/add">新增会员</a>
+                    </li>
+
+                    <li>
+                        <a href="/member/apply">申请管理</a>
+                    </li>
+
+                    <li>
+                        <a href="/member/apply">提醒设置</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

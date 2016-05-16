@@ -1,0 +1,8 @@
+##$!assetUtils.getCssResourceByKey()
+
+<link href="http://c4.duotin.com/2014/java_assets_static/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://c4.duotin.com/2014/java_assets_static/css/bootstrap-reset.css" rel="stylesheet">
+<link href="http://c4.duotin.com/2014/java_assets_static/css/jquery-ui-1.10.3.css" rel="stylesheet">
+<link href="http://c4.duotin.com/2014/java_assets_static/fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://c4.duotin.com/2014/java_assets_static/dist/css/dt.admin.common.min.css?t=20160107" rel="stylesheet">
+<link href="http://c4.duotin.com/2014/java_assets_static/dist/css/dt.admin.custom.min.css?t=20160107" rel="stylesheet">
