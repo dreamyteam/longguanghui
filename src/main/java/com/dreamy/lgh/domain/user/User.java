@@ -1,6 +1,7 @@
 package com.dreamy.lgh.domain.user;
 
-import com.dreamy.domain.BaseDomain;
+import com.dreamy.lgh.domain.BaseDomain;
+
 import java.io.Serializable;
 import java.util.Date;
 

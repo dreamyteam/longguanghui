@@ -26,5 +26,12 @@ public interface RegisterService {
      */
     String createUserKey(RegisterParams param);
 
+    /**
+     *
+     * @param params
+     * @return
+     */
+    ErrorCodeEnums checkAddMemberParam(RegisterParams params);
+
 
 }

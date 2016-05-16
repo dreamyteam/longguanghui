@@ -3,7 +3,7 @@ package com.dreamy.lgh.beans.params;
 /**
  * Created by wangyongxing on 16/4/8.
  */
-public class LoginParam {
+public class LoginParams {
 
     private String userName;
     private String password;
@@ -50,12 +50,12 @@ public class LoginParam {
      * @param sessionId
      * @return
      */
-    public static LoginParam getNewInstance(String userName, String password, String ip, String sessionId) {
-        LoginParam loginParam = new LoginParam();
-        loginParam.setUserName(userName);
-        loginParam.setPassword(password);
-        loginParam.setIp(ip);
-        loginParam.setSessionId(sessionId);
-        return loginParam;
+    public static LoginParams getNewInstance(String userName, String password, String ip, String sessionId) {
+        LoginParams loginParams = new LoginParams();
+        loginParams.setUserName(userName);
+        loginParams.setPassword(password);
+        loginParams.setIp(ip);
+        loginParams.setSessionId(sessionId);
+        return loginParams;
     }
 }

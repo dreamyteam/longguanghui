@@ -65,4 +65,26 @@ public class RegisterServiceImpl implements RegisterService {
         Date date = new Date();
         return HashUtils.md5(param.getMobile() + date.toString());
     }
+
+    @Override
+    public ErrorCodeEnums checkAddMemberParam(RegisterParams params) {
+        ErrorCodeEnums errorCodeEnums = ErrorCodeEnums.success;
+        String errorMsg = "";
+
+        if (StringUtils.isEmpty(params.getUserName())) {
+            errorMsg = "用户名不能为空";
+        } else if (params.getSex() == null) {
+            errorMsg = "性别不能为空";
+        } else if (StringUtils.isEmpty(params.getMobile())) {
+            errorMsg = "手机号码不能为空";
+        } else if (StringUtils.isEmpty(params.getBirthday())) {
+            errorMsg = "地址不能为空";
+        }
+
+        if (StringUtils.isNotEmpty(errorMsg)) {
+            errorCodeEnums = ErrorCodeEnums.add_member_failed;
+        }
+
+        return errorCodeEnums;
+    }
 }

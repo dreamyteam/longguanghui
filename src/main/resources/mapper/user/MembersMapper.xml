@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dreamy.lgh.mapper.user.MembersMapper" >
+  <resultMap id="BaseResultMap" type="com.dreamy.lgh.domain.user.Members" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="wx_order_id" property="wxOrderId" jdbcType="VARCHAR" />
+    <result column="wx_id" property="wxId" jdbcType="VARCHAR" />
+    <result column="wx_user_name" property="wxUserName" jdbcType="VARCHAR" />
+    <result column="wx_image_url" property="wxImageUrl" jdbcType="VARCHAR" />
+    <result column="started_at" property="startedAt" jdbcType="TIMESTAMP" />
+    <result column="ended_at" property="endedAt" jdbcType="TIMESTAMP" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, status, type, wx_order_id, wx_id, wx_user_name, wx_image_url, started_at, 
+    ended_at, created_at, updated_at
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dreamy.lgh.domain.user.MembersConditions" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from members
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="paginationSql" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from members
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from members
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dreamy.lgh.domain.user.MembersConditions" >
+    delete from members
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dreamy.lgh.domain.user.Members" useGeneratedKeys="true" keyProperty="id" >
+    insert into members (user_id, status, type, 
+      wx_order_id, wx_id, wx_user_name, 
+      wx_image_url, started_at, ended_at, 
+      created_at, updated_at)
+    values (#{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{wxOrderId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{wxUserName,jdbcType=VARCHAR}, 
+      #{wxImageUrl,jdbcType=VARCHAR}, #{startedAt,jdbcType=TIMESTAMP}, #{endedAt,jdbcType=TIMESTAMP}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dreamy.lgh.domain.user.Members" useGeneratedKeys="true" keyProperty="id" >
+    insert into members
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="wxOrderId != null" >
+        wx_order_id,
+      </if>
+      <if test="wxId != null" >
+        wx_id,
+      </if>
+      <if test="wxUserName != null" >
+        wx_user_name,
+      </if>
+      <if test="wxImageUrl != null" >
+        wx_image_url,
+      </if>
+      <if test="startedAt != null" >
+        started_at,
+      </if>
+      <if test="endedAt != null" >
+        ended_at,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wxOrderId != null" >
+        #{wxOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxId != null" >
+        #{wxId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserName != null" >
+        #{wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxImageUrl != null" >
+        #{wxImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startedAt != null" >
+        #{startedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endedAt != null" >
+        #{endedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dreamy.lgh.domain.user.MembersConditions" resultType="java.lang.Integer" >
+    select count(*) from members
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update members
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxOrderId != null" >
+        wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxId != null" >
+        wx_id = #{record.wxId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserName != null" >
+        wx_user_name = #{record.wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxImageUrl != null" >
+        wx_image_url = #{record.wxImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startedAt != null" >
+        started_at = #{record.startedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endedAt != null" >
+        ended_at = #{record.endedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null" >
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update members
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR},
+      wx_id = #{record.wxId,jdbcType=VARCHAR},
+      wx_user_name = #{record.wxUserName,jdbcType=VARCHAR},
+      wx_image_url = #{record.wxImageUrl,jdbcType=VARCHAR},
+      started_at = #{record.startedAt,jdbcType=TIMESTAMP},
+      ended_at = #{record.endedAt,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamy.lgh.domain.user.Members" >
+    update members
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wxOrderId != null" >
+        wx_order_id = #{wxOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxId != null" >
+        wx_id = #{wxId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserName != null" >
+        wx_user_name = #{wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxImageUrl != null" >
+        wx_image_url = #{wxImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="startedAt != null" >
+        started_at = #{startedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endedAt != null" >
+        ended_at = #{endedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamy.lgh.domain.user.Members" >
+    update members
+    set user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      wx_order_id = #{wxOrderId,jdbcType=VARCHAR},
+      wx_id = #{wxId,jdbcType=VARCHAR},
+      wx_user_name = #{wxUserName,jdbcType=VARCHAR},
+      wx_image_url = #{wxImageUrl,jdbcType=VARCHAR},
+      started_at = #{startedAt,jdbcType=TIMESTAMP},
+      ended_at = #{endedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="paginationSql" >
+    <if test="page != null" >
+      limit  #{page.startIndex,jdbcType=INTEGER},#{page.endIndex,jdbcType=INTEGER}
+    </if>
+  </sql>
+</mapper>

@@ -1,7 +1,7 @@
 package com.dreamy.lgh.controllers.user;
 
 import com.dreamy.lgh.beans.InterfaceBean;
-import com.dreamy.lgh.beans.params.LoginParam;
+import com.dreamy.lgh.beans.params.LoginParams;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.service.iface.admin.AdminLoginService;
 import com.dreamy.utils.ConstStrings;
@@ -39,7 +39,7 @@ public class LoginController extends LghController {
                             @RequestParam(value = "service", required = false, defaultValue = ConstStrings.EMPTY) String service) {
         if (StringUtils.isNotEmpty(userName)) {
             if (StringUtils.isNotEmpty(password)) {
-                InterfaceBean bean = adminLoginService.doLogin(LoginParam.getNewInstance(userName, password, WebUtils.getRemoteAddress(request), getUserSessionId(request)));
+                InterfaceBean bean = adminLoginService.doLogin(LoginParams.getNewInstance(userName, password, WebUtils.getRemoteAddress(request), getUserSessionId(request)));
                 if (bean.getErrorCode() == 0) {
                     return redirect("/member/list", service);
                 } else {

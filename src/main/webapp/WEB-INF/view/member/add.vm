@@ -21,15 +21,13 @@
                  </span>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal dt-form" role="form" action="/crawler/save" method="post">
-                        <input type="hidden" name="id" value="">
-
+                    <form class="form-horizontal dt-form" role="form" action="/member/doAdd" method="post">
                         <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">姓名</label>
 
                             <div class="col-lg-5">
                                 <input type="text" class="required validate[required] form-control" value=""
-                                       name="name" placeholder="名字">
+                                       name="userName" placeholder="名字">
 
                                 <p class="help-block">注：名称长度在8~15之间</p>
                             </div>
@@ -39,7 +37,7 @@
                             <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">性别</label>
 
                             <div class="col-lg-5">
-                                <input type="radio" name="sex" value="1">男 &nbsp;
+                                <input type="radio" name="sex" checked value="1">男 &nbsp;
                                 <input type="radio" name="set" value="2">女
                             </div>
                         </div>
@@ -85,7 +83,7 @@
                                 <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">会员类型</label>
 
                                 <div class="col-lg-5">
-                                    <select class="required validate[required] form-control" name="type"
+                                    <select class="required validate[required] form-control" name="memberType"
                                             id="form-validation-field-0">
                                         <option value="">选择会员类型</option>
                                         #foreach($!memberType in $memberTypes)
@@ -99,7 +97,7 @@
                                 <label class="col-sm-2 control-label">会员时长</label>
 
                                 <div class="col-sm-5">
-                                    <select class="required validate[required] form-control" name="type"
+                                    <select class="required validate[required] form-control" name="memberTime"
                                             id="form-validation-field-0">
 
                                         <option value="">选择时长</option>

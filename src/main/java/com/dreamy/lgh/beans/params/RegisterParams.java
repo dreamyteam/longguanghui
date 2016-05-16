@@ -13,10 +13,18 @@ public class RegisterParams {
     private String mobile;
     private String password;
     private String checkCode;
-    private Date birthday;
+    private String birthday;
     private Integer sex;
     private String ip;
+    private String address;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getSex() {
         return sex;
@@ -34,12 +42,11 @@ public class RegisterParams {
         this.userName = userName;
     }
 
-
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

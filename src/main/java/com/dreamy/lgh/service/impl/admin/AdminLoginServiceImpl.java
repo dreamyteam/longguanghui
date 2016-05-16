@@ -3,7 +3,7 @@ package com.dreamy.lgh.service.impl.admin;
 import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.beans.UserSessionContainer;
-import com.dreamy.lgh.beans.params.LoginParam;
+import com.dreamy.lgh.beans.params.LoginParams;
 import com.dreamy.lgh.domain.admin.AdminUser;
 import com.dreamy.lgh.service.iface.admin.AdminLoginService;
 import com.dreamy.lgh.service.iface.admin.AdminUserService;
@@ -30,25 +30,25 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     private UserSessionContainer<UserSession> userSessionContainer;
 
     @Override
-    public InterfaceBean doLogin(LoginParam loginParam) {
+    public InterfaceBean doLogin(LoginParams loginParams) {
         InterfaceBean bean = new InterfaceBean().success();
-        if (loginParam == null) {
+        if (loginParams == null) {
             return bean.failure(1, "系统错误!");
         }
 
-        if (StringUtils.isNotEmpty(loginParam.getUserName())) {
-            if (StringUtils.isEmpty(loginParam.getPassword())) {
+        if (StringUtils.isNotEmpty(loginParams.getUserName())) {
+            if (StringUtils.isEmpty(loginParams.getPassword())) {
                 return bean.failure(1, "用户密码不能为空!");
             }
 
-            AdminUser adminUser = adminUserService.getByUsername(loginParam.getUserName());
+            AdminUser adminUser = adminUserService.getByUsername(loginParams.getUserName());
             if (adminUser == null) {
                 return bean.failure(1, "用户不存在!");
             }
 
-            if (HashUtils.md5(loginParam.getPassword()).equals(adminUser.getPassword())) {
+            if (HashUtils.md5(loginParams.getPassword()).equals(adminUser.getPassword())) {
                 //增加登录信息
-                addRedisSession(loginParam.getSessionId(), adminUser);
+                addRedisSession(loginParams.getSessionId(), adminUser);
                 bean.setData(adminUser);
             } else {
                 bean.failure(1, "用户密码不正确!");

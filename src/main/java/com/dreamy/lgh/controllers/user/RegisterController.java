@@ -92,7 +92,8 @@ public class RegisterController extends LghController {
             User user = userService.getUserByMobile(param.getMobile());
             if (user.getId() == null) {
                 user.phone(param.getMobile());
-                user.userName(param.getMobile());
+                user.userName(param.getUserName());
+                user.address(param.getAddress());
                 user.password(PasswordUtils.createPassword(param.getPassword()));
                 user.userKey(registerService.createUserKey(param));
 
@@ -102,9 +103,6 @@ public class RegisterController extends LghController {
                 session.setUserId(user.getId());
                 session.setUsername(user.getUserName());
                 session.setUserKey(user.getUserKey());
-                session.setImageUrl(user.getImageUrl());
-                session.setInfo(user.getInfo());
-                session.setSex(user.getSex());
 
                 userSessionContainer.set(getUserSessionId(request), session);
             } else {
