@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		    http://www.springframework.org/schema/task
+		    http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+        >
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc_${model}.properties</value>
+                <value>classpath:rabbitmq_${model}.properties</value>
+                <value>classpath:redis_${model}.properties</value>
+                <value>classpath:mongodb_${model}.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <task:annotation-driven/>
+
+    <bean id="jacksonMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Error handling -->
+    <bean id="exceptionResolver"
+          class="com.dreamy.handlers.CustomSimpleMappingExceptionResolver">
+        <property name="defaultErrorView">
+            <value>/error/404</value>
+        </property>
+        <property name="defaultStatusCode">
+            <value>404</value>
+        </property>
+    </bean>
+    <!-- 返回值转换成json -->
+    <bean
+            class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
+        <property name="favorParameter" value="true"/>
+        <property name="favorPathExtension" value="false"/>
+        <property name="defaultContentType" value="text/html"/>
+        <!-- 设置为true以忽略对Accept Header的支持 -->
+        <property name="ignoreAcceptHeader" value="true"></property>
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json"/>
+                <entry key="xml" value="application/xml"/>
+                <entry key="html" value="text/html"/>
+            </map>
+        </property>
+
+    </bean>
+
+    <bean id="userSessionContainer"
+          class="com.dreamy.service.container.UserSessionContainerCacheImpl">
+        <property name="prefix" value="ipcool_sso_sid_"/>
+    </bean>
+
+    <bean id="sessionCookieHandler" class="com.dreamy.handlers.CookieHandler">
+        <property name="cookieName" value="IPCOOL_SSO_SESSIONID"/>
+        <!--<property name="cookieDomain" value="/"/>-->
+        <property name="cookiePath" value="/"/>
+        <property name="httpOnly" value="true"/>
+    </bean>
+
+    <import resource="classpath:applicationContext-dao.xml"/>
+    <import resource="classpath:mongodb.xml"/>
+</beans>

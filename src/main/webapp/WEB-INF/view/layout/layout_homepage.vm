@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("/common/html_head.vm")
+
+    <link rel="stylesheet" type="text/css" href="http://ipcool.me/dist/index.css">
+    #if($!{cssName})
+        <link href="http://ipcool.me$!{cssName}.css" rel="stylesheet" type="text/css"/>
+    #end
+</head>
+<body>
+
+<div class="">
+    #parse("/common/top_bar.vm")
+    $screen_content
+    #parse("/common/footer_homepage.vm")
+</div>
+
+
+    #parse("/common/footer_js.vm")
+
+    #if($!{jsName})
+    <script src="/static/js/$!{jsName}.js"></script>
+    #end
+</body>
+</html>
+

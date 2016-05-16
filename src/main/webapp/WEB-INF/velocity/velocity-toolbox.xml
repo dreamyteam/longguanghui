@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+
+	<tool>
+		<key>dateUtils</key>
+		<scope>application</scope>
+		<class>com.dreamy.utils.TimeUtils</class>
+	</tool>
+
+	<tool>
+		<key>velocityTools</key>
+		<scope>application</scope>
+		<class>com.dreamy.admin.util.VelocityTools</class>
+	</tool>
+
+
+
+
+</toolbox>

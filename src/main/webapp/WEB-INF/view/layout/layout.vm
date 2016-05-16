@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #parse("/common/html_head.vm")
+    #parse("/common/header_css.vm")
+
+    #if($!{cssName})
+        <link href="/static/css/$!{cssName}.css" rel="stylesheet" type="text/css"/>
+    #end
+    <link rel="stylesheet" type="text/css" href="http://ipcool.me/dist/pace-theme-minimal.css">
+    <script type="text/javascript" src="http://ipcool.me/dist/pace.min.js"></script>
+</head>
+<body>
+
+<div class="">
+    #parse("/common/top_bar.vm")
+    $screen_content
+    #parse("/common/footer.vm")
+</div>
+
+
+
+    #parse("/common/footer_js.vm")
+
+    #if($!{jsName})
+    <script src="/static/js/$!{jsName}.js"></script>
+    #end
+</body>
+</html>
+
