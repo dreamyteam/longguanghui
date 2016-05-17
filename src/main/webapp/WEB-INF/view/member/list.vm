@@ -1,1 +1,84 @@
-this is the list page
+<div class="page-heading">
+    <h3>
+        会员管理
+    </h3>
+    <ul class="breadcrumb">
+        <li><a href="#">会员管理</a></li>
+        <li><a href="#">会员列表</a></li>
+    </ul>
+</div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    列表
+                    <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                    <a href="javascript:;" class="fa fa-times"></a>
+                 </span>
+                </header>
+                <div class="panel-body">
+                ##                    搜索框
+                    <div class="well searchBox">
+                        <form id="pagerForm" class="form-inline dt-form dt-datatable-search-form" method="post"
+                              action="/member/list">
+
+                            <div class="searchContent">
+                                <div class="form-group">
+                                    <label for="exampleInputName2">会员名称</label>
+                                    <input type="text" class="form-control textInput" id="exampleInputName2"
+                                           name="userName"
+                                           placeholder="" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputName2">手机号码</label>
+                                    <input type="text" class="form-control textInput" id="exampleInputName2"
+                                           name="mobile"
+                                           placeholder="" value="">
+                                </div>
+
+                                <button type="submit" class="btn btn-default dt-btn-submit">搜索</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                ##                     展示表格
+                    <div id="albumListBox" class="adv-table">
+                        <table class="display table table-bordered table-striped dt-data-table" id="dynamic-table">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>姓名</th>
+                                <th>手机号码</th>
+                                <th>注册时间</th>
+                                <th>会员等级</th>
+                                <th>会员状态</th>
+                                <th class="hidden-phone">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                #foreach($userWithMember in $userWithMemberList)
+                                <tr class="gradeC">
+                                    <td class="center">$!userWithMember.getUser().getId()</td>
+                                    <td class="center">$!userWithMember.getUser().getUserName()</td>
+                                    <td class="center">$!userWithMember.getUser().getPhone()</td>
+                                    <td class="center">$!dateUtils.toString(
+                                        "yyyy-MM-dd HH:mm:ss",$!userWithMember.getUser().getCreatedAt())</td>
+                                    <td class="center">$!userWithMember.getLevelStr()</td>
+                                    <td class="center">$!userWithMember.getMemberStateStr()</td>
+                                    <td class="center">$!userWithMember.getMembers().getType()</td>
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                        <div class="dt-page" data-current-page="$!page.currentPage" data-view-page-count="6"
+                             data-page-total="$!page.getTotalPage()"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

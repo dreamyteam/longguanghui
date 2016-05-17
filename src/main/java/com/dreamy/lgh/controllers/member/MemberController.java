@@ -1,11 +1,13 @@
 package com.dreamy.lgh.controllers.member;
 
+import com.dreamy.beans.Page;
 import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.beans.params.MemberParams;
 import com.dreamy.lgh.beans.params.RegisterParams;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.User;
+import com.dreamy.lgh.domain.user.UserWithMember;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
 import com.dreamy.lgh.enums.MemberEnums;
 import com.dreamy.lgh.service.iface.ShortMessageService;
@@ -20,10 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,8 +56,13 @@ public class MemberController extends LghController {
 
 
     @RequestMapping("/list")
-    public String list() {
+    public String list(HttpServletResponse response, Page page, ModelMap map,
+                       @RequestParam(value = "userName", required = false) String userName,
+                       @RequestParam(value = "mobile", required = false) String phone) {
+        List<UserWithMember> userWithMemberList = memberService.getByPageAndUserNameAndPhone(page, userName, phone);
 
+        map.put("userWithMemberList", userWithMemberList);
+        map.put("page", page);
         return "/member/list";
     }
 
@@ -78,7 +87,7 @@ public class MemberController extends LghController {
                 user.userName(registerParams.getUserName());
                 user.userKey(registerService.createUserKey(registerParams));
                 user.sex(registerParams.getSex());
-                user.birthday(new Date());
+                user.birthday(TimeUtils.getDateByStr(registerParams.getBirthday(), "yyyy-MM-dd"));
                 user.address(registerParams.getAddress());
 
                 Integer res = userService.save(user);

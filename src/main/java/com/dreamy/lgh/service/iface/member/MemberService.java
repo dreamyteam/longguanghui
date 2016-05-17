@@ -1,6 +1,11 @@
 package com.dreamy.lgh.service.iface.member;
 
+import com.dreamy.beans.Page;
 import com.dreamy.lgh.domain.user.Members;
+import com.dreamy.lgh.domain.user.UserWithMember;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,4 +27,34 @@ public interface MemberService {
      * @return
      */
     Members getByUserId(Integer userId);
+
+    /**
+     *
+     * @param page
+     * @param order
+     * @return
+     */
+    List<Members> getByPageAndOrder(Page page ,String order);
+
+    /**
+     *
+     * @param page
+     * @param userName
+     * @return
+     */
+    List<UserWithMember> getByPageAndUserNameAndPhone(Page page,String userName,String phone);
+
+    /**
+     *
+     * @param userIds
+     * @return
+     */
+    List<Members> getMemberByUserIds(List<Integer> userIds);
+
+    /**
+     *
+     * @param membersList
+     * @return
+     */
+    Map<Integer,Members> getUserIdAndMemberMapByMemberList(List<Members> membersList);
 }
