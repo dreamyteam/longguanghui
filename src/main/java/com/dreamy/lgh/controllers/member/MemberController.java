@@ -124,4 +124,9 @@ public class MemberController extends LghController {
 
         return redirect("/member/add?error=" + HttpUtils.encodeUrl(JsonUtils.toString(bean)));
     }
+
+    @RequestMapping("/apply")
+    public String apply() {
+        return "/member/applies";
+    }
 }

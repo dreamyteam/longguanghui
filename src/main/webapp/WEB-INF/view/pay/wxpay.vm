@@ -1,0 +1,44 @@
+#set($layout = "/layout/blank_layout.vm")
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
+    <title>龙光汇</title>
+</head>
+<body>
+<div class="slide">
+    <section class="sec_vip">
+        <span class="icon-longguanghuilogo"></span>
+        <h1 class="vip_type">VIP会员</h1>
+        <h2 class="tips">填写您的会员信息</h2>
+        <form>
+            <div class="from_container">
+                <input type="text" placeholder="姓名"/>
+                <input type="text" placeholder="手机号码"/>
+                <input type="text" class="veryfyCode" placeholder="验证码">
+                <button class="getVerCode">获取验证码</button>
+                <input placeholder="生日" type="text" onfocus="(this.type='date')">
+                <div class="radio_container">
+                    <input type="radio" id="male" name="sex" value="男" checked="checked"/>
+                    <label for="male">男</label>
+                    <input type="radio" id="female" name="sex" value="女"/>
+                    <label for="female">女</label>
+                </div>
+            </div>
+            <div class="vip_join">
+                <input type="submit" value="确认提交">
+            </div>
+        </form>
+    </section>
+</div>
+
+
+##<script src="../../src/fastclick.js"></script>
+</body>
+</html>

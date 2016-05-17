@@ -1,1 +1,4 @@
+#if($!{cssName})
+<link href="/static/css/$!{cssName}.css" rel="stylesheet" type="text/css"/>
+#end
 $screen_content
