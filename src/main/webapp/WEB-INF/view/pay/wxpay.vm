@@ -15,8 +15,11 @@
 <div class="slide">
     <section class="sec_vip">
         <span class="icon-longguanghuilogo"></span>
+
         <h1 class="vip_type">VIP会员</h1>
+
         <h2 class="tips">填写您的会员信息</h2>
+
         <form>
             <div class="from_container">
                 <input type="text" placeholder="姓名"/>
@@ -24,6 +27,7 @@
                 <input type="text" class="veryfyCode" placeholder="验证码">
                 <button class="getVerCode">获取验证码</button>
                 <input placeholder="生日" type="text" onfocus="(this.type='date')">
+
                 <div class="radio_container">
                     <input type="radio" id="male" name="sex" value="男" checked="checked"/>
                     <label for="male">男</label>
@@ -32,13 +36,44 @@
                 </div>
             </div>
             <div class="vip_join">
-                <input type="submit" value="确认提交">
+                <input type="submit" id="btn_submit" data-config='$!config' value="确认提交">
             </div>
         </form>
     </section>
 </div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="//cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
+<script>
+    var cfg = JSON.parse($('#btn_submit').data('config'));
+    //    var cfg = document.getElementById('btn_submit').getAttribute('data-config');
+    console.log(cfg);
+    wx.config({
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: cfg.appId, // 必填，公众号的唯一标识
+        timestamp: cfg.timeStamp, // 必填，生成签名的时间戳
+        nonceStr: cfg.nonceStr, // 必填，生成签名的随机串
+        signature: cfg.signature, // 必填，签名，见附录1
+        jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
 
-
-##<script src="../../src/fastclick.js"></script>
+        $('#btn_submit').on('tap', function () {
+            alert(18);
+            wx.chooseWXPay({
+                timestamp: cfg.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: cfg.nonceStr, // 支付签名随机串，不长于 32 位
+                package: cfg.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                signType: cfg.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                paySign: cfg.paySign, // 支付签名
+                success: function (res) {
+                    alert('success');
+                },
+                complete: function (res) {
+                    alert(res);
+                }
+            });
+        })
+    });
+</script>
 </body>
 </html>
