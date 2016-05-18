@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +25,7 @@ public class PayController extends LghController {
     private final static String WX_APP_ID = "wx07d89ad0c6b2d206";
     private final static String WX_APP_SECRET = "926bb90270acf93aabc8b390fd5300b6";
     private final static String WX_MC_ID = "1320298201";
-    private final static String PAY_KEY = "";
+    private final static String PAY_KEY = "jkdir003jk03e0fi3h2jkdjd93kekci9";
 
     @Autowired
     private RedisClientService redisClientService;
@@ -64,7 +63,6 @@ public class PayController extends LghController {
     public void recieveNotify(HttpServletResponse response) {
         InterfaceBean bean = new InterfaceBean().success();
         interfaceReturn(response, JsonUtils.toString(bean), "");
-
     }
 
 
@@ -78,15 +76,15 @@ public class PayController extends LghController {
         configMap.put("signType", "MD5");
         configMap.put("package", "prepay_id=" + getPrePayId(configMap, openId));
 
-//        configMap.put("paySign", createPaySign(configMap));
-//
-//        Map<String, String> params = new HashMap<>();
-//
-//        String tokenInfo = HttpUtils.getHtmlGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET);
-//        Map<String, String> map = JsonUtils.toMap(tokenInfo);
-//        String jsapiInfo = HttpUtils.post("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + map.get("access_token") + "&type=jsapi", params);
-//        Map<String, String> jsapiInfoMap = JsonUtils.toMap(jsapiInfo);
-//        configMap.put("signature", createJsApiTicket(configMap, jsapiInfoMap.get("ticket"), request));
+        configMap.put("paySign", createPaySign(configMap));
+
+        Map<String, String> params = new HashMap<>();
+
+        String tokenInfo = HttpUtils.getHtmlGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET);
+        Map<String, String> map = JsonUtils.toMap(tokenInfo);
+        String jsapiInfo = HttpUtils.post("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + map.get("access_token") + "&type=jsapi", params);
+        Map<String, String> jsapiInfoMap = JsonUtils.toMap(jsapiInfo);
+        configMap.put("signature", createJsApiTicket(configMap, jsapiInfoMap.get("ticket"), request));
         return JsonUtils.toString(configMap);
     }
 
@@ -128,7 +126,7 @@ public class PayController extends LghController {
         params.put("mch_id", WX_MC_ID);
         params.put("nonce_str", configMap.get("nonceStr"));
         params.put("body", "支付产品测试");
-        params.put("out_trade_no", "ty81997382");
+        params.put("out_trade_no", configMap.get("timeStamp"));
         params.put("spbill_create_ip", "192.168.0.1");
         params.put("notify_url", "http://dev.xingyifengji.com/pay/wx/trade/notify");
         params.put("total_fee", "1");
@@ -143,8 +141,10 @@ public class PayController extends LghController {
         String xml = mapToXml(params);
         String res = HttpUtils.post(url, xml);
         if (StringUtils.isNotEmpty(res)) {
-            Map<String, String> resMap = JsonUtils.toMap(res);
-            return resMap.get("prepay_id");
+            String[] resStrs = res.split("prepay_id");
+            if (resStrs.length == 3) {
+                return resStrs[1].substring(10, resStrs[1].length() - 5);
+            }
         }
 
         return null;
@@ -195,7 +195,7 @@ public class PayController extends LghController {
         params.put("openid", "ovS3gs4sIy7blJ5fKoS7RigOi8aY");
 
         String string1 = createSortStringByMap(params);
-        String stringSignTemp = string1 + "&key=" + WX_APP_SECRET;
+        String stringSignTemp = string1 + "&key=" + PAY_KEY;
 
         params.put("sign", HashUtils.md5(stringSignTemp).toUpperCase());
 
@@ -203,8 +203,11 @@ public class PayController extends LghController {
 
         String res = HttpUtils.post(url, xml);
         if (StringUtils.isNotEmpty(res)) {
-            Map<String, String> resMap = JsonUtils.toMap(res);
-            System.err.println("ssss");
+            String[] resStrs = res.split("prepay_id");
+            String prepayId = "";
+            if (resStrs.length == 3) {
+                prepayId = resStrs[1].substring(10, resStrs[1].length() - 5);
+            }
         }
     }
 
@@ -216,4 +219,5 @@ public class PayController extends LghController {
         }
         return true;
     }
+
 }
