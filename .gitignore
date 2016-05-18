@@ -1,0 +1,16 @@
+target
+bin
+build.sh
+.idea
+.classpath
+.settings
+.project
+/.DS_Store
+org.eclipse.wst.common.component
+dreamy.iml
+crawler/crawler.iml
+dashboard/dashboard.iml
+servers/servers.iml
+tools/tools.iml
+IPcool/IPcool.iml
+long.iml
