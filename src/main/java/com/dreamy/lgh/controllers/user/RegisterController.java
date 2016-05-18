@@ -13,6 +13,7 @@ import com.dreamy.lgh.service.impl.user.RegisterServiceImpl;
 import com.dreamy.utils.JsonUtils;
 import com.dreamy.utils.PasswordUtils;
 import com.dreamy.utils.StringUtils;
+import com.dreamy.utils.TimeUtils;
 import com.dreamy.utils.asynchronous.AsynchronousService;
 import com.dreamy.utils.asynchronous.ObjectCallable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,8 +95,8 @@ public class RegisterController extends LghController {
                 user.phone(param.getMobile());
                 user.userName(param.getUserName());
                 user.address(param.getAddress());
-                user.password(PasswordUtils.createPassword(param.getPassword()));
                 user.userKey(registerService.createUserKey(param));
+                user.birthday(TimeUtils.getDateByStr(param.getBirthday(), "yyyy-MM-dd"));
 
                 userService.save(user);
 

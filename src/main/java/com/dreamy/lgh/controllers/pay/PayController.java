@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,8 @@ public class PayController extends LghController {
 
 
     @RequestMapping("/wx")
-    public String wx(ModelMap modelMap, HttpServletRequest request) {
+    public String wx(ModelMap modelMap, HttpServletRequest request,
+                     @RequestParam(value = "type", defaultValue = "1") String type) {
 
         String code = request.getParameter("code");
         if (StringUtils.isNotEmpty(code)) {
@@ -56,6 +58,7 @@ public class PayController extends LghController {
             }
         }
 
+        modelMap.put("type", type);
         return "/pay/wxpay";
     }
 
@@ -65,6 +68,23 @@ public class PayController extends LghController {
         interfaceReturn(response, JsonUtils.toString(bean), "");
     }
 
+    @RequestMapping("/choose")
+    public String chooseMember() {
+
+        return "/pay/choose";
+    }
+
+    @RequestMapping("/choose/detail")
+    public String memberDetail(ModelMap modelMap, @RequestParam(value = "type", defaultValue = "1") Integer type) {
+
+        modelMap.put("type", type);
+        return "/pay/detail";
+    }
+
+    @RequestMapping("/result")
+    public String result(@RequestParam(value = "prepayOrderId") String orderId,@RequestParam(value = "orderStatus",defaultValue = "0") String status) {
+        return "/pay/result";
+    }
 
     public String getPayConfig(HttpServletRequest request, String openId) {
         Map<String, String> configMap = new HashMap<>();
