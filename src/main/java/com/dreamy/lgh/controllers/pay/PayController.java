@@ -41,22 +41,22 @@ public class PayController extends LghController {
     public String wx(ModelMap modelMap, HttpServletRequest request,
                      @RequestParam(value = "type", defaultValue = "1") String type) {
 
-        String code = request.getParameter("code");
-        if (StringUtils.isNotEmpty(code)) {
-            String token = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET + "&code=" + code + "&grant_type=authorization_code");
-
-            Map<String, String> map = JsonUtils.toMap(token);
-            if (!map.containsKey("errcode")) {
-                String accessToken = map.get("access_token");
-                String openId = map.get("openid");
-                String userJson = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openId + "&lang=zh_CN");
-                Map<String, String> userInfoMap = JsonUtils.toMap(userJson);
-                if (!userInfoMap.containsKey("errcode")) {
-                    modelMap.put("user", userInfoMap);
-                    modelMap.put("config", getPayConfig(request, openId));
-                }
-            }
-        }
+//        String code = request.getParameter("code");
+//        if (StringUtils.isNotEmpty(code)) {
+//            String token = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET + "&code=" + code + "&grant_type=authorization_code");
+//
+//            Map<String, String> map = JsonUtils.toMap(token);
+//            if (!map.containsKey("errcode")) {
+//                String accessToken = map.get("access_token");
+//                String openId = map.get("openid");
+//                String userJson = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openId + "&lang=zh_CN");
+//                Map<String, String> userInfoMap = JsonUtils.toMap(userJson);
+//                if (!userInfoMap.containsKey("errcode")) {
+//                    modelMap.put("user", userInfoMap);
+//                    modelMap.put("config", getPayConfig(request, openId));
+//                }
+//            }
+//        }
 
         modelMap.put("type", type);
         return "/pay/wxpay";

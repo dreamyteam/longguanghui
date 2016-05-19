@@ -1,0 +1,2 @@
+webpackJsonp([9],{37:function(t,e){"use strict"},93:function(t,e){t.exports='<div class="container gray"> <h5 class=label>选择您的生日</h5> <form> <input placeholder=1900-10-30 type=text onfocus="(this.type=\'date\')"> <input type=submit value=保存> </form> </div>'},103:function(t,e,o){var s,p;s=o(37),p=o(93),t.exports=s||{},t.exports.__esModule&&(t.exports=t.exports["default"]),p&&(("function"==typeof t.exports?t.exports.options||(t.exports.options={}):t.exports).template=p)}});
+//# sourceMappingURL=9.df48ac9f8a751b05407e.js.map

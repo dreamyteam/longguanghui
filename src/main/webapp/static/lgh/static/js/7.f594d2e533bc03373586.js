@@ -1,0 +1,2 @@
+webpackJsonp([7],{40:function(t,e){"use strict"},96:function(t,e){t.exports='<div class="container gray"> <h5 class=label>输入您的名字</h5> <form> <input type=text value=土豆 title=name /> <input type=submit value=保存> </form> </div>'},106:function(t,e,o){var s,p;s=o(40),p=o(96),t.exports=s||{},t.exports.__esModule&&(t.exports=t.exports["default"]),p&&(("function"==typeof t.exports?t.exports.options||(t.exports.options={}):t.exports).template=p)}});
+//# sourceMappingURL=7.f594d2e533bc03373586.js.map
