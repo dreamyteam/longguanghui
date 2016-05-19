@@ -65,4 +65,11 @@ public interface MemberService {
      * @return
      */
     Map<Integer, Members> getUserIdAndMemberMapByMemberList(List<Members> membersList);
+
+    /**
+     *
+     * @param members
+     * @return
+     */
+    Integer updateByRecord(Members members);
 }

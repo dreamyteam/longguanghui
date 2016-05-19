@@ -97,6 +97,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Integer updateByRecord(Members members) {
+        return memberDao.update(members);
+    }
+
+    @Override
     public List<UserWithMember> getByPageAndUserNameAndPhone(Page page, String userName, String phone) {
 
         List<UserWithMember> userWithMemberList = new LinkedList<UserWithMember>();

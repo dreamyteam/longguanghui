@@ -17,6 +17,15 @@ public class RegisterParams {
     private Integer sex;
     private String ip;
     private String address;
+    private String  type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAddress() {
         return address;
