@@ -15,6 +15,15 @@ public class WxUser {
     private String country;
     private String headimgurl;
     private String sex;
+    private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getSex() {
         return sex;

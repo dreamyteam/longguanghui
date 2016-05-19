@@ -9,6 +9,7 @@ import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.service.cache.RedisClientService;
 import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.user.UserService;
+import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,14 +35,15 @@ public class PayController extends LghController {
     private final static String WX_MC_ID = "1320298201";
     private final static String PAY_KEY = "jkdir003jk03e0fi3h2jkdjd93kekci9";
 
-    @Autowired
-    private RedisClientService redisClientService;
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private WxService wxService;
 
     @Override
     public boolean checkLogin() {
@@ -51,51 +53,64 @@ public class PayController extends LghController {
 
     @RequestMapping("/wx")
     public String wx(ModelMap modelMap, HttpServletRequest request,
-                     @RequestParam(value = "type", defaultValue = "1") String type) {
+                     @RequestParam(value = "type", defaultValue = "0") Integer type) {
 
-        String code = request.getParameter("code");
-        if (StringUtils.isNotEmpty(code)) {
-            String token = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET + "&code=" + code + "&grant_type=authorization_code");
+        modelMap.put("type", type);
 
-            Map<String, String> map = JsonUtils.toMap(token);
-            if (!map.containsKey("errcode")) {
-                String accessToken = map.get("access_token");
-                String openId = map.get("openid");
-                String userJson = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openId + "&lang=zh_CN");
-                Map<String, String> userInfoMap = JsonUtils.toMap(userJson);
+        UserSession userSession = getUserSession(request);
+        if (userSession != null && userSession.getUserId() > 0) {
+            Integer userId = userSession.getUserId();
 
-                if (!userInfoMap.containsKey("errcode")) {
-                    modelMap.put("user", userInfoMap);
+            User user = userService.getUserById(userId);
+            Members members = memberService.getByUserId(userId);
+            modelMap.put("user", user);
+            modelMap.put("member", members);
 
-                    try {
-                        WxUser wxUser = (WxUser) ObjectUtils.convertMapToObject(WxUser.class, userInfoMap);
+            if (members.getType() == 0) {
+                return redirect("/pay/choose");
+            } else {
+                return redirect("/user/user_center");
+            }
+        } else {
+            String code = request.getParameter("code");
+            if (StringUtils.isNotEmpty(code)) {
+                Map<String, String> tokenMap = wxService.getWxTokenInfo(code, WX_APP_ID, WX_APP_SECRET);
+                if (!tokenMap.containsKey("errcode")) {
+                    String accessToken = tokenMap.get("access_token");
+                    String openId = tokenMap.get("openid");
+
+                    WxUser wxUser = wxService.getWxUserInfoByAccessTokenAndOpenId(accessToken, openId);
+                    if (wxUser != null) {
                         Members currentMember = memberService.getByOpenId(openId);
-                        User user = null;
+                        User user = new User();
                         if (currentMember == null) {
                             user = userService.saveByWx(wxUser);
-                            if (user != null) {
-                                memberService.saveByWx(wxUser, user.getId());
-                            }
+                            wxUser.setType(type);
+                            memberService.saveByWx(wxUser, user.getId());
                         } else {
                             user = userService.getUserById(currentMember.getUserId());
                         }
 
-                        if (user != null) {
-                            UserSession userSession = getUserSession(request);
-                            userSession.setUserId(user.getId());
-                            userSession.setUsername(user.getUserName());
-                            userSessionContainer.set(request.getRequestedSessionId(), userSession);
+                        userSession = getUserSession(request);
+                        userSession.setUserId(user.getId());
+                        userSession.setUsername(user.getUserName());
+                        userSessionContainer.set(request.getRequestedSessionId(), userSession);
+
+                        if (currentMember != null) {
+                            if (currentMember.getType() == 0) {
+                                return redirect("/pay/choose");
+                            } else {
+                                return redirect("/user/user_center");
+                            }
+                        }else{
+                            return "/pay/wx";
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-//                    modelMap.put("config", getPayConfig(request, openId));
                 }
             }
-        }
 
-        modelMap.put("type", type);
-        return "/pay/wxpay";
+            return redirect("/pay/choose");
+        }
     }
 
     @RequestMapping("/wx/trade/notify")
@@ -118,7 +133,8 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/result")
-    public String result(@RequestParam(value = "prepayOrderId",required = false) String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
+    public String result(@RequestParam(value = "prepayOrderId", required = false) String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
+
         return "/pay/result";
     }
 
