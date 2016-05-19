@@ -51,6 +51,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Members getByUserId(Integer userId) {
+        MembersConditions conditions = new MembersConditions();
+        conditions.createCriteria().andUserIdEqualTo(userId);
+
+        Page page = new Page();
+        page.setPageSize(1);
+        conditions.setPage(page);
+
+        List<Members> membersList = memberDao.selectByExample(conditions);
+        if (CollectionUtils.isNotEmpty(membersList)) {
+            return membersList.get(0);
+        }
         return null;
     }
 

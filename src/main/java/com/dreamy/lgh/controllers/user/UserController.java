@@ -4,14 +4,19 @@ import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.beans.params.RegisterParams;
 import com.dreamy.lgh.controllers.LghController;
+import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.User;
+import com.dreamy.lgh.domain.user.UserWithMember;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
+import com.dreamy.lgh.enums.MemberEnums;
+import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.utils.JsonUtils;
 import com.dreamy.utils.StringUtils;
 import com.dreamy.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,12 +36,46 @@ public class UserController extends LghController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MemberService memberService;
+
+    @RequestMapping("/center")
+    public String userCenter(ModelMap modelMap, HttpServletRequest request) {
+        Integer activeDays = 0;
+        UserSession userSession = getUserSession(request);
+        if (userSession != null && userSession.getUserId() != 0) {
+            Integer userId = userSession.getUserId();
+            User user = userService.getUserById(userId);
+            Members members = memberService.getByUserId(userId);
+
+            UserWithMember userWithMember = new UserWithMember();
+            userWithMember.setUser(user);
+            userWithMember.setMembers(members);
+
+            MemberEnums[] enums = MemberEnums.values();
+            for (MemberEnums memberEnums : enums) {
+                if (members.getType().equals(memberEnums.getType())) {
+                    userWithMember.setLevelStr(memberEnums.getDescription());
+                }
+            }
+
+            long activeTime = TimeUtils.diff(members.getStartedAt(), members.getEndedAt());
+
+            if (activeTime > 0) {
+                activeDays = (int) (activeTime / (24 * 60 * 60 * 1000));
+            }
+        }
+
+        modelMap.put("activeDays", activeDays);
+        return "/user/center";
+    }
+
     @RequestMapping("/update")
     @ResponseBody
     public void update(RegisterParams params, HttpServletResponse response, HttpServletRequest request) {
 
         InterfaceBean bean = new InterfaceBean().success();
-        
+
         UserSession userSession = getUserSession(request);
         if (userSession != null && userSession.getUserId() > 0) {
             Integer userId = userSession.getUserId();
