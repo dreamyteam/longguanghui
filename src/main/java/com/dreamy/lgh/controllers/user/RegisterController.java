@@ -4,10 +4,12 @@ import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.beans.params.RegisterParams;
 import com.dreamy.lgh.controllers.LghController;
+import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
 import com.dreamy.lgh.service.iface.ShortMessageService;
 import com.dreamy.lgh.service.iface.VerificationCodeService;
+import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.lgh.service.impl.user.RegisterServiceImpl;
 import com.dreamy.utils.JsonUtils;
@@ -44,6 +46,9 @@ public class RegisterController extends LghController {
 
     @Autowired
     private ShortMessageService shortMessageService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public boolean checkLogin() {
@@ -92,13 +97,22 @@ public class RegisterController extends LghController {
         } else {
             User user = userService.getUserByMobile(param.getMobile());
             if (user.getId() == null) {
+                UserSession userSession = getUserSession(request);
+                Integer userId = userSession.getUserId();
+                user = userService.getUserById(userId);
+
                 user.phone(param.getMobile());
                 user.userName(param.getUserName());
                 user.address(param.getAddress());
                 user.userKey(registerService.createUserKey(param));
                 user.birthday(TimeUtils.getDateByStr(param.getBirthday(), "yyyy-MM-dd"));
+                user.sex(param.getSex());
 
-                userService.save(user);
+                userService.updateByRecord(user);
+
+                Members members = memberService.getByUserId(userId);
+                members.type(Integer.parseInt(param.getType()));
+                memberService.updateByRecord(members);
 
                 UserSession session = getUserSession(request);
                 session.setUserId(user.getId());

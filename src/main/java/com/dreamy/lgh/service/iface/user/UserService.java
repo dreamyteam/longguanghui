@@ -22,6 +22,12 @@ public interface UserService {
     Integer save(User user);
 
     /**
+     * @param wxUser
+     * @return
+     */
+    User saveByWx(WxUser wxUser);
+
+    /**
      * @param mobile
      * @return
      */
@@ -32,6 +38,13 @@ public interface UserService {
      * @return
      */
     User getUserById(Integer userId);
+
+    /**
+     *
+     * @param openId
+     * @return
+     */
+    User getUserByOpenId(String openId);
 
     /**
      * @param user
@@ -45,9 +58,5 @@ public interface UserService {
      */
     Cookie rememerPwd(User user);
 
-    /**
-     * @param wxUser
-     * @return
-     */
-    User saveByWx(WxUser wxUser);
+
 }

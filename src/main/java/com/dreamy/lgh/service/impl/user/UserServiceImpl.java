@@ -66,39 +66,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByOpenId(String openId) {
+        Members members = memberService.getByOpenId(openId);
+        if (members != null) {
+            Integer userId = members.getUserId();
+            return getUserById(userId);
+        }
+        return null;
+    }
+
+    @Override
     public Integer updateByRecord(User user) {
         return userDao.update(user);
     }
 
     @Override
     public User saveByWx(WxUser wxUser) {
-        String openId = wxUser.getOpenid();
-        if (StringUtils.isNotEmpty(openId)) {
+        RegisterParams param = new RegisterParams();
+        param.setMobile(wxUser.getOpenid());
+        User user = new User().userKey(registerService.createUserKey(param))
+                .userName(wxUser.getNickname())
+                .imageUrl(wxUser.getHeadimgurl())
+                .sex(Integer.parseInt(wxUser.getSex()))
+                .address(wxUser.getProvince() + wxUser.getCity());
 
-            if (memberService.getByOpenId(openId) == null) {
-                RegisterParams param = new RegisterParams();
-                param.setMobile(wxUser.getOpenid());
-                User user = new User().userKey(registerService.createUserKey(param))
-                        .userName(wxUser.getNickname())
-                        .imageUrl(wxUser.getHeadimgurl())
-                        .sex(Integer.parseInt(wxUser.getSex()))
-                        .address(wxUser.getProvince() + wxUser.getCity());
-                save(user);
+        save(user);
 
-                Date date = new Date();
-                Members members = new Members()
-                        .userId(user.getId())
-                        .wxId(wxUser.getOpenid())
-                        .wxImageUrl(wxUser.getHeadimgurl())
-                        .startedAt(date)
-                        .endedAt(date)
-                        .wxUserName(wxUser.getNickname());
-                memberService.save(members);
-
-                return user;
-            }
-        }
-        return null;
+        return user;
     }
 
     @Override

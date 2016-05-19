@@ -4,8 +4,10 @@ import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.controllers.LghController;
+import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.service.cache.RedisClientService;
+import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class PayController extends LghController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MemberService memberService;
+
     @Override
     public boolean checkLogin() {
         return false;
@@ -61,16 +66,26 @@ public class PayController extends LghController {
 
                 if (!userInfoMap.containsKey("errcode")) {
                     modelMap.put("user", userInfoMap);
+
                     try {
                         WxUser wxUser = (WxUser) ObjectUtils.convertMapToObject(WxUser.class, userInfoMap);
-                        User user = userService.saveByWx(wxUser);
+                        Members currentMember = memberService.getByOpenId(openId);
+                        User user = null;
+                        if (currentMember == null) {
+                            user = userService.saveByWx(wxUser);
+                            if (user != null) {
+                                memberService.saveByWx(wxUser, user.getId());
+                            }
+                        } else {
+                            user = userService.getUserById(currentMember.getUserId());
+                        }
+
                         if (user != null) {
                             UserSession userSession = getUserSession(request);
                             userSession.setUserId(user.getId());
                             userSession.setUsername(user.getUserName());
                             userSessionContainer.set(request.getRequestedSessionId(), userSession);
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

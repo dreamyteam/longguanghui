@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by wangyongxing on 16/4/1.
  */
-public class UserSession  implements CanonicalSession {
+public class UserSession implements CanonicalSession {
 
     private static final long serialVersionUID = -6308267983694496853L;
 
@@ -30,9 +30,18 @@ public class UserSession  implements CanonicalSession {
 
     private String info;
 
-    private  Integer sex;
+    private Integer sex;
+
+    private Map<String, String> data;
 
 
+    public Map<String, String> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, String> data) {
+        this.data = data;
+    }
 
     public Integer getSex() {
         return sex;
@@ -75,7 +84,6 @@ public class UserSession  implements CanonicalSession {
     }
 
 
-
     public int getUserId() {
         return userId;
     }
@@ -100,7 +108,7 @@ public class UserSession  implements CanonicalSession {
         String captchaStore = (String) getAttribute(ATTRIBUTES_CAPTCHA);
         if (StringUtils.isNotEmpty(captchaCheck, captchaStore)) {
             captchaCheck = captchaCheck.toLowerCase();
-            if(captchaStore.equals(captchaCheck)) {
+            if (captchaStore.equals(captchaCheck)) {
                 remoteAttribute(ATTRIBUTES_CAPTCHA);
                 return true;
             }

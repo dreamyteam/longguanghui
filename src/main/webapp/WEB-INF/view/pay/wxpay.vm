@@ -81,6 +81,8 @@
               bg.addClass('sec_vip');
               vipType.html('VIP会员');
         }
+
+
         btn_verify.on('tap',function(){
             if(btnVerCanClick == true){
                 var regPhone = /^0?1[3|4|5|8][0-9]\d{8}$/;
@@ -164,8 +166,8 @@
                     err_msg.html('请输入验证码').show();
                     return false;
                 }else{
-                    checkVerifyCode(name,phoneNumner,verifycode,dob,sex)
-                    console.log(sex + ' ' + dob);
+                    checkVerifyCode(name,phoneNumner,verifycode,dob,sex,type)
+                    console.log(sex + ' ' + dob + ' '+ type);
                 }
 
             }else{
@@ -173,7 +175,7 @@
             }
         })
 
-        function checkVerifyCode(name,phoneNumber,verifyCode,dob,sex){
+        function checkVerifyCode(name,phoneNumber,verifyCode,dob,sex,type){
             $.ajax({
                 url:'/user/register',
                 type:'POST',
@@ -182,14 +184,18 @@
                     mobile:phoneNumber,
                     checkCode:verifyCode,
                     birthday:dob,
-                    sex:sex
+                    sex:sex,
+                    type:type
                 },
                 success:function(result){
                     var res = JSON.parse(result);
                     console.log(res);
                     if(res.error_code == 0){
-                        //调用支付接口
-                        //提交成功跳转相应页面
+                        if(type != "1"){
+                            //跳入申请成功页面
+                        }else if(type == "1"){
+                            //调用支付接口
+                        }
                     }else if(res.error_code > 0){
                         err_msg.html(res.error_msg).show();
                     }
