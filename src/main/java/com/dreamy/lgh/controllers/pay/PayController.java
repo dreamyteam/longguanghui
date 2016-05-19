@@ -121,9 +121,10 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/wx/trade/notify")
-    public void recieveNotify(HttpServletResponse response) {
+    public void recieveNotify(HttpServletResponse response, HttpServletRequest request) {
+        Map map = request.getParameterMap();
         InterfaceBean bean = new InterfaceBean().success();
-        interfaceReturn(response, JsonUtils.toString(bean), "");
+        interfaceReturn(response, "SUCCESS", "");
     }
 
     @RequestMapping("/choose")
