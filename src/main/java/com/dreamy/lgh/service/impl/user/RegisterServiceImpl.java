@@ -32,8 +32,6 @@ public class RegisterServiceImpl implements RegisterService {
         //空值判断
         if (StringUtils.isEmpty(param.getMobile())) {
             errorMsg = ("手机号码不能为空！");
-        } else if (StringUtils.isEmpty(param.getPassword())) {
-            errorMsg = ("密码不能为空！");
         } else if (StringUtils.isEmpty(param.getCheckCode())) {
             errorMsg = ("验证码不能为空！");
         }

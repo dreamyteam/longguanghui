@@ -1,8 +1,12 @@
 package com.dreamy.lgh.controllers.pay;
 
 import com.dreamy.lgh.beans.InterfaceBean;
+import com.dreamy.lgh.beans.UserSession;
+import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.controllers.LghController;
+import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.service.cache.RedisClientService;
+import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,9 @@ public class PayController extends LghController {
     @Autowired
     private RedisClientService redisClientService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public boolean checkLogin() {
         return false;
@@ -41,6 +48,7 @@ public class PayController extends LghController {
     public String wx(ModelMap modelMap, HttpServletRequest request,
                      @RequestParam(value = "type", defaultValue = "1") String type) {
 
+<<<<<<< HEAD
 //        String code = request.getParameter("code");
 //        if (StringUtils.isNotEmpty(code)) {
 //            String token = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET + "&code=" + code + "&grant_type=authorization_code");
@@ -57,6 +65,38 @@ public class PayController extends LghController {
 //                }
 //            }
 //        }
+=======
+        String code = request.getParameter("code");
+        if (StringUtils.isNotEmpty(code)) {
+            String token = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WX_APP_ID + "&secret=" + WX_APP_SECRET + "&code=" + code + "&grant_type=authorization_code");
+
+            Map<String, String> map = JsonUtils.toMap(token);
+            if (!map.containsKey("errcode")) {
+                String accessToken = map.get("access_token");
+                String openId = map.get("openid");
+                String userJson = HttpUtils.getHtmlGet("https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openId + "&lang=zh_CN");
+                Map<String, String> userInfoMap = JsonUtils.toMap(userJson);
+
+                if (!userInfoMap.containsKey("errcode")) {
+                    modelMap.put("user", userInfoMap);
+                    try {
+                        WxUser wxUser = (WxUser) ObjectUtils.convertMapToObject(WxUser.class, userInfoMap);
+                        User user = userService.saveByWx(wxUser);
+                        if (user != null) {
+                            UserSession userSession = getUserSession(request);
+                            userSession.setUserId(user.getId());
+                            userSession.setUsername(user.getUserName());
+                            userSessionContainer.set(request.getRequestedSessionId(), userSession);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+//                    modelMap.put("config", getPayConfig(request, openId));
+                }
+            }
+        }
+>>>>>>> ef17288d335b97f3bf735f9f8108545ca6804e66
 
         modelMap.put("type", type);
         return "/pay/wxpay";
@@ -82,7 +122,7 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/result")
-    public String result(@RequestParam(value = "prepayOrderId") String orderId,@RequestParam(value = "orderStatus",defaultValue = "0") String status) {
+    public String result(@RequestParam(value = "prepayOrderId") String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
         return "/pay/result";
     }
 
@@ -197,39 +237,6 @@ public class PayController extends LghController {
         return xml;
     }
 
-
-    @RequestMapping("/test")
-    public void test() {
-        String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-
-        Map<String, String> params = new HashMap<>();
-        params.put("appid", WX_APP_ID);
-        params.put("mch_id", WX_MC_ID);
-        params.put("nonce_str", "5K8264ILTKCH16CQ2502SI8ZNMTM67VS");
-        params.put("body", "1231231");
-        params.put("out_trade_no", "81997382");
-        params.put("notify_url", "http://dev.xingyifengji.com/pay/wx/trade/notify");
-        params.put("total_fee", "1");
-        params.put("trade_type", "JSAPI");
-        params.put("spbill_create_ip", "127.0.0.1");
-        params.put("openid", "ovS3gs4sIy7blJ5fKoS7RigOi8aY");
-
-        String string1 = createSortStringByMap(params);
-        String stringSignTemp = string1 + "&key=" + PAY_KEY;
-
-        params.put("sign", HashUtils.md5(stringSignTemp).toUpperCase());
-
-        String xml = mapToXml(params);
-
-        String res = HttpUtils.post(url, xml);
-        if (StringUtils.isNotEmpty(res)) {
-            String[] resStrs = res.split("prepay_id");
-            String prepayId = "";
-            if (resStrs.length == 3) {
-                prepayId = resStrs[1].substring(10, resStrs[1].length() - 5);
-            }
-        }
-    }
 
     public static boolean isNumeric(String str) {
         for (int i = str.length(); --i >= 0; ) {
