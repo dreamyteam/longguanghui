@@ -193,7 +193,7 @@
                     if (res.error_code == 0) {
                         if (type != "1") {
                             //跳入申请成功页面
-                            window.location.href = "/pay/result";
+                            window.location.href = "/pay/result?pay=0"; //申请成功
                         } else if (type == "1") {
                             //调用支付接口
                             mywxPay();
@@ -225,10 +225,11 @@
                 signType: cfg.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: cfg.paySign, // 支付签名
                 success: function (res) {
-                    alert('success');
+                    window.location.href = "/pay/result?pay=1"; //支付成功
                 },
-                complete: function (res) {
-                    alert(res);
+                fail :function(res){
+//                    alert(res.toString());
+                    window.location.href = "/pay/result?pay=2"; //支付失败
                 }
             });
         });
