@@ -82,7 +82,6 @@ public class RegisterController extends LghController {
             }
         }
 
-
         interfaceReturn(response, JsonUtils.toString(bean), "");
     }
 
