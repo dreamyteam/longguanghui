@@ -1,0 +1,127 @@
+#set($layout = "/layout/blank_layout.vm")
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>龙光汇</title>
+    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="slide">
+    <section class="sec_vip">
+        <span class="icon-longguanghuilogo"></span>
+        <h1 class="vip_type">VIP会员</h1>
+        <div class="privileges">
+            <ul>
+                <li>参与探班</li>
+                <li>抽奖机会</li>
+                <li>优选商品</li>
+            </ul>
+            <a href="./views/details/vip.html" class="showMore">查看VIP会员全部特权</a>
+        </div>
+        <div class="vip_join">
+            <button class="howmuch">￥198</button>
+            <a href="./views/reg_info/vip.html" class="join">加入会员</a>
+        </div>
+    </section>
+    <section class="sec_diamond">
+        <span class="icon-longguanghuilogo"></span>
+        <h1 class="vip_type">钻石会员</h1>
+        <div class="privileges">
+            <ul>
+                <li>明星合影</li>
+                <li>星享好礼</li>
+                <li>影视城折扣</li>
+            </ul>
+            <a href="./views/details/diamond.html" class="showMore">查看钻石会员全部特权</a>
+        </div>
+
+        <div class="vip_join">
+            <button class="howmuch">￥3800</button>
+            <button class="join">加入会员</button>
+        </div>
+    </section>
+    <section class="sec_crown">
+        <span class="icon-longguanghuilogo"></span>
+        <h1 class="vip_type">皇冠会员</h1>
+        <div class="privileges">
+            <ul>
+                <li>出行管家</li>
+                <li>影视参演体验</li>
+                <li>明星活动邀请</li>
+            </ul>
+            <a href="/" class="showMore">查看皇冠会员全部特权</a>
+        </div>
+
+        <div class="vip_join">
+            <button class="howmuch">￥8800</button>
+            <button class="join">加入会员</button>
+        </div>
+    </section>
+    <section class="sec_top">
+        <span class="icon-longguanghuilogo"></span>
+        <h1 class="vip_type">鼎级会员</h1>
+        <div class="privileges">
+            <ul>
+                <li>俱乐部活动邀请</li>
+                <li>会长竞选</li>
+                <li>明星经纪资源</li>
+            </ul>
+            <a href="/" class="showMore">查看鼎级会员全部特权</a>
+        </div>
+        <div class="vip_join">
+            <button class="howmuch">￥50000</button>
+            <button class="join">加入会员</button>
+        </div>
+    </section>
+    <ul class="fixd_btns" id="fixd_btns">
+        <li>
+            <span class="vip_tag active"></span>
+            VIP会员
+        </li>
+        <li>
+            <span class="vip_tag"></span>
+            钻石会员
+        </li>
+        <li>
+            <span class="vip_tag"></span>
+            皇冠会员
+        </li>
+        <li>
+            <span class="vip_tag"></span>
+            鼎级会员
+        </li>
+    </ul>
+</div>
+
+<script src="http://ipcool.me/dist/lgh/dist/fastclick.js"></script>
+<script src="http://ipcool.me/dist/lgh/dist/motion.js"></script>
+<script>
+    Zepto(function ($) {
+        window.pageSlide = new mo.Slide({
+            target: $('.slide section'),
+            direction: 'x',
+        });
+        pageSlide.on('change',function () {
+            var btns = $('#fixd_btns').find('span');
+            for(var i = 0;i < btns.length; i++){
+                btns[i].className ='vip_tag';
+            }
+            btns[this.curPage].className = 'vip_tag active';
+        });
+        var tabs = $('#fixd_btns li');
+        tabs.each(function () {
+            $(this).on('tap',function () {
+                window.pageSlide.playTo($(this).index());
+            })
+        })
+    });
+</script>
+</body>
+</html>
+
