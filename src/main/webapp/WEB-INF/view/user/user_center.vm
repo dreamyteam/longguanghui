@@ -1,0 +1,95 @@
+#set($layout = "/layout/blank_layout.vm")
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>龙光汇</title>
+    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    <!--
+        vip
+        diamond
+        crown
+        top
+    -->
+    <header class="vip">
+        <img src="../../assets/images/game.png">
+        <h1 class="name">土豆</h1>
+        <h2 class="vip_type">皇冠会员</h2>
+        <h6 class="rest_time">剩余会员有效时间188天</h6>
+    </header>
+    <ul class="user_btns">
+        <li>
+            <a href="/pay/choose">
+                <span class="icon-icon_tequanjieshao"></span>
+                <span class="describe">特权介绍</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_zhuanxiangshangcheng"></span>
+                <span class="describe">专享商城</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_wodejifen"></span>
+                <span class="describe">我的积分</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_guanzhumingxing"></span>
+                <span class="describe">关注明星</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_huiyuanxinxi"></span>
+                <span class="describe">会员信息</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_zhuanshukefu"></span>
+                <span class="describe">专属客服</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_mingxingshequ"></span>
+                <span class="describe">明星社区</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_qiandaochoujiang"></span>
+                <span class="describe">签到抽奖</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon-icon_guanyulongguanghui"></span>
+                <span class="describe">关于龙光汇</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="community">
+        <a href="#">
+            <span class="icon-icon_jinrushequ"></span>
+            进入社区
+            <span class="icon-icon_arrows"></span>
+        </a>
+
+    </div>
+</div>
+</body>
+</html>

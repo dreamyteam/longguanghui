@@ -26,7 +26,7 @@
         </div>
         <div class="vip_join">
             <button class="howmuch">￥198</button>
-            <a href="./views/reg_info/vip.html" class="join">加入会员</a>
+            <a href="/pay/wx?type=1" class="join">加入会员</a>
         </div>
     </section>
     <section class="sec_diamond">
@@ -43,7 +43,7 @@
 
         <div class="vip_join">
             <button class="howmuch">￥3800</button>
-            <button class="join">加入会员</button>
+            <a href="/pay/wx?type=2" class="join">加入会员</a>
         </div>
     </section>
     <section class="sec_crown">
@@ -60,7 +60,7 @@
 
         <div class="vip_join">
             <button class="howmuch">￥8800</button>
-            <button class="join">加入会员</button>
+            <a href="/pay/wx?type=3" class="join">加入会员</a>
         </div>
     </section>
     <section class="sec_top">
@@ -76,7 +76,7 @@
         </div>
         <div class="vip_join">
             <button class="howmuch">￥50000</button>
-            <button class="join">加入会员</button>
+            <a href="/pay/wx?type=4" class="join">加入会员</a>
         </div>
     </section>
     <ul class="fixd_btns" id="fixd_btns">
