@@ -56,6 +56,7 @@ public class PayController extends LghController {
                      @RequestParam(value = "type", defaultValue = "0") Integer type) {
 
         modelMap.put("type", type);
+        String action = request.getParameter("action");
 
         UserSession userSession = getUserSession(request);
         if (userSession != null && userSession.getUserId() > 0) {
@@ -66,10 +67,18 @@ public class PayController extends LghController {
             modelMap.put("user", user);
             modelMap.put("member", members);
 
+            if (action != null) {
+                if (type == 1) {
+                    modelMap.put("config", getPayConfig(request, members.getWxId()));
+                }
+
+                return "/pay/wxpay";
+            }
+
             if (members.getType() == 0) {
-                return redirect("/pay/choose");
+                return redirect("/pay/choose?type=" + type);
             } else {
-                return redirect("/user/user_center");
+                return redirect("/user/center");
             }
         } else {
             String code = request.getParameter("code");
@@ -98,18 +107,16 @@ public class PayController extends LghController {
 
                         if (currentMember != null) {
                             if (currentMember.getType() == 0) {
-                                return redirect("/pay/choose");
+                                return redirect("/pay/choose?type=" + type);
                             } else {
-                                return redirect("/user/user_center");
+                                return redirect("/user/center");
                             }
-                        }else{
-                            return "/pay/wx";
                         }
                     }
                 }
             }
 
-            return redirect("/pay/choose");
+            return redirect("/pay/choose?type=" + type);
         }
     }
 
@@ -120,8 +127,9 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/choose")
-    public String chooseMember() {
+    public String chooseMember(ModelMap modelMap, @RequestParam(value = "type", defaultValue = "1") String type) {
 
+        modelMap.put("type", type);
         return "/pay/choose";
     }
 

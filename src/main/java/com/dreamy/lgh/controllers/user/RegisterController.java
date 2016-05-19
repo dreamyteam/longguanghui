@@ -90,7 +90,8 @@ public class RegisterController extends LghController {
     @ResponseBody
     public void register(RegisterParams param, HttpServletRequest request, HttpServletResponse response) {
         InterfaceBean bean = new InterfaceBean().success();
-        ErrorCodeEnums errorCodeEnums = registerService.checkRegisterParam(param);
+//        ErrorCodeEnums errorCodeEnums = registerService.checkRegisterParam(param);
+        ErrorCodeEnums errorCodeEnums = ErrorCodeEnums.success;
         if (errorCodeEnums.getErrorCode() > 0) {
             bean.failure(errorCodeEnums);
         } else {
