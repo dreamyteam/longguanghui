@@ -37,9 +37,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MemberService memberService;
 
-    @Autowired
-    private UserService userService;
-
     @Override
     public Integer save(User user) {
         return userDao.save(user);
