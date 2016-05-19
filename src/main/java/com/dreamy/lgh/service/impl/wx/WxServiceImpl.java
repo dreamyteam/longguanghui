@@ -2,6 +2,7 @@ package com.dreamy.lgh.service.impl.wx;
 
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.domain.user.Members;
+import com.dreamy.lgh.domain.user.Orders;
 import com.dreamy.lgh.service.cache.RedisClientService;
 import com.dreamy.lgh.service.iface.order.OrderService;
 import com.dreamy.lgh.service.iface.wx.WxService;
@@ -79,7 +80,12 @@ public class WxServiceImpl implements WxService {
         params.put("mch_id", WX_MC_ID);
         params.put("nonce_str", configMap.get("nonceStr"));
         params.put("body", "龙光汇VIP会员(一年)");
-        params.put("out_trade_no", orderService.createOrderId(members.getUserId()));
+
+        String orderId = orderService.createOrderId(members.getUserId());
+        Orders order = new Orders().orderId(orderId).userId(members.getUserId()).totalFee(Integer.parseInt(VIP_FEE));
+        orderService.save(order,members.getUserId());
+
+        params.put("out_trade_no", orderId);
         params.put("spbill_create_ip", ip);
         params.put("notify_url", NOTIFY_URL);
         params.put("total_fee", VIP_FEE);

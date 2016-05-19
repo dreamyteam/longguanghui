@@ -56,7 +56,6 @@ public class PayController extends LghController {
     @RequestMapping("/wx")
     public String wx(ModelMap modelMap, HttpServletRequest request,
                      @RequestParam(value = "type", defaultValue = "0") Integer type) {
-
         modelMap.put("type", type);
         String action = request.getParameter("action");
 

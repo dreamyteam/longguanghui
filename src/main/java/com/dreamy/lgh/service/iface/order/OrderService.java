@@ -1,7 +1,6 @@
 package com.dreamy.lgh.service.iface.order;
 
 import com.dreamy.lgh.domain.user.Orders;
-import com.dreamy.lgh.domain.user.User;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +13,7 @@ public interface OrderService {
      * @param orders
      * @return
      */
-    Integer save(Orders orders,User user);
+    Integer save(Orders orders,Integer userId);
 
     /**
      *
