@@ -1,7 +1,9 @@
 package com.dreamy.lgh.service.iface.wx;
 
 import com.dreamy.lgh.beans.WxUser;
+import com.dreamy.lgh.domain.user.Members;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -15,11 +17,9 @@ public interface WxService {
     /**
      *
      * @param code
-     * @param appId
-     * @param appSecret
      * @return
      */
-    Map<String, String> getWxTokenInfo(String code,String appId,String appSecret);
+    Map<String, String> getWxTokenInfo(String code);
 
     /**
      *
@@ -29,5 +29,11 @@ public interface WxService {
      */
     WxUser getWxUserInfoByAccessTokenAndOpenId(String accessToken,String openId);
 
-
+    /**
+     *
+     * @param request
+     * @param members
+     * @return
+     */
+   String getPayConfig(HttpServletRequest request,Members members);
 }
