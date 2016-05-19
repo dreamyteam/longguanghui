@@ -40,6 +40,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Members getByOpenId(String openId) {
+        MembersConditions conditions = new MembersConditions();
+        conditions.createCriteria().andWxIdEqualTo(openId);
+
+        Page page = new Page();
+        page.setPageSize(1);
+        conditions.setPage(page);
+
+        List<Members> membersList = memberDao.selectByExample(conditions);
+        if (CollectionUtils.isNotEmpty(membersList)) {
+            return membersList.get(0);
+        }
+        return null;
+    }
+
+    @Override
     public List<Members> getByPageAndOrder(Page page, String order) {
         MembersConditions conditions = new MembersConditions();
         conditions.setPage(page);
@@ -72,11 +88,11 @@ public class MemberServiceImpl implements MemberService {
         UserConditions userConditions = new UserConditions();
         UserConditions.Criteria criteria = userConditions.createCriteria();
         if (StringUtils.isNotEmpty(userName)) {
-            criteria.andUserNameLike("%"+userName+"%");
+            criteria.andUserNameLike("%" + userName + "%");
         }
 
         if (StringUtils.isNotEmpty(phone)) {
-            criteria.andPhoneLike("%"+phone+"%");
+            criteria.andPhoneLike("%" + phone + "%");
         }
 
         page.setTotalNum(userDao.countByExample(userConditions));

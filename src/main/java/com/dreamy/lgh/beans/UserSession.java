@@ -32,6 +32,8 @@ public class UserSession  implements CanonicalSession {
 
     private  Integer sex;
 
+
+
     public Integer getSex() {
         return sex;
     }

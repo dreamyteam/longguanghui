@@ -15,46 +15,46 @@ import java.util.Map;
  */
 public interface MemberService {
     /**
-     *
      * @param members
      * @return
      */
     Integer save(Members members);
 
     /**
-     *
      * @param userId
      * @return
      */
     Members getByUserId(Integer userId);
 
     /**
-     *
+     * @param userId
+     * @return
+     */
+    Members getByOpenId(String openId);
+
+    /**
      * @param page
      * @param order
      * @return
      */
-    List<Members> getByPageAndOrder(Page page ,String order);
+    List<Members> getByPageAndOrder(Page page, String order);
 
     /**
-     *
      * @param page
      * @param userName
      * @return
      */
-    List<UserWithMember> getByPageAndUserNameAndPhone(Page page,String userName,String phone);
+    List<UserWithMember> getByPageAndUserNameAndPhone(Page page, String userName, String phone);
 
     /**
-     *
      * @param userIds
      * @return
      */
     List<Members> getMemberByUserIds(List<Integer> userIds);
 
     /**
-     *
      * @param membersList
      * @return
      */
-    Map<Integer,Members> getUserIdAndMemberMapByMemberList(List<Members> membersList);
+    Map<Integer, Members> getUserIdAndMemberMapByMemberList(List<Members> membersList);
 }

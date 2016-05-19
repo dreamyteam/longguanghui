@@ -100,11 +100,9 @@ public class RegisterController extends LghController {
 
                 userService.save(user);
 
-                UserSession session = new UserSession();
+                UserSession session = getUserSession(request);
                 session.setUserId(user.getId());
                 session.setUsername(user.getUserName());
-                session.setUserKey(user.getUserKey());
-
                 userSessionContainer.set(getUserSessionId(request), session);
             } else {
                 errorCodeEnums = ErrorCodeEnums.register_failed;

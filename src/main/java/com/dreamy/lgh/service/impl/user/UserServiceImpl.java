@@ -1,15 +1,22 @@
 package com.dreamy.lgh.service.impl.user;
 
 import com.dreamy.beans.Page;
+import com.dreamy.lgh.beans.WxUser;
+import com.dreamy.lgh.beans.params.RegisterParams;
 import com.dreamy.lgh.dao.iface.UserDao;
+import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.domain.user.UserConditions;
+import com.dreamy.lgh.service.iface.member.MemberService;
+import com.dreamy.lgh.service.iface.user.RegisterService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.utils.CollectionUtils;
+import com.dreamy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RegisterService registerService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public Integer save(User user) {
@@ -55,6 +68,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateByRecord(User user) {
         return userDao.update(user);
+    }
+
+    @Override
+    public User saveByWx(WxUser wxUser) {
+        String openId = wxUser.getOpenid();
+        if (StringUtils.isNotEmpty(openId)) {
+
+            if (memberService.getByOpenId(openId) == null) {
+                RegisterParams param = new RegisterParams();
+                param.setMobile(wxUser.getOpenid());
+                User user = new User().userKey(registerService.createUserKey(param))
+                        .userName(wxUser.getNickname())
+                        .imageUrl(wxUser.getHeadimgurl())
+                        .sex(Integer.parseInt(wxUser.getSex()))
+                        .address(wxUser.getProvince() + wxUser.getCity());
+                save(user);
+
+                Date date = new Date();
+                Members members = new Members()
+                        .userId(user.getId())
+                        .wxId(wxUser.getOpenid())
+                        .wxImageUrl(wxUser.getHeadimgurl())
+                        .startedAt(date)
+                        .endedAt(date)
+                        .wxUserName(wxUser.getNickname());
+                memberService.save(members);
+
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
