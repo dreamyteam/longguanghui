@@ -1,0 +1,48 @@
+#set($layout = "/layout/blank_layout.vm")
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>龙光汇</title>
+    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<div class="container gray">
+    <div class="white">
+        <span class="icon-longguanghuilogo"></span>
+        <h3 class="tips">支付成功</h3>
+        <div class="infos">
+            <ul>
+                <li>
+                    <h2>支付金额:</h2>
+                    <span>￥198.00</span>
+                </li>
+                <li>
+                    <h2>开通类型:</h2>
+                    <span>VIP会员</span>
+                </li>
+                <li>
+                    <h2>时&#12288;&#12288;间:</h2>
+                    <span>2016-04-08 18:24:21</span>
+                </li>
+            </ul>
+        </div>
+        <div class="infos">
+            <h3>提&#12288;&#12288;示:</h3>
+            <p>
+                会员信息将在几分钟后生效，您可以在微信公众号的  会员 >  个人中心  查看会员信息
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+

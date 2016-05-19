@@ -118,7 +118,7 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/result")
-    public String result(@RequestParam(value = "prepayOrderId") String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
+    public String result(@RequestParam(value = "prepayOrderId",required = false) String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
         return "/pay/result";
     }
 
