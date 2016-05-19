@@ -97,6 +97,7 @@ public class RegisterController extends LghController {
                 user.address(param.getAddress());
                 user.userKey(registerService.createUserKey(param));
                 user.birthday(TimeUtils.getDateByStr(param.getBirthday(), "yyyy-MM-dd"));
+                user.sex(param.getSex());
 
                 userService.save(user);
 

@@ -1,6 +1,7 @@
 package com.dreamy.lgh.service.impl.member;
 
 import com.dreamy.beans.Page;
+import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.dao.iface.MemberDao;
 import com.dreamy.lgh.dao.iface.UserDao;
 import com.dreamy.lgh.domain.user.*;
@@ -32,6 +33,20 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer save(Members members) {
         return memberDao.save(members);
+    }
+
+    @Override
+    public Members saveByWx(WxUser wxUser, Integer userId) {
+        Date date = new Date();
+        Members members = new Members()
+                .userId(userId)
+                .wxId(wxUser.getOpenid())
+                .wxImageUrl(wxUser.getHeadimgurl())
+                .startedAt(date)
+                .endedAt(date)
+                .wxUserName(wxUser.getNickname());
+        save(members);
+        return members;
     }
 
     @Override

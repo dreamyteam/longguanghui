@@ -1,6 +1,7 @@
 package com.dreamy.lgh.service.iface.member;
 
 import com.dreamy.beans.Page;
+import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.UserWithMember;
 
@@ -19,6 +20,13 @@ public interface MemberService {
      * @return
      */
     Integer save(Members members);
+
+    /**
+     *
+     * @param wxUser
+     * @return
+     */
+    Members saveByWx(WxUser wxUser,Integer userId);
 
     /**
      * @param userId
