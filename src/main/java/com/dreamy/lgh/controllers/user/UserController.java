@@ -64,10 +64,12 @@ public class UserController extends LghController {
             if (activeTime > 0) {
                 activeDays = (int) (activeTime / (24 * 60 * 60 * 1000));
             }
+            modelMap.put("userWithMember",userWithMember);
+            modelMap.put("activeDays", activeDays);
+            return "/user/center";
         }
 
-        modelMap.put("activeDays", activeDays);
-        return "/user/center";
+        return null;
     }
 
     @RequestMapping("/update")
