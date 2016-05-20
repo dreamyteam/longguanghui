@@ -120,6 +120,7 @@ public class WxServiceImpl implements WxService {
                 calendar.add(Calendar.YEAR, 1);
 
                 members.wxOrderId(transactionId).status(MemberStateEnums.active.getStatus()).endedAt(calendar.getTime());
+                memberService.updateByRecord(members);
             } else {
                 log.error("update member info failed" + JsonUtils.toString(map));
             }

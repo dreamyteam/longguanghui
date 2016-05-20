@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Orders getByOrderIdAndWxId(String orderId, String wxId) {
         OrdersConditions conditions = new OrdersConditions();
-        conditions.createCriteria().andOrderIdEqualTo(orderId).andWxIdEqualTo(wxId);
+        conditions.createCriteria().andTransactionIdEqualTo(orderId).andWxIdEqualTo(wxId);
 
         Page page = new Page();
         page.setPageSize(1);
