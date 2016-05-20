@@ -1,17 +1,4 @@
-#set($layout = "/layout/blank_layout.vm")
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <title>龙光汇</title>
-    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+#set($layout = "/layout/layout_pay.vm")
 <div class="container">
     <!--
         vip
@@ -91,5 +78,9 @@
 
     </div>
 </div>
-</body>
-</html>
+<script>
+    Zepto(function ($) {
+        $.fn.cookie('isUser', 'true',{ path: '/'}, { expires: -1 });
+        console.log($.fn.cookie('isUser'));
+    });
+</script>
