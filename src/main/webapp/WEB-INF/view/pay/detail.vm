@@ -88,6 +88,13 @@
             $("#join_link").attr("href",'/pay/wx?type=1&action=add')
             break;
     }
+
+    if($.fn.cookie('isUser') == "true"){
+        $(".vip_join").each(function(){
+            $(this).hide();
+        })
+    }
+
     function renderData(data){
         for(var i = 0 ; i < data.length; i++){
             $("#details_content").append("<li><h2>"+data[i].title+"</h2><p>"+data[i].summary+"<p></li>");

@@ -1,5 +1,5 @@
 #set($layout = "/layout/layout_pay.vm")
-<div class="slide" id="getType">
+<div class="slide" id="getType" data-type="$!type">
     <section class="sec_vip">
         <span class="icon-longguanghuilogo"></span>
         <h1 class="vip_type">VIP会员</h1>
@@ -88,6 +88,15 @@
 
 <script>
     Zepto(function ($) {
+
+
+        if($.fn.cookie('isUser') == "true"){
+            $(".vip_join").each(function(){
+                $(this).hide();
+            })
+        }
+
+
         window.pageSlide = new mo.Slide({
             target: $('.slide section'),
             direction: 'x',
@@ -105,12 +114,6 @@
                 window.pageSlide.playTo($(this).index());
             })
         })
-
-
-        var type =$("#getType").data("type");
-
-
-
 
 
     });
