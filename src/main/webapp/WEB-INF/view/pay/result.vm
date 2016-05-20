@@ -2,20 +2,20 @@
 <div class="container gray">
     <div class="white">
         <span class="icon-longguanghuilogo"></span>
-        <h3 class="tips">支付成功</h3>
+        <h3 class="tips">$!message</h3>
         <div class="infos">
             <ul>
                 <li>
                     <h2>支付金额:</h2>
-                    <span>￥198.00</span>
+                    <span>$!fee</span>
                 </li>
                 <li>
                     <h2>开通类型:</h2>
-                    <span>VIP会员</span>
+                    <span>$!memberType</span>
                 </li>
                 <li>
                     <h2>时&#12288;&#12288;间:</h2>
-                    <span>2016-04-08 18:24:21</span>
+                    <span>$!time</span>
                 </li>
             </ul>
         </div>

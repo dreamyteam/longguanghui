@@ -4,8 +4,11 @@ import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.domain.user.Members;
+import com.dreamy.lgh.domain.user.Orders;
 import com.dreamy.lgh.domain.user.User;
+import com.dreamy.lgh.enums.MemberEnums;
 import com.dreamy.lgh.service.iface.member.MemberService;
+import com.dreamy.lgh.service.iface.order.OrderService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
@@ -16,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +49,9 @@ public class PayController extends LghController {
 
     @Autowired
     private WxService wxService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @Override
@@ -166,8 +173,45 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/result")
-    public String result(@RequestParam(value = "prepayOrderId", required = false) String orderId, @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
+    public String result(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "prepayOrderId", required = false) String orderId,
+                         @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
 
+        String message;
+        Integer type = 0;
+        String memberTypeStr = "";
+
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+        if (userSession != null && userSession.getUserId() >= 0) {
+            Members members = memberService.getByUserId(userSession.getUserId());
+            type = members.getType();
+            if (type.equals(1)) {
+                Orders orders = orderService.getByOrderIdAndWxId(members.getWxOrderId(), members.getWxId());
+                if (orders != null) {
+                    modelMap.put("fee", Long.parseLong("" + orders.getTotalFee()) / 100);
+                    message = "支付成功";
+                } else {
+                    message = "支付失败";
+                }
+            } else {
+                message = "申请成功";
+            }
+
+            MemberEnums[] enums = MemberEnums.values();
+            for (MemberEnums memberEnums : enums) {
+                if (members.getType().equals(memberEnums.getType())) {
+                    memberTypeStr = memberEnums.getDescription();
+                }
+            }
+
+            modelMap.put("memberType", memberTypeStr);
+            modelMap.put("time", TimeUtils.toString(
+                    "yyyy-MM-dd HH:mm:ss", members.getStartedAt()));
+        } else {
+            message = "操作失败，请返回微信从新进入";
+        }
+
+        modelMap.put("type", type);
+        modelMap.put("message", message);
         return "/pay/result";
     }
 }
