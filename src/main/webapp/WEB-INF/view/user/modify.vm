@@ -1,0 +1,5 @@
+#if($!field=="main")
+    #parse("/user/modify/main.vm")
+    #elseif($!field=="username")
+    #parse("/user/modify/name.vm")
+#end
