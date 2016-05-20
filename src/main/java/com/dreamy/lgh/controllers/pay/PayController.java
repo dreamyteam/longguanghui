@@ -179,7 +179,6 @@ public class PayController extends LghController {
         String message;
         Integer type = 0;
         String memberTypeStr = "";
-
         UserSession userSession = userSessionContainer.get(getUserSessionId(request));
         if (userSession != null && userSession.getUserId() >= 0) {
             Members members = memberService.getByUserId(userSession.getUserId());
@@ -187,7 +186,7 @@ public class PayController extends LghController {
             if (type.equals(1)) {
                 Orders orders = orderService.getByOrderIdAndWxId(members.getWxOrderId(), members.getWxId());
                 if (orders != null) {
-                    modelMap.put("fee", Long.parseLong("" + orders.getTotalFee()) / 100);
+                    modelMap.put("fee", (double)orders.getTotalFee() / 100);
                     message = "支付成功";
                 } else {
                     message = "支付失败";

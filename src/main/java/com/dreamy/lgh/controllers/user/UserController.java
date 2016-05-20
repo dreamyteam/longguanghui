@@ -9,6 +9,7 @@ import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.domain.user.UserWithMember;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
 import com.dreamy.lgh.enums.MemberEnums;
+import com.dreamy.lgh.service.iface.VerificationCodeService;
 import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.utils.JsonUtils;
@@ -16,6 +17,7 @@ import com.dreamy.utils.StringUtils;
 import com.dreamy.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +40,9 @@ public class UserController extends LghController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
     @Override
     public boolean checkLogin() {
@@ -77,13 +82,40 @@ public class UserController extends LghController {
         return null;
     }
 
+    @RequestMapping("/profile")
+    public String profile(ModelMap modelMap, HttpServletRequest request) {
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+        if (userSession != null && userSession.getUserId() > 0) {
+            User user = userService.getUserById(userSession.getUserId());
+
+            modelMap.put("user", user);
+            return "/user/main";
+        }
+        return null;
+    }
+
+
+    @RequestMapping("/modify")
+    public String modify(ModelMap modelMap, HttpServletRequest request, String field) {
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+        if (userSession != null && userSession.getUserId() > 0) {
+            User user = userService.getUserById(userSession.getUserId());
+
+            modelMap.put("user", user);
+            modelMap.put("field", field);
+
+            return "/user/modify";
+        }
+        return null;
+    }
+
     @RequestMapping("/update")
     @ResponseBody
     public void update(RegisterParams params, HttpServletResponse response, HttpServletRequest request) {
 
         InterfaceBean bean = new InterfaceBean().success();
 
-        UserSession userSession = getUserSession(request);
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
         if (userSession != null && userSession.getUserId() > 0) {
             Integer userId = userSession.getUserId();
             User user = userService.getUserById(userId);
@@ -103,7 +135,11 @@ public class UserController extends LghController {
                 }
 
                 if (StringUtils.isNotEmpty(mobile)) {
-                    user.phone(mobile);
+                    if (verificationCodeService.getCodeFromCache(mobile) != params.getCheckCode()) {
+                        bean.failure(ErrorCodeEnums.update_profile_failed.getErrorCode(), "验证码错误");
+                    } else {
+                        user.phone(mobile);
+                    }
                 }
 
                 if (StringUtils.isNotEmpty(address)) {
@@ -113,7 +149,9 @@ public class UserController extends LghController {
                     user.sex(sex);
                 }
 
-                userService.updateByRecord(user);
+                if (bean.getErrorCode() == 0) {
+                    userService.updateByRecord(user);
+                }
             }
         }
 

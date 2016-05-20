@@ -7,8 +7,10 @@
         top
     -->
     <header class="vip">
-        <img src="../../assets/images/game.png">
+        <img src="$!userWithMember.getMembers().getWxImageUrl()">
+
         <h1 class="name">$!userWithMember.getMembers().getWxUserName()</h1>
+
         <h2 class="vip_type">$!userWithMember.getLevelStr()</h2>
         <h6 class="rest_time">剩余会员有效时间$!activeDays天</h6>
     </header>
@@ -38,7 +40,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/user/modify?field=all">
                 <span class="icon-icon_huiyuanxinxi"></span>
                 <span class="describe">会员信息</span>
             </a>
@@ -80,7 +82,7 @@
 </div>
 <script>
     Zepto(function ($) {
-        $.fn.cookie('isUser', 'true',{ path: '/'});
+        $.fn.cookie('isUser', 'true', {path: '/'});
         console.log($.fn.cookie('isUser'));
     });
 </script>
