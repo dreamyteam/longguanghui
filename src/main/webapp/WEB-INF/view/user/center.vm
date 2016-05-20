@@ -27,19 +27,19 @@
     </header>
     <ul class="user_btns">
         <li>
-            <a href="/pay/choose">
+            <a href="/pay/choose?type=0">
                 <span class="icon-icon_tequanjieshao"></span>
                 <span class="describe">特权介绍</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="http://kdt.im/vfpTYr">
                 <span class="icon-icon_zhuanxiangshangcheng"></span>
                 <span class="describe">专享商城</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="https://wap.koudaitong.com/v2/buyer/auth/login?redirect_uri=http%3A%2F%2Fwap.koudaitong.com%2Fv2%2Fshowcase%2Fusercenter%3Fkdt_id%3D16829392%26reft%3D1463625215992%26spm%3Df41308587%26sf%3Dwx_sm">
                 <span class="icon-icon_wodejifen"></span>
                 <span class="describe">我的积分</span>
             </a>
@@ -57,25 +57,25 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="tel:400-670-0327">
                 <span class="icon-icon_zhuanshukefu"></span>
                 <span class="describe">专属客服</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="http://wap.webei.cn/77c2e52b51">
                 <span class="icon-icon_mingxingshequ"></span>
                 <span class="describe">明星社区</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="https://wap.koudaitong.com/v2/apps/checkin?alias=1cjf8ub3x">
                 <span class="icon-icon_qiandaochoujiang"></span>
                 <span class="describe">签到抽奖</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="https:/wap.koudaitong.com/v2/showcase/mpnews?alias=15bg4ssqb&spm=m1463624623599803095797879.click">
                 <span class="icon-icon_guanyulongguanghui"></span>
                 <span class="describe">关于龙光汇</span>
             </a>
@@ -83,7 +83,7 @@
     </ul>
 
     <div class="community">
-        <a href="#">
+        <a href="http://wap.webei.cn/77c2e52b51">
             <span class="icon-icon_jinrushequ"></span>
             进入社区
             <span class="icon-icon_arrows"></span>

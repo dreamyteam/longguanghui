@@ -1,0 +1,7 @@
+<div class="container gray">
+    <h5 class="label">选择您的生日</h5>
+    <form>
+        <input placeholder="1900-10-30" type="text" onfocus="(this.type='date')">
+        <input type="submit" value="保存">
+    </form>
+</div>
