@@ -1,0 +1,214 @@
+<div class="slide">
+    <span class="err_msg_user" id="err_msg_user">错误信息</span>
+    <div class="container gray">
+        <h5 class="label">手机号码</h5>
+        <label class="static">15267051024</label>
+        <button class="submit" id="btn_first">更换绑定</button>
+    </div>
+    <div class="container gray">
+        <h5 class="label">请先验证您原来的手机号码</h5>
+        <label class="static">15267051024</label>
+        <div class="veCode">
+            <input type="text" placeholder="验证码">
+            <button id="ver_second">发送验证码</button>
+        </div>
+        <button class="submit disable" id="btn_second">下一步</button>
+    </div>
+    <div class="container gray">
+        <h5 class="label">绑定您的新手机号码</h5>
+        <input type="number" id="newPhoneNum" placeholder="请输入新的手机号码">
+        <div class="veCode">
+            <input type="text" placeholder="验证码">
+            <button id="ver_last">发送验证码</button>
+        </div>
+        <button class="submit disable" id="btn_last">完成</button>
+    </div>
+</div>
+<script src="../../src/fastclick.js"></script>
+<script src="../../src/motion.js"></script>
+<script>
+    Zepto(function($) {
+        var btn_first = $("#btn_first"); //第一个下一步按钮
+        var btn_second = $("#btn_second"); //第二个下一步按钮
+        var btn_last = $("#btn_last"); //最后一个下一步按钮
+        var ver_second = $("#ver_second"); //第一个验证码
+        var ver_last = $("#ver_last"); //最后一个验证码
+        var err_msg = $("#err_msg_user"); //错误信息
+        var inputNewPhone = $("#newPhoneNum");
+        err_msg.hide(); //初始化消失
+        var oriMobile = 18501518202; //TODO 获取原始电话号码
+        var countdown = 60;
+        var countdown2 = 60;
+        var canVerSecond = true;
+        var canBtnSecond = false;
+        var canVerLast = true;
+        var canBtnLast = false;
+
+        window.pageSlide = new mo.Slide({
+            target: $('.slide .container'),
+            direction: 'x',
+            touchMove: false,
+        });
+        btn_first.on("tap", function() {
+            pageSlide.next();
+        });
+        ver_second.on("tap", function() {
+            if (canVerSecond) {
+                sendVCForOriPhone(oriMobile);
+            } else {
+                return false;
+            }
+        });
+        btn_second.on("tap", function() {
+            if (canBtnSecond) {
+                checkVCForOriPhone(oriMobile, ver_second.val());
+            } else {
+                return false;
+            }
+        })
+
+        ver_last.on("tap", function() {
+            if (canVerLast) {
+                var regPhone = /^0?1[3|4|5|8][0-9]\d{8}$/;
+                var newMobile = inputNewPhone.val();
+                if (!regPhone.test(newMobile)) {
+                    err_msg.html("手机号码格式错误").show();
+                    return false;
+                } else {
+                    err_msg.hide();
+                    sendVCForNewPhone(newMobile);
+                }
+            } else {
+                return false;
+            }
+        })
+
+        btn_last.on("tap",function(){
+            if (canBtnLast) {
+                checkVCForNewPhone(inputNewPhone.val(), ver_last.val());
+            } else {
+                return false;
+            }
+        })
+
+        function sendVCForOriPhone(oriMobile) {
+            settimeFirst(ver_second); //倒计时
+            canBtnSecond = true;
+            btn_second.removeClass("disable");
+            /* $.ajax({
+                 url: '',
+                 type: 'POST',
+                 data: {
+                     mobile: oriMobile
+                 },
+                 success: function(result) {
+                     var res = JSON.parse(result);
+                     if (res.error_code == 0) {
+                         settimeFirst(ver_second); //倒计时
+                         btn_secondCanClick = true;
+                         btn_second.removeClass("disable")
+                     } else if (res.error_code > 0) {
+                         err_msg.html(res.error_msg).show();
+                     }
+                 }
+             })*/
+        }
+
+        function checkVCForOriPhone(mobile, vc) {
+            pageSlide.next();
+            /*  $.ajax({
+                  url: '',
+                  type: 'POST',
+                  data: {
+                      mobile: oriMobile,
+                      vc:vc
+                  },
+                  success: function(result) {
+                      var res = JSON.parse(result);
+                      if (res.error_code == 0) {
+
+                      } else if (res.error_code > 0) {
+                          err_msg.html(res.error_msg).show();
+                      }
+                  }
+              })*/
+        }
+
+        function sendVCForNewPhone(newMobile) {
+            settimeSecond(ver_last); //倒计时
+            canBtnLast = true;
+            btn_last.removeClass("disable");
+            /* $.ajax({
+                 url: '',
+                 type: 'POST',
+                 data: {
+                     mobile: oriMobile
+                 },
+                 success: function(result) {
+                     var res = JSON.parse(result);
+                     if (res.error_code == 0) {
+                         settimeFirst(ver_second); //倒计时
+                         btn_secondCanClick = true;
+                         btn_second.removeClass("disable")
+                     } else if (res.error_code > 0) {
+                         err_msg.html(res.error_msg).show();
+                     }
+                 }
+             })*/
+        }
+
+        function checkVCForNewPhone(mobile, vc) {
+            /*  $.ajax({
+                  url: '',
+                  type: 'POST',
+                  data: {
+                      mobile: oriMobile,
+                      vc:vc
+                  },
+                  success: function(result) {
+                      var res = JSON.parse(result);
+                      if (res.error_code == 0) {
+
+                      } else if (res.error_code > 0) {
+                          err_msg.html(res.error_msg).show();
+                      }
+                  }
+              })*/
+        }
+
+        function settimeFirst(obj) {
+            if (countdown == 0) {
+                obj.html("重新发送");
+                countdown = 60;
+                canVerSecond = true;
+                ver_second.removeClass("disable")
+                return;
+            } else {
+                obj.html("重新发送" + countdown + 's');
+                canVerSecond = false;
+                ver_second.addClass("disable")
+                countdown--;
+            }
+            setTimeout(function() {
+                settimeFirst(obj)
+            }, 1000)
+        }
+        function settimeSecond(obj) {
+            if (countdown2 == 0) {
+                obj.html("重新发送");
+                countdown2 = 60;
+                canVerLast = true;
+                ver_last.removeClass("disable")
+                return;
+            } else {
+                obj.html("重新发送" + countdown2 + 's');
+                canVerLast = false;
+                ver_last.addClass("disable")
+                countdown2--;
+            }
+            setTimeout(function() {
+                settimeSecond(obj)
+            }, 1000)
+        }
+    });
+</script>

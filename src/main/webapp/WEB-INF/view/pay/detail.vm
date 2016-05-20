@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="mask"></div>
+    <div class="details">
+        <ul class="details_content" id="details_content">
+
+        </ul>
+    </div>
+    <div class="vip_join">
+        <button class="howmuch" id="howMuch">￥198</button>
+        <a href="../reg_info/vip.html" class="join" id="join_link">加入会员</a>
+    </div>
+</div>
+<script>
+
+    (function ($) {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+    })(jQuery);
+    var type = $.getUrlParam('type');
+    var dataVip = [
+        { title:'参与探班' , summary: '现场亲临明星大咖的拍摄'},
+        { title:'抽奖机会' , summary: '参与俱乐部每一期的邀请函抽奖'},
+        { title:'优选商品' , summary: '会员商城享受VIP折扣'},
+        { title:'优选礼品' , summary: '赠送龙光汇优选精油肥皂一套'},
+        { title:'影视城折扣' , summary: '会员本人享受横店影视城VIP折扣'},
+    ]
+    var dataDimond = [
+        { title:'参与探班' , summary: '现场亲临明星大咖的拍摄'},
+        { title:'抽奖机会' , summary: '参与俱乐部每一期的邀请函抽奖'},
+        { title:'优选商品' , summary: '会员商城享受钻石折扣'},
+        { title:'明星合影' , summary: '获得明星偶像合影机会'},
+        { title:'星享好礼' , summary: '获得龙光汇优选鼎级红酒两套'},
+        { title:'出行管家' , summary: '会员本人享受横店影视城私人旅行管家'},
+        { title:'会长竞选' , summary: '获得龙光汇地级会长竞选权'},
+    ]
+    var dataCrown = [
+        { title:'参与探班' , summary: '现场亲临明星大咖的拍摄'},
+        { title:'抽奖机会' , summary: '参与俱乐部每一期的邀请函抽奖'},
+        { title:'优选商品' , summary: '会员商城享受皇冠会员折扣'},
+        { title:'明星合影' , summary: '获得明星偶像合影机会'},
+        { title:'影视城折扣' , summary: '会员本人享受横店影视城皇冠级折扣'},
+        { title:'出行管家' , summary: '会员本人享受横店影视城私人旅行管家服务'},
+        { title:'影视参演体验' , summary: '获得影视参演之旅名额一个，不限本人使用'},
+        { title:'明星活动邀请' , summary: '全年明星活动（演唱会、签售会、首映礼、生日会）实名邀请函'},
+        { title:'会长竞选' , summary: '获得龙光汇省级、地级会长竞选权'},
+        { title:'明星经纪资源' , summary: '获得远东传媒明星经纪资源'},
+    ]
+    var dataTop = [
+        { title:'参与探班' , summary: '现场亲临明星大咖的拍摄'},
+        { title:'抽奖机会' , summary: '参与俱乐部每一期的邀请函抽奖'},
+        { title:'优选商品' , summary: '会员商城享受最高折扣'},
+        { title:'明星合影' , summary: '获得明星偶像合影机会'},
+        { title:'影视城折扣' , summary: '会员本人享受横店影视城俱乐部级折扣'},
+        { title:'出行管家' , summary: '会员本人享受横店影视城私人旅行管家服务'},
+        { title:'影视参演体验' , summary: '获得影视参演之旅名额一个，不限本人使用'},
+        { title:'明星活动邀请' , summary: '全年明星活动（演唱会、签售会、首映礼、生日会）实名邀请函'},
+        { title:'俱乐部活动邀请' , summary: '全年俱乐部活动（各项盛典、高尔夫邀请赛、红酒品鉴会）实名邀请函'},
+        { title:'会长竞选' , summary: '获得龙光汇省级、地级会长竞选权'},
+        { title:'明星经纪资源' , summary: '获得远东传媒明星经纪资源'},
+    ]
+    switch (type) {
+        case '1':
+            renderData(dataVip);
+            $("#howMuch").html("￥198");
+            $("#join_link").attr("href",'/pay/wx?type=1&action=add')
+            break;
+        case '2':
+            renderData(dataDimond);
+            $("#howMuch").html("￥3000");
+            $("#join_link").attr("href",'/pay/wx?type=2&action=add')
+            break;
+        case '3':
+            renderData(dataCrown);
+            $("#howMuch").html("￥8800");
+            $("#join_link").attr("href",'/pay/wx?type=3&action=add')
+            break;
+        case '4':
+            renderData(dataTop);
+            $("#howMuch").html("￥50000");
+            $("#join_link").attr("href",'/pay/wx?type=4&action=add')
+            break;
+        default:
+            renderData(dataVip);
+            $("#howMuch").html("￥198");
+            $("#join_link").attr("href",'/pay/wx?type=1&action=add')
+            break;
+    }
+    function renderData(data){
+        for(var i = 0 ; i < data.length; i++){
+            $("#details_content").append("<li><h2>"+data[i].title+"</h2><p>"+data[i].summary+"<p></li>");
+        }
+    }
+</script>

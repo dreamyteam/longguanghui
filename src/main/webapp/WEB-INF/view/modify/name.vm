@@ -1,0 +1,7 @@
+<div class="container gray">
+    <h5 class="label">输入您的名字</h5>
+    <form>
+        <input type="text" value="土豆" title="name"/>
+        <input type="submit" value="保存">
+    </form>
+</div>

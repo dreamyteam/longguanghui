@@ -1,17 +1,5 @@
-#set($layout = "/layout/blank_layout.vm")
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
-    <title>龙光汇</title>
-</head>
-<body>
+#set($layout = "/layout/layout_pay.vm")
+
 <div class="slide">
     <section id="background">
         <span class="icon-longguanghuilogo"></span>
@@ -39,8 +27,7 @@
         </div>
     </section>
 </div>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script src="//cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
+
 <script>
     $(function () {
         var btn_submit = $("#btn_submit"); //登录按钮
@@ -54,7 +41,6 @@
         var inputPhone = $("#inputPhone");
         var inputVerifyCode = $("#inputVerifyCode");
         var inputDob = $("#inputDob");
-
 
         var btnVerCanClick = true;
         var btnSubmitCanClick = false;
@@ -80,7 +66,6 @@
                 bg.addClass('sec_vip');
                 vipType.html('VIP会员');
         }
-
 
         btn_verify.on('tap', function () {
             if (btnVerCanClick == true) {
@@ -136,11 +121,13 @@
         function settime(obj) {
             if (countdown == 0) {
                 btnVerCanClick = true;
+                btn_verify.removeClass("disable");
                 obj.html("重新发送");
                 countdown = 60;
                 return;
             } else {
                 btnVerCanClick = false;
+                btn_verify.addClass("disable");
                 obj.html("重新发送" + countdown + 's');
                 countdown--;
             }
@@ -235,7 +222,4 @@
         });
     }
 
-
 </script>
-</body>
-</html>

@@ -1,18 +1,5 @@
-#set($layout = "/layout/blank_layout.vm")
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <title>龙光汇</title>
-    <link href="http://ipcool.me/dist/lgh/dist/index.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div class="slide">
+#set($layout = "/layout/layout_pay.vm")
+<div class="slide" id="getType">
     <section class="sec_vip">
         <span class="icon-longguanghuilogo"></span>
         <h1 class="vip_type">VIP会员</h1>
@@ -22,7 +9,7 @@
                 <li>抽奖机会</li>
                 <li>优选商品</li>
             </ul>
-            <a href="./views/details/vip.html" class="showMore">查看VIP会员全部特权</a>
+            <a href="/pay/detail?type=1" class="showMore">查看VIP会员全部特权</a>
         </div>
         <div class="vip_join">
             <button class="howmuch">￥198</button>
@@ -38,7 +25,7 @@
                 <li>星享好礼</li>
                 <li>影视城折扣</li>
             </ul>
-            <a href="./views/details/diamond.html" class="showMore">查看钻石会员全部特权</a>
+            <a href="/pay/detail?type=2" class="showMore">查看钻石会员全部特权</a>
         </div>
 
         <div class="vip_join">
@@ -55,7 +42,7 @@
                 <li>影视参演体验</li>
                 <li>明星活动邀请</li>
             </ul>
-            <a href="/" class="showMore">查看皇冠会员全部特权</a>
+            <a href="/pay/detail?type=3" class="showMore">查看皇冠会员全部特权</a>
         </div>
 
         <div class="vip_join">
@@ -72,7 +59,7 @@
                 <li>会长竞选</li>
                 <li>明星经纪资源</li>
             </ul>
-            <a href="/" class="showMore">查看鼎级会员全部特权</a>
+            <a href="/pay/detail?type=4" class="showMore">查看鼎级会员全部特权</a>
         </div>
         <div class="vip_join">
             <button class="howmuch">￥50000</button>
@@ -99,8 +86,6 @@
     </ul>
 </div>
 
-<script src="http://ipcool.me/dist/lgh/dist/fastclick.js"></script>
-<script src="http://ipcool.me/dist/lgh/dist/motion.js"></script>
 <script>
     Zepto(function ($) {
         window.pageSlide = new mo.Slide({
@@ -120,8 +105,15 @@
                 window.pageSlide.playTo($(this).index());
             })
         })
+
+
+        var type =$("#getType").data("type");
+
+
+
+
+
     });
 </script>
-</body>
-</html>
+
 
