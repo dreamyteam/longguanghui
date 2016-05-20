@@ -80,7 +80,7 @@
 </div>
 <script>
     Zepto(function ($) {
-        $.fn.cookie('isUser', 'true',{ path: '/'});
+        $.fn.cookie('isUser', 'true',{ path: '/'}, { expires: -1 });
         console.log($.fn.cookie('isUser'));
     });
 </script>

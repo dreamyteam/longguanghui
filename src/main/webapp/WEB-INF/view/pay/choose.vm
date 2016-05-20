@@ -89,7 +89,7 @@
 <script>
     Zepto(function ($) {
 
-
+        console.log($.fn.cookie('isUser'));
         if($.fn.cookie('isUser') == "true"){
             $(".vip_join").each(function(){
                 $(this).hide();
