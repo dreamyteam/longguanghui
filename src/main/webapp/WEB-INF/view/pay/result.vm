@@ -5,7 +5,7 @@
         <h3 class="tips">$!message</h3>
         <div class="infos">
             <ul>
-                <li>
+                <li id="level_vip">
                     <h2>支付金额:</h2>
                     <span>$!fee</span>
                 </li>
@@ -21,10 +21,26 @@
         </div>
         <div class="infos">
             <h3>提&#12288;&#12288;示:</h3>
-            <p>
+            <p id="information">
                 会员信息将在几分钟后生效，您可以在微信公众号的  会员 >  个人中心  查看会员信息
             </p>
         </div>
     </div>
+    <div id="getType" style="display: none" data-type="$!type"></div>
 </div>
+<script>
+    $(function(){
+        var type = $("#getType").data("type");
+        console.log(type);
+
+        if(type == 1){
+            $("#level_vip").show();
+            $("#information").html("会员信息将在几分钟后生效，您可以在微信公众号的  会员 >  个人中心  查看会员信息");
+        }else{
+            $("#level_vip").hide();
+            $("#information").html("稍后将有会员专属客服与您联系，您也可以通过微信公众号的 会员 > 会员专线 查询开通进度");
+        }
+
+    })
+</script>
 
