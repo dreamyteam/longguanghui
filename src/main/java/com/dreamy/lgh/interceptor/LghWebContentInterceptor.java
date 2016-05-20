@@ -26,12 +26,10 @@ public class LghWebContentInterceptor extends WebContentInterceptor {
                 if (controller.enableUserSession() && controller.checkLogin()) {
                     UserSession userSession = controller.getUserSession(request);
                     if (userSession == null || !userSession.isLogin()) {
-                        response.sendRedirect("?service="
+                        response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx07d89ad0c6b2d206&redirect_uri=http%3A%2F%2Fdev.xingyifengji.com%2Fpay%2Fwx&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect?service="
                                 + HttpUtils.encodeUrl(HttpUtils.getFullUrl(request)));
                         return Boolean.FALSE;
                     }
-
-                    String currentUrl = request.getRequestURI();
                 }
 
                 return Boolean.TRUE;
