@@ -82,6 +82,19 @@ public class UserController extends LghController {
         return null;
     }
 
+    @RequestMapping("/profile")
+    public String profile(ModelMap modelMap, HttpServletRequest request) {
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+        if (userSession != null && userSession.getUserId() > 0) {
+            User user = userService.getUserById(userSession.getUserId());
+
+            modelMap.put("user", user);
+            return "/user/main";
+        }
+        return null;
+    }
+
+
     @RequestMapping("/modify")
     public String modify(ModelMap modelMap, HttpServletRequest request, String field) {
         UserSession userSession = userSessionContainer.get(getUserSessionId(request));
@@ -90,7 +103,7 @@ public class UserController extends LghController {
 
             modelMap.put("user", user);
             modelMap.put("field", field);
-            
+
             return "/user/modify";
         }
         return null;
