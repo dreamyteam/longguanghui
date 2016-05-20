@@ -83,12 +83,14 @@ public class UserController extends LghController {
     }
 
     @RequestMapping("/modify")
-    public String modify(ModelMap modelMap, HttpServletRequest request) {
+    public String modify(ModelMap modelMap, HttpServletRequest request, String field) {
         UserSession userSession = userSessionContainer.get(getUserSessionId(request));
         if (userSession != null && userSession.getUserId() > 0) {
             User user = userService.getUserById(userSession.getUserId());
 
             modelMap.put("user", user);
+            modelMap.put("field", field);
+            
             return "/user/modify";
         }
         return null;
