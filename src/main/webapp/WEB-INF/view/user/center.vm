@@ -14,7 +14,7 @@
     </header>
     <ul class="user_btns">
         <li>
-            <a href="/pay/choose?type=0">
+            <a href="/pay/choose">
                 <span class="icon-icon_tequanjieshao"></span>
                 <span class="describe">特权介绍</span>
             </a>
@@ -80,7 +80,7 @@
 </div>
 <script>
     Zepto(function ($) {
-        $.fn.cookie('isUser', 'true',{ path: '/'}, { expires: -1 });
+        $.fn.cookie('isUser', 'true',{ path: '/'});
         console.log($.fn.cookie('isUser'));
     });
 </script>

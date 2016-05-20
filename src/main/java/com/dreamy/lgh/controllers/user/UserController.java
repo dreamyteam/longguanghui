@@ -39,6 +39,11 @@ public class UserController extends LghController {
     @Autowired
     private MemberService memberService;
 
+    @Override
+    public boolean checkLogin() {
+        return false;
+    }
+
     @RequestMapping("/center")
     public String userCenter(ModelMap modelMap, HttpServletRequest request) {
         Integer activeDays = 0;
@@ -64,7 +69,7 @@ public class UserController extends LghController {
             if (activeTime > 0) {
                 activeDays = (int) (activeTime / (24 * 60 * 60 * 1000));
             }
-            modelMap.put("userWithMember",userWithMember);
+            modelMap.put("userWithMember", userWithMember);
             modelMap.put("activeDays", activeDays);
             return "/user/center";
         }

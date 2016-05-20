@@ -101,7 +101,8 @@
                 },
                 success: function (result) {
                     console.log(result);
-                    var res = JSON.parse(result);
+//                    var res = JSON.parse(result);
+                    var res = result;
                     if (res.error_code == 0) {
                         settime(btn_verify)
                         btnSubmitCanClick = true;
@@ -175,7 +176,8 @@
                     type: type
                 },
                 success: function (result) {
-                    var res = JSON.parse(result);
+//                    var res = JSON.parse(result);
+                    var res = result;
                     console.log(res);
                     if (res.error_code == 0) {
                         if (type != "1") {
