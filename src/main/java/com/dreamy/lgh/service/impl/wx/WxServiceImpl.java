@@ -3,6 +3,7 @@ package com.dreamy.lgh.service.impl.wx;
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.Orders;
+import com.dreamy.lgh.enums.OrderStatusEnums;
 import com.dreamy.lgh.service.cache.RedisClientService;
 import com.dreamy.lgh.service.iface.order.OrderService;
 import com.dreamy.lgh.service.iface.wx.WxService;
@@ -23,6 +24,8 @@ import java.util.*;
  */
 @Service
 public class WxServiceImpl implements WxService {
+    private final static Logger log = LoggerFactory.getLogger(WxServiceImpl.class);
+
     private final static String WX_APP_ID = "wx07d89ad0c6b2d206";
     private final static String WX_APP_SECRET = "926bb90270acf93aabc8b390fd5300b6";
     private final static String WX_MC_ID = "1320298201";
@@ -72,6 +75,40 @@ public class WxServiceImpl implements WxService {
         return JsonUtils.toString(configMap);
     }
 
+    @Override
+    public void handleNotifyDataFroWx(Map<String, String> map) {
+        String orderId = map.get("out_trade_no");
+        String openId = map.get("openid");
+        Integer totalFee = Integer.parseInt(map.get("total_fee"));
+        String feeType = map.get("fee_type");
+        String bankType = map.get("bank_type");
+        String transactionId = map.get("transaction_id");
+        String timeEnd = map.get("time_end");
+
+        Orders newOrder = new Orders()
+                .orderId(orderId)
+                .feeType(feeType)
+                .transactionId(transactionId)
+                .totalFee(totalFee)
+                .bankType(bankType)
+                .wxId(openId)
+                .timeEnd(timeEnd);
+
+        Orders order = orderService.getByOrderIdAndWxId(orderId, openId);
+        if (order == null) {
+            orderService.save(newOrder, 0);
+        } else {
+            order.transactionId(transactionId)
+                    .status(OrderStatusEnums.payed.getStatus())
+                    .totalFee(totalFee)
+                    .feeType(feeType)
+                    .timeEnd(timeEnd)
+                    .bankType(bankType);
+
+            orderService.updateByRecord(order);
+        }
+    }
+
     public String getPrePayId(Map<String, String> configMap, Members members, String ip) {
         String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
@@ -82,8 +119,8 @@ public class WxServiceImpl implements WxService {
         params.put("body", "龙光汇VIP会员(一年)");
 
         String orderId = orderService.createOrderId(members.getUserId());
-        Orders order = new Orders().orderId(orderId).userId(members.getUserId()).totalFee(Integer.parseInt(VIP_FEE));
-        orderService.save(order,members.getUserId());
+        Orders order = new Orders().orderId(orderId).userId(members.getUserId()).totalFee(Integer.parseInt(VIP_FEE)).wxId(members.getWxId());
+        orderService.save(order, members.getUserId());
 
         params.put("out_trade_no", orderId);
         params.put("spbill_create_ip", ip);

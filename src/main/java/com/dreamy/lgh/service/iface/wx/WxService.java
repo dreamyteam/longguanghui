@@ -36,4 +36,10 @@ public interface WxService {
      * @return
      */
    String getPayConfig(HttpServletRequest request,Members members);
+
+    /**
+     *
+     * @param map
+     */
+    void  handleNotifyDataFroWx( Map<String, String> map);
 }

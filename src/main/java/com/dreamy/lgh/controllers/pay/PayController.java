@@ -59,7 +59,7 @@ public class PayController extends LghController {
         modelMap.put("type", type);
         String action = request.getParameter("action");
 
-        UserSession userSession = getUserSession(request);
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
         if (userSession != null && userSession.getUserId() > 0) {
             Integer userId = userSession.getUserId();
 
@@ -70,7 +70,9 @@ public class PayController extends LghController {
 
             if (action != null) {
                 if (type == 1) {
-                    modelMap.put("config", wxService.getPayConfig(request, members));
+                    if (members.getType() == 0) {
+                        modelMap.put("config", wxService.getPayConfig(request, members));
+                    }
                 }
 
                 return "/pay/wxpay";
@@ -104,7 +106,7 @@ public class PayController extends LghController {
                         userSession = getUserSession(request);
                         userSession.setUserId(user.getId());
                         userSession.setUsername(user.getUserName());
-                        userSessionContainer.set(request.getRequestedSessionId(), userSession);
+                        userSessionContainer.set(getUserSessionId(request), userSession);
 
                         if (currentMember != null) {
                             if (currentMember.getType() == 0) {
@@ -130,12 +132,22 @@ public class PayController extends LghController {
             Document document = reader.read(inputStream);
             Element root = document.getRootElement();
             List<Element> elementList = root.elements();
-            for (Element e : elementList)
+            for (Element e : elementList) {
                 map.put(e.getName(), e.getText());
-
+            }
             inputStream.close();
         } catch (Exception e) {
-            log.error("wx notify error", e);
+            log.error("wx notify error:" + JsonUtils.toString(map), e);
+        }
+
+        if (CollectionUtils.isNotEmpty(map)) {
+            if (map.containsKey("result_code") && map.containsKey("return_code")) {
+                if (map.get("result_code").equals("SUCCESS") && map.get("return_code").equals("SUCCESS")) {
+                    wxService.handleNotifyDataFroWx(map);
+                } else {
+                    log.error("wx  notify error and the map is: " + JsonUtils.toString(map));
+                }
+            }
         }
 
         interfaceReturn(response, "SUCCESS", "");

@@ -17,8 +17,22 @@ public interface OrderService {
 
     /**
      *
-     * @param user
+     * @param orders
      * @return
      */
-    public String createOrderId(Integer userId);
+    Integer updateByRecord(Orders orders);
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    String createOrderId(Integer userId);
+
+    /**
+     *
+     * @param orderId
+     * @return
+     */
+    Orders getByOrderIdAndWxId(String orderId,String wxId);
 }

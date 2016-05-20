@@ -10,11 +10,13 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
 
     private String orderId;
 
+    private String transactionId;
+
     private Integer userId;
 
-    private String feeType;
+    private Integer status;
 
-    private String transactionId;
+    private String feeType;
 
     private Integer totalFee;
 
@@ -26,7 +28,7 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
 
     private Date createdAt;
 
-    private Integer status;
+    private String wxId;
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +48,14 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         this.orderId = orderId;
     }
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -54,20 +64,20 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         this.userId = userId;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getFeeType() {
         return feeType;
     }
 
     public void setFeeType(String feeType) {
         this.feeType = feeType;
-    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
     }
 
     public Integer getTotalFee() {
@@ -110,12 +120,12 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getWxId() {
+        return wxId;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setWxId(String wxId) {
+        this.wxId = wxId;
     }
 
     @Override
@@ -132,15 +142,16 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         Orders other = (Orders) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getFeeType() == null ? other.getFeeType() == null : this.getFeeType().equals(other.getFeeType()))
             && (this.getTransactionId() == null ? other.getTransactionId() == null : this.getTransactionId().equals(other.getTransactionId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getFeeType() == null ? other.getFeeType() == null : this.getFeeType().equals(other.getFeeType()))
             && (this.getTotalFee() == null ? other.getTotalFee() == null : this.getTotalFee().equals(other.getTotalFee()))
             && (this.getBankType() == null ? other.getBankType() == null : this.getBankType().equals(other.getBankType()))
             && (this.getTimeEnd() == null ? other.getTimeEnd() == null : this.getTimeEnd().equals(other.getTimeEnd()))
             && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getWxId() == null ? other.getWxId() == null : this.getWxId().equals(other.getWxId()));
     }
 
     @Override
@@ -149,15 +160,16 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getFeeType() == null) ? 0 : getFeeType().hashCode());
         result = prime * result + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getFeeType() == null) ? 0 : getFeeType().hashCode());
         result = prime * result + ((getTotalFee() == null) ? 0 : getTotalFee().hashCode());
         result = prime * result + ((getBankType() == null) ? 0 : getBankType().hashCode());
         result = prime * result + ((getTimeEnd() == null) ? 0 : getTimeEnd().hashCode());
         result = prime * result + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getWxId() == null) ? 0 : getWxId().hashCode());
         return result;
     }
 
@@ -171,18 +183,23 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         return this;
     }
 
+    public Orders transactionId(String value) {
+        this.transactionId = value;
+        return this;
+    }
+
     public Orders userId(Integer value) {
         this.userId = value;
         return this;
     }
 
-    public Orders feeType(String value) {
-        this.feeType = value;
+    public Orders status(Integer value) {
+        this.status = value;
         return this;
     }
 
-    public Orders transactionId(String value) {
-        this.transactionId = value;
+    public Orders feeType(String value) {
+        this.feeType = value;
         return this;
     }
 
@@ -211,8 +228,8 @@ public class Orders extends BaseDomain<Integer> implements Serializable {
         return this;
     }
 
-    public Orders status(Integer value) {
-        this.status = value;
+    public Orders wxId(String value) {
+        this.wxId = value;
         return this;
     }
 }

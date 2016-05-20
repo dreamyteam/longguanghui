@@ -8,6 +8,7 @@ import com.dreamy.lgh.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface OrdersMapper extends BaseMapper<Orders,Integer,OrdersConditions> {
+
     int countByExample(OrdersConditions example);
 
     int deleteByExample(OrdersConditions example);

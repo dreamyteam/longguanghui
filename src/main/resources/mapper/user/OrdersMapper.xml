@@ -4,15 +4,16 @@
   <resultMap id="BaseResultMap" type="com.dreamy.lgh.domain.user.Orders" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
     <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
     <result column="total_fee" property="totalFee" jdbcType="INTEGER" />
     <result column="bank_type" property="bankType" jdbcType="VARCHAR" />
     <result column="time_end" property="timeEnd" jdbcType="VARCHAR" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="wx_id" property="wxId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_id, user_id, fee_type, transaction_id, total_fee, bank_type, time_end, 
-    updated_at, created_at, status
+    id, order_id, transaction_id, user_id, status, fee_type, total_fee, bank_type, time_end, 
+    updated_at, created_at, wx_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dreamy.lgh.domain.user.OrdersConditions" >
     select
@@ -108,14 +109,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dreamy.lgh.domain.user.Orders" useGeneratedKeys="true" keyProperty="id" >
-    insert into orders (order_id, user_id, fee_type, 
-      transaction_id, total_fee, bank_type, 
-      time_end, updated_at, created_at, 
-      status)
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{feeType,jdbcType=VARCHAR}, 
-      #{transactionId,jdbcType=VARCHAR}, #{totalFee,jdbcType=INTEGER}, #{bankType,jdbcType=VARCHAR}, 
-      #{timeEnd,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, #{createdAt,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER})
+    insert into orders (order_id, transaction_id, user_id, 
+      status, fee_type, total_fee, 
+      bank_type, time_end, updated_at, 
+      created_at, wx_id)
+    values (#{orderId,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{feeType,jdbcType=VARCHAR}, #{totalFee,jdbcType=INTEGER}, 
+      #{bankType,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{wxId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dreamy.lgh.domain.user.Orders" useGeneratedKeys="true" keyProperty="id" >
     insert into orders
@@ -123,14 +124,17 @@
       <if test="orderId != null" >
         order_id,
       </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
       <if test="feeType != null" >
         fee_type,
-      </if>
-      <if test="transactionId != null" >
-        transaction_id,
       </if>
       <if test="totalFee != null" >
         total_fee,
@@ -147,22 +151,25 @@
       <if test="createdAt != null" >
         created_at,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="wxId != null" >
+        wx_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
       </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="feeType != null" >
         #{feeType,jdbcType=VARCHAR},
-      </if>
-      <if test="transactionId != null" >
-        #{transactionId,jdbcType=VARCHAR},
       </if>
       <if test="totalFee != null" >
         #{totalFee,jdbcType=INTEGER},
@@ -179,8 +186,8 @@
       <if test="createdAt != null" >
         #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
+      <if test="wxId != null" >
+        #{wxId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,14 +206,17 @@
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
+      <if test="record.transactionId != null" >
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.feeType != null" >
         fee_type = #{record.feeType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.transactionId != null" >
-        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
       </if>
       <if test="record.totalFee != null" >
         total_fee = #{record.totalFee,jdbcType=INTEGER},
@@ -223,8 +233,8 @@
       <if test="record.createdAt != null" >
         created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.wxId != null" >
+        wx_id = #{record.wxId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -235,15 +245,16 @@
     update orders
     set id = #{record.id,jdbcType=INTEGER},
       order_id = #{record.orderId,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      fee_type = #{record.feeType,jdbcType=VARCHAR},
       transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      fee_type = #{record.feeType,jdbcType=VARCHAR},
       total_fee = #{record.totalFee,jdbcType=INTEGER},
       bank_type = #{record.bankType,jdbcType=VARCHAR},
       time_end = #{record.timeEnd,jdbcType=VARCHAR},
       updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER}
+      wx_id = #{record.wxId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -254,14 +265,17 @@
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=VARCHAR},
       </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="feeType != null" >
         fee_type = #{feeType,jdbcType=VARCHAR},
-      </if>
-      <if test="transactionId != null" >
-        transaction_id = #{transactionId,jdbcType=VARCHAR},
       </if>
       <if test="totalFee != null" >
         total_fee = #{totalFee,jdbcType=INTEGER},
@@ -278,8 +292,8 @@
       <if test="createdAt != null" >
         created_at = #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+      <if test="wxId != null" >
+        wx_id = #{wxId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -287,15 +301,16 @@
   <update id="updateByPrimaryKey" parameterType="com.dreamy.lgh.domain.user.Orders" >
     update orders
     set order_id = #{orderId,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      fee_type = #{feeType,jdbcType=VARCHAR},
       transaction_id = #{transactionId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      fee_type = #{feeType,jdbcType=VARCHAR},
       total_fee = #{totalFee,jdbcType=INTEGER},
       bank_type = #{bankType,jdbcType=VARCHAR},
       time_end = #{timeEnd,jdbcType=VARCHAR},
       updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER}
+      wx_id = #{wxId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <sql id="paginationSql" >
