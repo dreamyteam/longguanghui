@@ -7,8 +7,11 @@ package com.dreamy.lgh.enums;
  * Time: 上午10:52
  */
 public enum MemberStateEnums {
-    active("有效"),
-    out_of_date("过期");
+    new_add(0, "新建"),
+    active(1, "有效"),
+    out_of_date(2, "过期");
+
+    private Integer status;
     private String description;
 
     public String getDescription() {
@@ -19,7 +22,16 @@ public enum MemberStateEnums {
         this.description = description;
     }
 
-    MemberStateEnums(String description) {
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    MemberStateEnums(Integer status, String description) {
+        this.status = status;
         this.description = description;
     }
 }

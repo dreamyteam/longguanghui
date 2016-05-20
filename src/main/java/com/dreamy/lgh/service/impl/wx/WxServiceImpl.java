@@ -3,8 +3,10 @@ package com.dreamy.lgh.service.impl.wx;
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.Orders;
+import com.dreamy.lgh.enums.MemberStateEnums;
 import com.dreamy.lgh.enums.OrderStatusEnums;
 import com.dreamy.lgh.service.cache.RedisClientService;
+import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.order.OrderService;
 import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
@@ -38,6 +40,9 @@ public class WxServiceImpl implements WxService {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public Map<String, String> getWxTokenInfo(String code) {
@@ -106,6 +111,18 @@ public class WxServiceImpl implements WxService {
                     .bankType(bankType);
 
             orderService.updateByRecord(order);
+
+            Members members = memberService.getByOpenId(openId);
+            if (members != null) {
+                Date currentDate = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(currentDate);
+                calendar.add(Calendar.YEAR, 1);
+
+                members.wxOrderId(transactionId).status(MemberStateEnums.active.getStatus()).endedAt(calendar.getTime());
+            } else {
+                log.error("update member info failed" + JsonUtils.toString(map));
+            }
         }
     }
 
