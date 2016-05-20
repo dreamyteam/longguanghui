@@ -21,9 +21,9 @@
     -->
     <header class="vip">
         <img src="../../assets/images/game.png">
-        <h1 class="name">土豆</h1>
-        <h2 class="vip_type">皇冠会员</h2>
-        <h6 class="rest_time">剩余会员有效时间188天</h6>
+        <h1 class="name">$!userWithMember.getMembers().getWxUserName()</h1>
+        <h2 class="vip_type">$!userWithMember.getLevelStr()</h2>
+        <h6 class="rest_time">剩余会员有效时间$!activeDays天</h6>
     </header>
     <ul class="user_btns">
         <li>
