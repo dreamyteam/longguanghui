@@ -46,19 +46,19 @@
         var btnSubmitCanClick = false;
 
         switch (type) {
-            case '1':
+            case 1:
                 bg.addClass('sec_vip');
                 vipType.html('VIP会员')
                 break;
-            case '2':
+            case 2:
                 bg.addClass('sec_diamond');
                 vipType.html('钻石会员');
                 break;
-            case '3':
+            case 3:
                 bg.addClass('sec_crown');
                 vipType.html('皇冠会员');
                 break;
-            case '4':
+            case 4:
                 bg.addClass('sec_top');
                 vipType.html('鼎级会员');
                 break;

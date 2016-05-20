@@ -1,4 +1,4 @@
-#set($layout = "/layout/blank_layout.vm")
+#set($layout = "/layout/layout_pay.vm")
 <div class="container gray">
     <div class="white">
         <span class="icon-longguanghuilogo"></span>
