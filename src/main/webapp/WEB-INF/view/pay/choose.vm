@@ -9,7 +9,7 @@
                 <li>抽奖机会</li>
                 <li>优选商品</li>
             </ul>
-            <a href="/pay/detail?type=1" class="showMore">查看VIP会员全部特权</a>
+            <a href="/pay/choose/detail?type=1" class="showMore">查看VIP会员全部特权</a>
         </div>
         <div class="vip_join">
             <button class="howmuch">￥198</button>
@@ -25,7 +25,7 @@
                 <li>星享好礼</li>
                 <li>影视城折扣</li>
             </ul>
-            <a href="/pay/detail?type=2" class="showMore">查看钻石会员全部特权</a>
+            <a href="/pay/choose/detail?type=2" class="showMore">查看钻石会员全部特权</a>
         </div>
 
         <div class="vip_join">
@@ -42,7 +42,7 @@
                 <li>影视参演体验</li>
                 <li>明星活动邀请</li>
             </ul>
-            <a href="/pay/detail?type=3" class="showMore">查看皇冠会员全部特权</a>
+            <a href="/pay/choose/detail?type=3" class="showMore">查看皇冠会员全部特权</a>
         </div>
 
         <div class="vip_join">
@@ -59,7 +59,7 @@
                 <li>会长竞选</li>
                 <li>明星经纪资源</li>
             </ul>
-            <a href="/pay/detail?type=4" class="showMore">查看鼎级会员全部特权</a>
+            <a href="/pay/choose/detail?type=4" class="showMore">查看鼎级会员全部特权</a>
         </div>
         <div class="vip_join">
             <button class="howmuch">￥50000</button>
