@@ -40,7 +40,7 @@
             </a>
         </li>
         <li>
-            <a href="/user/modify?field=all">
+            <a href="/user/profile">
                 <span class="icon-icon_huiyuanxinxi"></span>
                 <span class="describe">会员信息</span>
             </a>
