@@ -13,9 +13,11 @@ public enum ErrorCodeEnums {
     register_failed(20001, "注册失败"),
     login_failed(2002, "登录失败"),
     get_verification_code_failed(2003, "获取验证码失败"),
-    update_profile_failed(2004,"更新个人信息失败"),
+    update_profile_failed(2004, "更新个人信息失败"),
 
-    add_member_failed(3001, "添加会员失败");
+    add_member_failed(3001, "添加会员失败"),
+    add_follow_failed(3002, "关注明星失败"),
+    cancel_follow_failed(3003, "取消关注明星失败");
 
 
     private Integer errorCode;

@@ -157,4 +157,5 @@ public class UserController extends LghController {
 
         interfaceReturn(response, JsonUtils.toString(bean), "");
     }
+
 }
