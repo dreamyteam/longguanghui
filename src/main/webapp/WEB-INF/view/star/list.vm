@@ -1,28 +1,10 @@
+#set($layout = "/layout/layout_pay.vm")
+
 <div class="container">
     <ul class="artistList">
         <li>AAA
             <input type="checkbox" name="artist" value="AAA" id="a-1">
             <label for="a-1"></label>
-        </li>
-        <li>BBB
-            <input type="checkbox" name="artist" value="BBB" id="a-2">
-            <label for="a-2"></label>
-        </li>
-        <li>CCC
-            <input type="checkbox" name="artist" value="CCC" id="a-3">
-            <label for="a-3"></label>
-        </li>
-        <li>DDD
-            <input type="checkbox" name="artist" value="DDD" id="a-4">
-            <label for="a-4"></label>
-        </li>
-        <li>EEE
-            <input type="checkbox" name="artist" value="EEE" id="a-5">
-            <label for="a-5"></label>
-        </li>
-        <li>FFF
-            <input type="checkbox" name="artist" value="FFF" id="a-6">
-            <label for="a-6"></label>
         </li>
     </ul>
 </div>
