@@ -33,6 +33,24 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
+                    <span>明星管理</span>
+                </a>
+                <ul class="sub-menu-list">
+
+                    <li>
+                        <a href="/star/add">新增明星</a>
+                    </li>
+                    <li class="">
+                        <a href="/star/list">明星列表</a>
+                    </li>
+
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>

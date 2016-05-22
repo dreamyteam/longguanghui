@@ -34,9 +34,10 @@ public class StarController extends LghController {
 
     @RequestMapping("/list")
     public String list(ModelMap modelMap, HttpServletRequest request) {
-        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
-        if (userSession != null) {
-            Integer userId = userSession.getUserId();
+//        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+//        if (userSession != null) {
+            Integer userId = 1;
+//            Integer userId = userSession.getUserId();
 
             Page page = new Page();
             page.setPageSize(300);
@@ -46,9 +47,9 @@ public class StarController extends LghController {
             modelMap.put("starList", starList);
             modelMap.put("followStarIds", followStarIds);
             return "/list";
-        } else {
-            return null;
-        }
+//        } else {
+//            return null;
+//        }
 
     }
 

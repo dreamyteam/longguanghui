@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Members> getMemberByUserIds(List<Integer> userIds) {
         MembersConditions membersConditions = new MembersConditions();
-        membersConditions.createCriteria().andUserIdIn(userIds);
+        membersConditions.createCriteria().andUserIdIn(userIds).andStatusEqualTo(MemberStateEnums.active.getStatus());
 
         return memberDao.selectByExample(membersConditions);
     }
@@ -145,20 +145,23 @@ public class MemberServiceImpl implements MemberService {
                     UserWithMember userWithMember = new UserWithMember();
                     userWithMember.setUser(user);
                     Members members = membersMap.get(user.getId());
-                    if (currentDate.after(members.getEndedAt())) {
-                        userWithMember.setMemberStateStr(MemberStateEnums.out_of_date.getDescription());
-                    } else {
-                        userWithMember.setMemberStateStr(MemberStateEnums.active.getDescription());
-                    }
-
-                    for (MemberEnums memberEnums : enums) {
-                        if (members.getType().equals(memberEnums.getType())) {
-                            userWithMember.setLevelStr(memberEnums.getDescription());
+                    if (members != null) {
+                        if (currentDate.after(members.getEndedAt())) {
+                            userWithMember.setMemberStateStr(MemberStateEnums.out_of_date.getDescription());
+                        } else {
+                            userWithMember.setMemberStateStr(MemberStateEnums.active.getDescription());
                         }
-                    }
 
-                    userWithMember.setMembers(members);
-                    userWithMemberList.add(userWithMember);
+
+                        for (MemberEnums memberEnums : enums) {
+                            if (members.getType().equals(memberEnums.getType())) {
+                                userWithMember.setLevelStr(memberEnums.getDescription());
+                            }
+                        }
+
+                        userWithMember.setMembers(members);
+                        userWithMemberList.add(userWithMember);
+                    }
                 }
             }
         }

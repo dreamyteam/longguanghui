@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LghController extends LghBaseController {
     @Override
     public boolean checkLogin() {
-        return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
 

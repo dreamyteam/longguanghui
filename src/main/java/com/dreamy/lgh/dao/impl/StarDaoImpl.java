@@ -20,6 +20,7 @@ public class StarDaoImpl extends BaseDaoImpl<Star, Integer, StarConditions> impl
     @Autowired
     private StarMapper starMapper;
 
+    @Autowired
     @Override
     public void setBaseMapper() {
         super.setBaseMapper(starMapper);

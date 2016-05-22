@@ -129,4 +129,28 @@ public class MemberController extends LghController {
     public String apply() {
         return "/member/applies";
     }
+
+    @RequestMapping("/detail")
+    public String detail(ModelMap modelMap, @RequestParam(value = "userId") Integer userId) {
+        Members members = memberService.getByUserId(userId);
+        User user = userService.getUserById(userId);
+
+        modelMap.put("user", user);
+        modelMap.put("member", members);
+        modelMap.put("memberTypes", MemberEnums.values());
+
+        Integer a = TimeUtils.getCalendar(members.getStartedAt()).getWeekYear();
+        Integer b = TimeUtils.getCalendar(members.getEndedAt()).getWeekYear();
+
+        modelMap.put("year", b - a);
+
+        return "/member/detail";
+    }
+
+    @RequestMapping("/update")
+    public String update(RegisterParams registerParams, MemberParams memberParams, @RequestParam(value = "userId") Integer userId) {
+
+
+        return "";
+    }
 }

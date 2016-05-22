@@ -20,6 +20,7 @@ public class StarFollowDaoImpl extends BaseDaoImpl<StarFollow, Integer, StarFoll
     @Autowired
     private StarFollowMapper starFollowMapper;
 
+    @Autowired
     @Override
     public void setBaseMapper() {
         super.setBaseMapper(starFollowMapper);
