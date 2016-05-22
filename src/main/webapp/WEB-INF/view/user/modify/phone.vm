@@ -1,0 +1,106 @@
+<div class="container gray">
+    <span class="err_msg_user" id="err_msg_user">错误信息</span>
+        <h5 class="label">绑定您新的手机号码</h5>
+        <input type="number" name="phone" id="phone" placeholder="请输入新的手机号码">
+        <div class="veCode">
+            <input id="checkCode" type="text" placeholder="验证码">
+            <button id="sendVC">发送验证码</button>
+        </div>
+
+        <button class="submit">绑定新手机</button>
+</div>
+<script>
+    var btnSVC = $("#sendVC")
+    var btnSubmit = $(".submit");
+    var canSVC = true;
+    var canSubmit = false;
+    var err_msg = $("#err_msg_user");
+    err_msg.hide();
+
+    $(function(){
+        btnSVC.on("tap",function(){
+            var regPhone = /^0?1[3|4|5|8][0-9]\d{8}$/;
+            var phone = $("#phone").val();
+            if(canSVC){
+                if (!regPhone.test(phone)) {
+                    err_msg.html("手机号码格式错误").show();
+                    return false;
+                } else {
+                    err_msg.hide();
+                    sendVC(phone);
+                }
+            }
+        })
+
+        btnSubmit.on("tap",function(){
+            if(canSubmit){
+                var mobile = $("#phone").val();
+                var checkcode = $("#checkCode").val();
+                checkVC(mobile,checkcode)
+            }
+        })
+        function checkVC(mobile,checkcode){
+            $.ajax({
+                url: '/user/register',
+                type: 'POST',
+                data: {
+                    mobile: mobile,
+                    checkCode: checkcode,
+                },
+                success: function(result) {
+                    var res = result;
+                    if (res.error_code == 0) {
+                        window.history.go(-1);
+                    } else if (res.error_code > 0) {
+                        err_msg.html(res.error_msg).show();
+                    }
+                }
+            })
+        }
+
+
+
+        function sendVC(mobile){
+            settime(btnSVC); //倒计时
+            canSubmit = true;
+            btnSVC.removeClass("disable");
+             $.ajax({
+                 url: '/user/register/verificationCode',
+                 type: 'POST',
+                 data: {
+                     mobile: mobile
+                 },
+                 success: function(result) {
+                     var res = result;
+                     if (res.error_code == 0) {
+                         settime(btnSVC); //倒计时
+                         canSubmit = true;
+                         btnSVC.removeClass("disable");
+                     } else if (res.error_code > 0) {
+                         err_msg.html(res.error_msg).show();
+                     }
+                 }
+             })
+        }
+
+        var countdown = 60;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.html("重新发送");
+                countdown = 60;
+                canSVC = true;
+                btnSVC.removeClass("disable")
+                return;
+            } else {
+                obj.html("重新发送" + countdown + 's');
+                canSVC = false;
+                btnSVC.addClass("disable")
+                countdown--;
+            }
+            setTimeout(function() {
+                settime(obj)
+            }, 1000)
+        }
+
+    })
+</script>

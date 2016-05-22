@@ -1,0 +1,14 @@
+#set($layout = "/layout/layout_pay.vm")
+
+
+#if($!field=="name")
+    #parse("/user/modify/name.vm")
+#elseif($!field=="phone")
+    #parse("/user/modify/phone.vm")
+#elseif($!field=="sex")
+    #parse("/user/modify/sex.vm")
+#elseif($!field=="dob")
+    #parse("/user/modify/dob.vm")
+#elseif($!field=="add")
+    #parse("/user/modify/add.vm")
+#end

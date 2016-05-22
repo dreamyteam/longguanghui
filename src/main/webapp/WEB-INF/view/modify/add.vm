@@ -1,9 +1,0 @@
-<div class="container gray">
-    <h5 class="label">地址</h5>
-    <form>
-        <textarea>
-
-        </textarea>
-        <input type="submit" value="保存">
-    </form>
-</div>

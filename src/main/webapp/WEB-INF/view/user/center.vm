@@ -34,13 +34,13 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/star/list">
                 <span class="icon-icon_guanzhumingxing"></span>
                 <span class="describe">关注明星</span>
             </a>
         </li>
         <li>
-            <a href="/user/modify?field=all">
+            <a href="/user/profile">
                 <span class="icon-icon_huiyuanxinxi"></span>
                 <span class="describe">会员信息</span>
             </a>
