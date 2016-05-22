@@ -1,23 +1,62 @@
-###set($layout = "/layout/layout_pay.vm")
 #set($layout = "/layout/layout_pay.vm")
-111
-##
-##<div class="container">
-##    <ul class="artistList">
-##        <li>AAA
-##            <input type="checkbox" name="artist" value="AAA" id="a-1">
-##            <label for="a-1"></label>
-##        </li>
-##    </ul>
-##</div>
 
-##
-##<script>
-##    $(function(){
-##        $("input[type='checkbox']").each(function(){
-##            $(this).on("change",function(){
-##                console.log($(this).val()+" " + $(this).attr("checked"))
-##            })
-##        })
-##    })
-##</script>
+<div class="container">
+    <ul class="artistList">
+        #foreach($!star in $!starList)
+            <li>$!star.name
+                <input type="checkbox"
+                       #if($!followStarIds.contains($!star.id))
+                           checked
+                       #end
+                       name="artist" value="$!star.id" id="a-$!star.id">
+                <label for="a-$!star.id"></label>
+            </li>
+
+        #end
+    </ul>
+</div>
+
+
+<script>
+    $(function () {
+        $("input[type='checkbox']").each(function () {
+            $(this).on("change", function () {
+                if($(this).attr("checked") == true){
+                    console.log("关注了");
+                    follow($(this).val(),true);
+                }else {
+                    console.log("取消关注");
+                    follow($(this).val(),false);
+                }
+
+            })
+        })
+        function follow(starid,gofollow){
+            if(gofollow){
+                var url = '/star/follow'
+            }else{
+                var url = '/star/unfollow'
+            }
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    starId: starid,
+                },
+                success: function (result) {
+                    var res = result;
+                    console.log(res);
+                    if (res.error_code == 0) {
+
+                    } else if (res.error_code > 0) {
+                        alert(res.error_msg);
+                    }
+                }
+
+            })
+        }
+
+
+    })
+</script>

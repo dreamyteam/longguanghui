@@ -146,6 +146,22 @@ public class MemberController extends LghController {
             members.status(MemberStateEnums.active.getStatus());
             memberService.updateByRecord(members);
 
+            User user = userService.getUserById(userId);
+
+            if (StringUtils.isNotEmpty(user.getPhone())) {
+                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
+                    @Override
+                    public Object run() throws Exception {
+                        String code = verificationCodeService.createVerificationCode(4);
+                        if (StringUtils.isNotEmpty(code)) {
+                            verificationCodeService.saveCodeToCache(name, code);
+                            shortMessageService.send(name, "【龙光汇】您申请的会员已通过审核" + code);
+                        }
+
+                        return null;
+                    }
+                });
+            }
             return redirect("/member/apply");
         }
 
