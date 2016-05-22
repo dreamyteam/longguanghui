@@ -21,7 +21,8 @@
                  </span>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal dt-form" role="form" action="/member/update?userId=$user.id" method="post">
+                    <form class="form-horizontal dt-form" role="form" action="/member/update?userId=$user.id"
+                          method="post">
                         <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">姓名</label>
 
@@ -43,7 +44,7 @@
                                        checked
                                     #end
                                        value="1">男 &nbsp;
-                                <input type="radio" name="set"
+                                <input type="radio" name="sex"
                                     #if($!user.sex==2)
                                        checked
                                     #end
@@ -105,34 +106,52 @@
                                                         value="$!memberType.getType()">$!memberType.getDescription()</option>
                                         #end
                                     </select>
+
+                                    <p class="help-block">注：更改会员类型，剩余时长将清零</p>
                                 </div>
+
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">会员时长</label>
+                                <label class="col-sm-2 control-label">剩余时长(天)</label>
+
+                                <div class="col-lg-5">
+                                    <input type="text" disabled class="required validate[required] form-control"
+                                           value="$!activeDays"
+                                           name="activeDays">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <header class="panel-heading">
+                            会员续时
+                            <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                        </header>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">续费时长</label>
 
                                 <div class="col-sm-5">
-                                    <select class="required validate[required] form-control" name="memberTime"
+                                    <select class="form-control" name="addTime"
                                             id="form-validation-field-0">
 
-                                        <option value="">选择时长</option>
-                                        <option
-                                            #if($!year==1) selected
-                                            #end
-                                                           value="1">1年
+                                        <option value="0">选择时长</option>
+                                        <option value="1">1年
+                                        </option>
+                                        <option value="2">2年
                                         </option>
                                         <option
-                                            #if($!year==2) selected
-                                            #end
-                                                value="2">2年</option>
-                                        <option
-                                            #if($!year==3) selected
-                                            #end
-                                                value="3">3年</option>
-                                        <option
-                                            #if($!year==4) selected
-                                            #end
-                                                value="3">4年</option>
+                                                value="3">3年
+                                        </option>
+                                        <option value="3">4年
+                                        </option>
 
                                     </select>
                                 </div>

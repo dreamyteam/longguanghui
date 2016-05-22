@@ -98,6 +98,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Members> getApplyMemberByUserIds(List<Integer> userIds) {
+        MembersConditions membersConditions = new MembersConditions();
+        membersConditions.createCriteria().andUserIdIn(userIds).andStatusEqualTo(MemberStateEnums.new_add.getStatus()).andTypeGreaterThan(MemberEnums.vip.getType());
+
+        return memberDao.selectByExample(membersConditions);
+    }
+
+    @Override
+    public List<Members> getMemberByUserIdsAndStatus(List<Integer> userIds, Integer status) {
+        MembersConditions membersConditions = new MembersConditions();
+        membersConditions.createCriteria().andUserIdIn(userIds).andStatusEqualTo(status);
+
+        return memberDao.selectByExample(membersConditions);
+    }
+
+    @Override
     public Map<Integer, Members> getUserIdAndMemberMapByMemberList(List<Members> membersList) {
         Map<Integer, Members> membersMap = new HashMap<Integer, Members>();
         for (Members members : membersList) {
@@ -139,6 +155,62 @@ public class MemberServiceImpl implements MemberService {
             List<Members> membersList = getMemberByUserIds(userIds);
             MemberEnums[] enums = MemberEnums.values();
             if (CollectionUtils.isNotEmpty(membersList)) {
+                Map<Integer, Members> membersMap = getUserIdAndMemberMapByMemberList(membersList);
+                Date currentDate = new Date();
+                for (User user : users) {
+                    UserWithMember userWithMember = new UserWithMember();
+                    userWithMember.setUser(user);
+                    Members members = membersMap.get(user.getId());
+                    if (members != null) {
+                        if (currentDate.after(members.getEndedAt())) {
+                            userWithMember.setMemberStateStr(MemberStateEnums.out_of_date.getDescription());
+                        } else {
+                            userWithMember.setMemberStateStr(MemberStateEnums.active.getDescription());
+                        }
+
+
+                        for (MemberEnums memberEnums : enums) {
+                            if (members.getType().equals(memberEnums.getType())) {
+                                userWithMember.setLevelStr(memberEnums.getDescription());
+                            }
+                        }
+
+                        userWithMember.setMembers(members);
+                        userWithMemberList.add(userWithMember);
+                    }
+                }
+            }
+        }
+
+        return userWithMemberList;
+    }
+
+    @Override
+    public List<UserWithMember> getApplyListByPageAndUserNameAndPhone(Page page, String userName, String phone) {
+        List<UserWithMember> userWithMemberList = new LinkedList<UserWithMember>();
+        UserConditions userConditions = new UserConditions();
+        UserConditions.Criteria criteria = userConditions.createCriteria();
+        if (StringUtils.isNotEmpty(userName)) {
+            criteria.andUserNameLike("%" + userName + "%");
+        }
+
+        if (StringUtils.isNotEmpty(phone)) {
+            criteria.andPhoneLike("%" + phone + "%");
+        }
+
+        page.setTotalNum(userDao.countByExample(userConditions));
+        userConditions.setPage(page);
+        List<User> users = userDao.selectByExample(userConditions);
+
+        if (CollectionUtils.isNotEmpty(users)) {
+            List<Integer> userIds = new LinkedList<Integer>();
+            for (User user : users) {
+                userIds.add(user.getId());
+            }
+
+            List<Members> membersList = getApplyMemberByUserIds(userIds);
+            if (CollectionUtils.isNotEmpty(membersList)) {
+                MemberEnums[] enums = MemberEnums.values();
                 Map<Integer, Members> membersMap = getUserIdAndMemberMapByMemberList(membersList);
                 Date currentDate = new Date();
                 for (User user : users) {

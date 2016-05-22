@@ -1,21 +1,23 @@
+###set($layout = "/layout/layout_pay.vm")
 #set($layout = "/layout/layout_pay.vm")
+111
+##
+##<div class="container">
+##    <ul class="artistList">
+##        <li>AAA
+##            <input type="checkbox" name="artist" value="AAA" id="a-1">
+##            <label for="a-1"></label>
+##        </li>
+##    </ul>
+##</div>
 
-<div class="container">
-    <ul class="artistList">
-        <li>AAA
-            <input type="checkbox" name="artist" value="AAA" id="a-1">
-            <label for="a-1"></label>
-        </li>
-    </ul>
-</div>
-
-
-<script>
-    $(function(){
-        $("input[type='checkbox']").each(function(){
-            $(this).on("change",function(){
-                console.log($(this).val()+" " + $(this).attr("checked"))
-            })
-        })
-    })
-</script>
+##
+##<script>
+##    $(function(){
+##        $("input[type='checkbox']").each(function(){
+##            $(this).on("change",function(){
+##                console.log($(this).val()+" " + $(this).attr("checked"))
+##            })
+##        })
+##    })
+##</script>

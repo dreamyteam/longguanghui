@@ -29,6 +29,11 @@ import java.util.List;
 @RequestMapping("/star")
 public class StarController extends LghController {
 
+    @Override
+    public boolean checkLogin() {
+        return false;
+    }
+
     @Autowired
     private StarService starService;
 
@@ -46,7 +51,7 @@ public class StarController extends LghController {
 
             modelMap.put("starList", starList);
             modelMap.put("followStarIds", followStarIds);
-            return "/list";
+            return "/star/list";
 //        } else {
 //            return null;
 //        }

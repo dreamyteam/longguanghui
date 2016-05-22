@@ -10,6 +10,7 @@ import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.domain.user.UserWithMember;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
 import com.dreamy.lgh.enums.MemberEnums;
+import com.dreamy.lgh.enums.MemberStateEnums;
 import com.dreamy.lgh.service.iface.ShortMessageService;
 import com.dreamy.lgh.service.iface.VerificationCodeService;
 import com.dreamy.lgh.service.iface.member.MemberService;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
@@ -126,8 +128,28 @@ public class MemberController extends LghController {
     }
 
     @RequestMapping("/apply")
-    public String apply() {
+    public String apply(HttpServletResponse response, Page page, ModelMap map,
+                        @RequestParam(value = "userName", required = false) String userName,
+                        @RequestParam(value = "mobile", required = false) String phone) {
+        List<UserWithMember> userWithMemberList = memberService.getApplyListByPageAndUserNameAndPhone(page, userName, phone);
+
+        map.put("userWithMemberList", userWithMemberList);
+        map.put("page", page);
+
         return "/member/applies";
+    }
+
+    @RequestMapping("/apply/pass")
+    public String pass(HttpServletResponse response, @RequestParam(value = "userId") Integer userId) {
+        Members members = memberService.getByUserId(userId);
+        if (members != null) {
+            members.status(MemberStateEnums.active.getStatus());
+            memberService.updateByRecord(members);
+
+            return redirect("/member/apply");
+        }
+
+        return null;
     }
 
     @RequestMapping("/detail")
@@ -135,22 +157,76 @@ public class MemberController extends LghController {
         Members members = memberService.getByUserId(userId);
         User user = userService.getUserById(userId);
 
-        modelMap.put("user", user);
-        modelMap.put("member", members);
-        modelMap.put("memberTypes", MemberEnums.values());
+
+        long activeTime = TimeUtils.diff(new Date(), members.getEndedAt());
+        Integer activeDays = 0;
+        if (activeTime > 0) {
+            activeDays = (int) (activeTime / (24 * 60 * 60 * 1000));
+        }
 
         Integer a = TimeUtils.getCalendar(members.getStartedAt()).getWeekYear();
         Integer b = TimeUtils.getCalendar(members.getEndedAt()).getWeekYear();
 
+        modelMap.put("activeDays", activeDays);
+        modelMap.put("user", user);
+        modelMap.put("member", members);
+        modelMap.put("memberTypes", MemberEnums.values());
         modelMap.put("year", b - a);
 
         return "/member/detail";
     }
 
     @RequestMapping("/update")
-    public String update(RegisterParams registerParams, MemberParams memberParams, @RequestParam(value = "userId") Integer userId) {
+    public String update(RegisterParams params, MemberParams memberParams, @RequestParam(value = "userId") Integer userId) {
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            Members members = memberService.getByUserId(userId);
+            if (members != null) {
+                user.userName(params.getUserName())
+                        .sex(params.getSex())
+                        .phone(params.getMobile())
+                        .birthday(TimeUtils.getDateByStr(params.getBirthday(), "yyyy-MM-dd"))
+                        .address(params.getAddress());
+                userService.updateByRecord(user);
 
+                if (memberParams.getAddTime() > 0) {
 
-        return "";
+                    Calendar calendar = Calendar.getInstance();
+                    if (memberParams.getMemberType().equals(members.getType())) {
+                        calendar.setTime(members.getEndedAt());
+                    } else {
+                        Date currentDate = new Date();
+                        members.startedAt(currentDate);
+                        calendar.setTime(currentDate);
+                    }
+
+                    members.type(memberParams.getMemberType());
+                    calendar.add(Calendar.YEAR, memberParams.getAddTime());
+                    Date endDate = calendar.getTime();
+                    members.endedAt(endDate);
+
+                    memberService.updateByRecord(members);
+                }
+
+                return redirect("/member/list");
+            }
+        }
+
+        return null;
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public void delete(HttpServletResponse response, @RequestParam(value = "userId") Integer userId) {
+        InterfaceBean bean = new InterfaceBean().success();
+        Members members = memberService.getByUserId(userId);
+        if (members != null) {
+            members.status(MemberStateEnums.deleted.getStatus());
+            memberService.updateByRecord(members);
+        } else {
+            bean.failure(ErrorCodeEnums.update_profile_failed.getErrorCode(), "删除失败");
+        }
+
+        interfaceReturn(response, JsonUtils.toString(bean), "");
     }
 }

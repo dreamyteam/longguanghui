@@ -20,16 +20,16 @@
                     <li class="active">
                         <a href="/member/list">会员列表</a>
                     </li>
-                    <li>
-                        <a href="/member/add">新增会员</a>
-                    </li>
+##                    <li>
+##                        <a href="/member/add">新增会员</a>
+##                    </li>
 
                     <li>
                         <a href="/member/apply">申请管理</a>
                     </li>
 
                     <li>
-                        <a href="/member/apply">提醒设置</a>
+                        <a href="/member/">提醒设置</a>
                     </li>
                 </ul>
             </li>

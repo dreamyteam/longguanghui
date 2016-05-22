@@ -9,6 +9,15 @@ package com.dreamy.lgh.beans.params;
 public class MemberParams {
     private Integer memberType;
     private Integer memberTime;
+    private Integer addTime;
+
+    public Integer getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Integer addTime) {
+        this.addTime = addTime;
+    }
 
     public Integer getMemberType() {
         return memberType;

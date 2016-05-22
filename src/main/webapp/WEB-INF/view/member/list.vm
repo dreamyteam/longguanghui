@@ -70,10 +70,11 @@
                                     <td class="center">$!userWithMember.getLevelStr()</td>
                                     <td class="center">$!userWithMember.getMemberStateStr()</td>
                                     <td class="center">
-                                        <a class="pjax-url" href="/member/detail?userId=$!userWithMember.getUser().getId()">
+                                        <a class="pjax-url"
+                                           href="/member/detail?userId=$!userWithMember.getUser().getId()">
                                             详情
                                         </a>
-                                        <a rel="delete" href="#">
+                                        <a rel="delete" href="/member/delete?userId=$!userWithMember.getUser().getId()">
                                             删除
                                         </a>
                                     </td>
