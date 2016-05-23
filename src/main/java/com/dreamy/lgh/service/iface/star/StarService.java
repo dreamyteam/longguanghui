@@ -29,27 +29,56 @@ public interface StarService {
     List<Star> getStarsByIds(List<Integer> starIds);
 
     /**
-     *
+     * @param starId
+     * @return
+     */
+    Star getById(Integer starId);
+
+
+    /**
      * @param page
      * @return
      */
     List<Star> getStarsByPage(Page page);
 
     /**
-     *
-     * @param userId
      * @param starId
      * @return
      */
-    ErrorCodeEnums addFollow(Integer userId,Integer starId);
+    Integer deleteStar(Integer starId);
+
+    /**
+     * @param starId
+     * @return
+     */
+    Integer deleteById(Integer starId);
+
+    /**
+     * @param starId
+     * @return
+     */
+    Integer deleteStarMapByStarId(Integer starId);
 
 
     /**
-     *
      * @param userId
      * @param starId
      * @return
      */
-    ErrorCodeEnums cancelFollow(Integer userId,Integer starId);
+    ErrorCodeEnums addFollow(Integer userId, Integer starId);
+
+
+    /**
+     * @param userId
+     * @param starId
+     * @return
+     */
+    ErrorCodeEnums cancelFollow(Integer userId, Integer starId);
+
+    /**
+     * @param name
+     * @return
+     */
+    Integer save(String name);
 
 }

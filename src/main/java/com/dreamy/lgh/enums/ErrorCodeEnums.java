@@ -17,7 +17,10 @@ public enum ErrorCodeEnums {
 
     add_member_failed(3001, "添加会员失败"),
     add_follow_failed(3002, "关注明星失败"),
-    cancel_follow_failed(3003, "取消关注明星失败");
+    cancel_follow_failed(3003, "取消关注明星失败"),
+
+
+    delete_failed(9001, "删除失败");
 
 
     private Integer errorCode;

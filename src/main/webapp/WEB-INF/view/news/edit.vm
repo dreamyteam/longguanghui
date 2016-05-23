@@ -1,13 +1,13 @@
 <!-- page heading start-->
 <div class="page-heading">
     <h3>
-        添加banner
+        编辑banner
     </h3>
     <ul class="breadcrumb">
         <li>
             <a href="#">新闻动态</a>
         </li>
-        <li class="active">添加banner</li>
+        <li class="active">编辑banner</li>
     </ul>
 </div>
 <!-- page heading end-->
@@ -18,22 +18,24 @@
 
             <section class="panel">
                 <header class="panel-heading">
-                    添加banner
+                    编辑banner
                     <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="javascript:;" class="fa fa-times"></a>
                  </span>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal  dt-form" role="form" action="/banner/add"
+                    <form class="form-horizontal  dt-form" role="form" action="/news/edit"
                           method="post">
+
+                        <input type="hidden" name="id" value="$!news.id">
 
                         <div class="form-group">
                             <label for="Content_title" class="col-lg-2 col-sm-2 control-label">标题</label>
 
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="Content_title" placeholder="标题"
-                                       value="$!title" name="title">
+                                       value="$!news.title" name="title">
 
                                 <p class="help-block">注：名称长度在1~255之间</p>
                             </div>
@@ -44,9 +46,19 @@
 
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="Content_title" placeholder="跳转链接"
-                                       value="$!href" name="href">
+                                       value="$!news.href" name="href">
 
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Content_title" class="col-lg-2 col-sm-2 control-label">简介</label>
+
+                            <div class="col-lg-10">
+                                <textarea rows="6" class="form-control textInput required validate[required]"
+                                          name="info" required="required">$!news.info</textarea>
+                            </div>
+
                         </div>
 
 
@@ -63,7 +75,7 @@
                                      data-upload-min-height='300'
                                      data-input-name="imageUrl"
                                      data-is-multi="false"
-                                     data-images='["$!imageUrl"]'
+                                     data-images='["$!news.imageUrl"]'
                                         >
                                 </div>
                             </div>
@@ -80,9 +92,6 @@
                                 </button>
                             </div>
                         </div>
-
-                        <input type="hidden" name="albumId" value="$!content.albumId">
-                        <input type="hidden" name="type" value="$!type">
 
                     </form>
 

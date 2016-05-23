@@ -44,10 +44,6 @@ public class UserController extends LghController {
     @Autowired
     private VerificationCodeService verificationCodeService;
 
-    @Override
-    public boolean checkLogin() {
-        return false;
-    }
 
     @RequestMapping("/center")
     public String userCenter(ModelMap modelMap, HttpServletRequest request) {

@@ -32,6 +32,15 @@ public class StarServiceImpl implements StarService {
     @Autowired
     private StarFollowDao starFollowDao;
 
+
+    @Override
+    public Integer save(String name) {
+        Star star = new Star();
+
+        star.name(name);
+        return starDao.save(star);
+    }
+
     @Override
     public List<Integer> getFollowStarIdsByUserId(Integer userId, Page page) {
 
@@ -59,6 +68,11 @@ public class StarServiceImpl implements StarService {
         starConditions.createCriteria().andIdIn(starIds);
 
         return starDao.selectByExample(starConditions);
+    }
+
+    @Override
+    public Star getById(Integer starId) {
+        return starDao.selectById(starId);
     }
 
     @Override
@@ -107,5 +121,23 @@ public class StarServiceImpl implements StarService {
         }
 
         return errorCodeEnums;
+    }
+
+    @Override
+    public Integer deleteById(Integer starId) {
+        return starDao.deleteById(starId);
+    }
+
+    @Override
+    public Integer deleteStarMapByStarId(Integer starId) {
+        StarFollowConditions conditions = new StarFollowConditions();
+        conditions.createCriteria().andStarIdEqualTo(starId);
+        return starFollowDao.deleteByExample(conditions);
+    }
+
+    @Override
+    public Integer deleteStar(Integer starId) {
+        deleteById(starId);
+        return deleteStarMapByStarId(starId);
     }
 }

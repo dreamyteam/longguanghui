@@ -1,13 +1,13 @@
 <!-- page heading start-->
 <div class="page-heading">
     <h3>
-        添加banner
+        编辑banner
     </h3>
     <ul class="breadcrumb">
         <li>
             <a href="#">新闻动态</a>
         </li>
-        <li class="active">添加banner</li>
+        <li class="active">编辑banner</li>
     </ul>
 </div>
 <!-- page heading end-->
@@ -18,22 +18,23 @@
 
             <section class="panel">
                 <header class="panel-heading">
-                    添加banner
+                    编辑banner
                     <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="javascript:;" class="fa fa-times"></a>
                  </span>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal  dt-form" role="form" action="/banner/add"
+                    <form class="form-horizontal  dt-form" role="form" action="/banner/edit"
                           method="post">
 
+                        <input type="hidden" name="id" value="$!banner.id">
                         <div class="form-group">
                             <label for="Content_title" class="col-lg-2 col-sm-2 control-label">标题</label>
 
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="Content_title" placeholder="标题"
-                                       value="$!title" name="title">
+                                       value="$!banner.title" name="title">
 
                                 <p class="help-block">注：名称长度在1~255之间</p>
                             </div>
@@ -44,7 +45,7 @@
 
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="Content_title" placeholder="跳转链接"
-                                       value="$!href" name="href">
+                                       value="$!banner.href" name="href">
 
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                                      data-upload-min-height='300'
                                      data-input-name="imageUrl"
                                      data-is-multi="false"
-                                     data-images='["$!imageUrl"]'
+                                     data-images='["$!banner.imageUrl"]'
                                         >
                                 </div>
                             </div>

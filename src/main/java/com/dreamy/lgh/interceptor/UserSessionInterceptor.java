@@ -5,7 +5,9 @@ import com.dreamy.lgh.beans.UserSessionContainer;
 import com.dreamy.lgh.handlers.CSRFTokenManager;
 import com.dreamy.lgh.handlers.CookieHandler;
 import com.dreamy.lgh.controllers.RootController;
+import com.dreamy.lgh.service.cache.RedisClientService;
 import com.dreamy.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +32,9 @@ public class UserSessionInterceptor<S extends CanonicalSession> extends HandlerI
     private CookieHandler cookieHandler;
 
     private UserSessionContainer<S> userSessionContainer;
+
+    @Autowired
+    private RedisClientService redisClientService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -58,6 +63,16 @@ public class UserSessionInterceptor<S extends CanonicalSession> extends HandlerI
                     id = UUID.randomUUID().toString();
                     cookieHandler.addCookie(response, id, 30 * 24 * 3600);
                 }
+
+                String pageName = request.getParameter("pageName");
+                if (StringUtils.isNotEmpty(pageName)) {
+                    redisClientService.set(id + "pageName", pageName);
+                } else {
+                    pageName = redisClientService.get(id + "pageName");
+                }
+
+
+                request.setAttribute("pageName", pageName);
                 request.setAttribute(CSRFTokenManager.CSRF_PARAM_NAME, CSRFTokenManager.getTokenForSession(request.getSession()));
                 request.setAttribute(RootController.REQUEST_ATTRIBUTE_USERSESSION_ID, id);
             }

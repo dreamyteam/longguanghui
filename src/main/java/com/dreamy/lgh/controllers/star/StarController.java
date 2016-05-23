@@ -8,6 +8,7 @@ import com.dreamy.lgh.domain.star.Star;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
 import com.dreamy.lgh.service.iface.star.StarService;
 import com.dreamy.utils.JsonUtils;
+import com.dreamy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,20 +30,19 @@ import java.util.List;
 @RequestMapping("/star")
 public class StarController extends LghController {
 
+    @Autowired
+    private StarService starService;
+
     @Override
     public boolean checkLogin() {
         return false;
     }
 
-    @Autowired
-    private StarService starService;
-
     @RequestMapping("/list")
     public String list(ModelMap modelMap, HttpServletRequest request) {
-//        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
-//        if (userSession != null) {
-            Integer userId = 1;
-//            Integer userId = userSession.getUserId();
+        UserSession userSession = userSessionContainer.get(getUserSessionId(request));
+        if (userSession != null) {
+            Integer userId = userSession.getUserId();
 
             Page page = new Page();
             page.setPageSize(300);
@@ -52,10 +52,40 @@ public class StarController extends LghController {
             modelMap.put("starList", starList);
             modelMap.put("followStarIds", followStarIds);
             return "/star/list";
-//        } else {
-//            return null;
-//        }
+        } else {
+            return null;
+        }
 
+    }
+
+    @RequestMapping("/admin/list")
+    public String listOnAdmin(ModelMap modelMap) {
+        Page page = new Page();
+        page.setPageSize(300);
+        List<Star> starList = starService.getStarsByPage(page);
+
+        modelMap.put("page", page);
+        modelMap.put("starList", starList);
+        return "/star/admin_list";
+    }
+
+    @RequestMapping("/add")
+    public String add(@RequestParam(value = "name", required = false) String name) {
+        if (StringUtils.isNotEmpty(name)) {
+            starService.save(name);
+            return redirect("/star/admin/list");
+        }
+
+        return "/star/add";
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public void delete(HttpServletResponse response, Integer starId) {
+
+        InterfaceBean bean = new InterfaceBean().success();
+        starService.deleteStar(starId);
+        interfaceReturn(response, JsonUtils.toString(bean), "");
     }
 
     @RequestMapping("/follow")

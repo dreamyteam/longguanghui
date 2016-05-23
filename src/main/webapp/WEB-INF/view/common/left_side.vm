@@ -13,19 +13,45 @@
             <li class="menu-list  nav-active">
                 <a class="pjax-url" href="javascript:void(0);">
                     <i class="fa fa-list"></i>
+                    <span>banner管理</span>
+                </a>
+                <ul class="sub-menu-list">
+                    <li #if($!pageName=="banneradd") class="active" #end>
+                        <a href="/banner/add?pageName=banneradd">添加banner</a>
+                    </li>
+                    <li #if($!pageName=="bannerlist") class="active" #end>
+                        <a href="/banner/list?pageName=bannerlist">banner列表</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
+                    <span>新闻管理</span>
+                </a>
+                <ul class="sub-menu-list">
+                    <li #if($!pageName=="newsadd") class="active" #end>
+                        <a href="/news/add?pageName=newsadd">新增动态</a>
+                    </li>
+                    <li #if($!pageName=="newslist") class="active" #end>
+                        <a href="/news/list?pageName=newslist">新闻管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu-list">
 
-                    <li class="active">
-                        <a href="/member/list">会员列表</a>
+                    <li #if($!pageName=="memberlist") class="active" #end>
+                        <a href="/member/list?pageName=memberlist">会员列表</a>
                     </li>
-##                    <li>
-##                        <a href="/member/add">新增会员</a>
-##                    </li>
-
-                    <li>
-                        <a href="/member/apply">申请管理</a>
+                    <li #if($!pageName=="memberapply") class="active" #end>
+                        <a href="/member/apply?pageName=memberapply">申请管理</a>
                     </li>
                 </ul>
             </li>
@@ -36,12 +62,11 @@
                     <span>明星管理</span>
                 </a>
                 <ul class="sub-menu-list">
-
-                    <li>
-                        <a href="/star/add">新增明星</a>
+                    <li #if($!pageName=="staradd") class="active" #end>
+                        <a href="/star/add?pageName=staradd">新增明星</a>
                     </li>
-                    <li class="">
-                        <a href="/star/list">明星列表</a>
+                    <li #if($!pageName=="staradminlist") class="active" #end>
+                        <a href="/star/admin/list?pageName=staradminlist">明星列表</a>
                     </li>
 
                 </ul>
@@ -54,8 +79,8 @@
                 </a>
                 <ul class="sub-menu-list">
 
-                    <li>
-                        <a href="/setting/service/phone">短信通知</a>
+                    <li #if($!pageName=="settingphone") class="active" #end>
+                        <a href="/setting/service/phone?pageName=settingphone">短信通知</a>
                     </li>
 
                 </ul>

@@ -1,13 +1,13 @@
 <!-- page heading start-->
 <div class="page-heading">
     <h3>
-        添加banner
+        添加新闻
     </h3>
     <ul class="breadcrumb">
         <li>
             <a href="#">新闻动态</a>
         </li>
-        <li class="active">添加banner</li>
+        <li class="active">添加新闻</li>
     </ul>
 </div>
 <!-- page heading end-->
@@ -18,21 +18,21 @@
 
             <section class="panel">
                 <header class="panel-heading">
-                    添加banner
+                    添加新闻
                     <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="javascript:;" class="fa fa-times"></a>
                  </span>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal  dt-form" role="form" action="/banner/add"
+                    <form class="form-horizontal  dt-form" role="form" action="/news/add"
                           method="post">
 
                         <div class="form-group">
                             <label for="Content_title" class="col-lg-2 col-sm-2 control-label">标题</label>
 
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="Content_title" placeholder="标题"
+                                <input type="text" class="form-control required validate[required]" id="Content_title"
                                        value="$!title" name="title">
 
                                 <p class="help-block">注：名称长度在1~255之间</p>
@@ -43,9 +43,17 @@
                             <label for="Content_title" class="col-lg-2 col-sm-2 control-label">跳转链接</label>
 
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="Content_title" placeholder="跳转链接"
+                                <input type="text" class="form-control required validate[required]" id="Content_title" placeholder=""
                                        value="$!href" name="href">
 
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Content_title" class="col-lg-2 col-sm-2 control-label">简介</label>
+
+                            <div class="col-lg-10">
+                                <textarea rows="6" class="form-control textInput required validate[required]" name="info"  required="required">$!info</textarea>
                             </div>
                         </div>
 
@@ -63,7 +71,8 @@
                                      data-upload-min-height='300'
                                      data-input-name="imageUrl"
                                      data-is-multi="false"
-                                     data-images='["$!imageUrl"]'
+##                                     data-images='["$!imageUrl"]'
+                                     data-images='["http://c3.duotin.com/i1/DT/sGXiFunDYqpKN6cYMuAZ4c7mELPtvuqZkORnNTfBOwY.jpg"]'
                                         >
                                 </div>
                             </div>
