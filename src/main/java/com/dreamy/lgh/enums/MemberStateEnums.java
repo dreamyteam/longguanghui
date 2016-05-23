@@ -9,7 +9,8 @@ package com.dreamy.lgh.enums;
 public enum MemberStateEnums {
     new_add(0, "新建"),
     active(1, "有效"),
-    out_of_date(2, "过期");
+    out_of_date(2, "过期"),
+    deleted(3, "删除");
 
     private Integer status;
     private String description;

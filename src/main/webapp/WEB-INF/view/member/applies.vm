@@ -23,7 +23,7 @@
                 ##                    搜索框
                     <div class="well searchBox">
                         <form id="pagerForm" class="form-inline dt-form dt-datatable-search-form" method="post"
-                              action="/member/list">
+                              action="/member/apply">
 
                             <div class="searchContent">
                                 <div class="form-group">
@@ -54,8 +54,7 @@
                                 <th>姓名</th>
                                 <th>手机号码</th>
                                 <th>注册时间</th>
-                                <th>会员等级</th>
-                                <th>会员状态</th>
+                                <th>申请会员类型</th>
                                 <th class="hidden-phone">操作</th>
                             </tr>
                             </thead>
@@ -68,8 +67,19 @@
                                     <td class="center">$!dateUtils.toString(
                                         "yyyy-MM-dd HH:mm:ss",$!userWithMember.getUser().getCreatedAt())</td>
                                     <td class="center">$!userWithMember.getLevelStr()</td>
-                                    <td class="center">$!userWithMember.getMemberStateStr()</td>
-                                    <td class="center">$!userWithMember.getMembers().getType()</td>
+                                    <td class="center">
+                                        <a class="pjax-url"
+                                           href="/member/apply/pass?userId=$!userWithMember.getUser().getId()">
+                                            通过
+                                        </a>
+                                        <a class="pjax-url"
+                                           href="/member/detail?userId=$!userWithMember.getUser().getId()">
+                                            详情
+                                        </a>
+                                        <a rel="delete" href="/member/delete?userId=$!userWithMember.getUser().getId()">
+                                            删除
+                                        </a>
+                                    </td>
                                 </tr>
                                 #end
                             </tbody>

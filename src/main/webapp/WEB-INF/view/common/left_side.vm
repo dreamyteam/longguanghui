@@ -20,16 +20,12 @@
                     <li class="active">
                         <a href="/member/list">会员列表</a>
                     </li>
-                    <li>
-                        <a href="/member/add">新增会员</a>
-                    </li>
+##                    <li>
+##                        <a href="/member/add">新增会员</a>
+##                    </li>
 
                     <li>
                         <a href="/member/apply">申请管理</a>
-                    </li>
-
-                    <li>
-                        <a href="/member/apply">提醒设置</a>
                     </li>
                 </ul>
             </li>
@@ -46,6 +42,20 @@
                     </li>
                     <li class="">
                         <a href="/star/list">明星列表</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
+                    <span>系统设置</span>
+                </a>
+                <ul class="sub-menu-list">
+
+                    <li>
+                        <a href="/setting/service/phone">短信通知</a>
                     </li>
 
                 </ul>

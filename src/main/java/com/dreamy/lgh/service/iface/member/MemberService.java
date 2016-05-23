@@ -55,10 +55,35 @@ public interface MemberService {
     List<UserWithMember> getByPageAndUserNameAndPhone(Page page, String userName, String phone);
 
     /**
+     *
+     * @param page
+     * @param userName
+     * @param phone
+     * @param status
+     * @return
+     */
+    List<UserWithMember> getApplyListByPageAndUserNameAndPhone(Page page, String userName, String phone);
+
+    /**
      * @param userIds
      * @return
      */
     List<Members> getMemberByUserIds(List<Integer> userIds);
+
+    /**
+     *
+     * @param userIds
+     * @return
+     */
+    List<Members> getApplyMemberByUserIds(List<Integer> userIds);
+
+    /**
+     *
+     * @param userIds
+     * @param status
+     * @return
+     */
+    List<Members> getMemberByUserIdsAndStatus(List<Integer> userIds,Integer status);
 
     /**
      * @param membersList
