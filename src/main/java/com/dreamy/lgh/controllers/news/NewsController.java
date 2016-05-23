@@ -53,7 +53,7 @@ public class NewsController extends LghController {
     public String list(ModelMap modelMap, Page page) {
 
         modelMap.put("newsList", newsService.getByPageAndOrder(page, "id desc"));
-        return "/news/list";
+        return "/news/admin_list";
     }
 
     @RequestMapping("/edit")

@@ -1,68 +1,32 @@
-<div class="page-heading">
-    <h3>
-        新闻动态
-    </h3>
-    <ul class="breadcrumb">
-        <li><a href="#">banner管理</a></li>
-        <li><a href="#">banner列表</a></li>
-    </ul>
-</div>
-
-<div class="wrapper">
-    <div class="row">
-        <div class="col-sm-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    列表
-                    <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="javascript:;" class="fa fa-times"></a>
-                 </span>
-                </header>
-                <div class="panel-body">
-                ##                     展示表格
-                    <div id="albumListBox" class="adv-table">
-                        <table class="display table table-bordered table-striped dt-data-table" id="dynamic-table">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>图片</th>
-                                <th>title</th>
-                                <th>简介</th>
-                                <th>跳转链接</th>
-                                <th class="hidden-phone">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                #foreach($list in $newsList)
-                                <tr class="gradeC">
-                                    <td class="center">$!list.id</td>
-                                    <td class="center">
-                                        <img class="album-image-thumb" style="min-width: 140px;height: auto" src="$!list.imageUrl"
-                                             alt="It's A Duck Blur: A DuckTales">
-                                    </td>
-                                    <td class="center">$!list.title</td>
-                                    <td class="center">$!list.info</td>
-                                    <td class="center">$!list.href</td>
-
-                                    <td class="center">
-                                        <a class="pjax-url"
-                                           href="/news/edit?id=$!list.id">
-                                            详情
-                                        </a>
-                                        <a rel="delete" href="/news/delete?id=$!list.id">
-                                            删除
-                                        </a>
-                                    </td>
-                                </tr>
-                                #end
-                            </tbody>
-                        </table>
-                        <div class="dt-page" data-current-page="$!page.currentPage" data-view-page-count="6"
-                             data-page-total="$!page.getTotalPage()"></div>
-                    </div>
-                </div>
-            </section>
-        </div>
+<div class="container">
+    <div class="carousel">
+        <ul>
+            <li>
+                <a href="#"><img src="http://o6qhdb7kv.bkt.clouddn.com/ddy03.png"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="news_list">
+        <ul>
+            <li>
+                <img class="pic" src="http://o6qhdb7kv.bkt.clouddn.com/ddy03.png">
+                <h3 class="title">龙光汇4月探班</h3>
+                <a href="#" class="summary">走进《西游记》剧组，这是一段描述文字，走进《西游记》剧组，这是一段描述文字。</a>
+            </li>
+        </ul>
     </div>
 </div>
+
+<script>
+    Zepto(function($) {
+        var height = document.body.clientHeight;
+        $(".news_list").css({height: height - 150 + 'px'})
+        window.pageSlide = new mo.Slide({
+            target: $('.carousel li'),
+            direction: 'x',
+            circle: true,
+            controller: true,
+            autoPlay: true,
+        });
+    });
+</script>
