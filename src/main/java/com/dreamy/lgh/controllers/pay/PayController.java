@@ -7,11 +7,14 @@ import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.Orders;
 import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.enums.MemberEnums;
+import com.dreamy.lgh.service.iface.ShortMessageService;
 import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.order.OrderService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
+import com.dreamy.utils.asynchronous.AsynchronousService;
+import com.dreamy.utils.asynchronous.ObjectCallable;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -51,6 +54,9 @@ public class PayController extends LghController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ShortMessageService shortMessageService;
 
     @Override
     public boolean checkLogin() {
@@ -180,17 +186,25 @@ public class PayController extends LghController {
         UserSession userSession = userSessionContainer.get(getUserSessionId(request));
         if (userSession != null && userSession.getUserId() >= 0) {
             Members members = memberService.getByUserId(userSession.getUserId());
+            User user = userService.getUserById(members.getUserId());
             type = members.getType();
             if (type.equals(1)) {
                 Orders orders = orderService.getByOrderIdAndWxId(members.getWxOrderId(), members.getWxId());
                 if (orders != null) {
-                    modelMap.put("fee", (double)orders.getTotalFee() / 100);
+                    modelMap.put("fee", (double) orders.getTotalFee() / 100);
                     message = "支付成功";
                 } else {
                     message = "支付失败";
                 }
             } else {
                 message = "申请成功";
+                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
+                    @Override
+                    public Object run() throws Exception {
+                        shortMessageService.send(name, "【龙光汇】尊敬的VIP用户，欢迎加入龙光汇");
+                        return null;
+                    }
+                });
             }
 
             MemberEnums[] enums = MemberEnums.values();

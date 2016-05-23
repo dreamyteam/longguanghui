@@ -5,6 +5,7 @@ import com.dreamy.lgh.beans.InterfaceBean;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.domain.news.News;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
+import com.dreamy.lgh.service.iface.banner.BannerService;
 import com.dreamy.lgh.service.iface.news.NewsService;
 import com.dreamy.utils.JsonUtils;
 import com.dreamy.utils.StringUtils;
@@ -31,6 +32,9 @@ public class NewsController extends LghController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    private BannerService bannerService;
+
     @RequestMapping("/add")
     public String add(ModelMap modelMap,
                       @RequestParam(value = "title", required = false) String title,
@@ -47,6 +51,15 @@ public class NewsController extends LghController {
         }
 
         return "/news/add";
+    }
+
+    @RequestMapping(value = "/list/wx")
+    public String listWx(ModelMap modelMap, Page page) {
+
+        modelMap.put("newsList", newsService.getByPageAndOrder(page, "id desc"));
+        modelMap.put("bannerList", bannerService.getAllByOrder("id desc"));
+
+        return "/news/list";
     }
 
     @RequestMapping(value = "/list")

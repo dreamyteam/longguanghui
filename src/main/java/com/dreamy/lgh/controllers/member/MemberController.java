@@ -155,7 +155,7 @@ public class MemberController extends LghController {
                         String code = verificationCodeService.createVerificationCode(4);
                         if (StringUtils.isNotEmpty(code)) {
                             verificationCodeService.saveCodeToCache(name, code);
-                            shortMessageService.send(name, "【龙光汇】您申请的会员已通过审核" + code);
+                            shortMessageService.send(name, "【龙光汇】您申请的会员已通过审核");
                         }
 
                         return null;

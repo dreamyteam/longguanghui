@@ -3,13 +3,18 @@ package com.dreamy.lgh.service.impl.wx;
 import com.dreamy.lgh.beans.WxUser;
 import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.Orders;
+import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.enums.MemberStateEnums;
 import com.dreamy.lgh.enums.OrderStatusEnums;
 import com.dreamy.lgh.service.cache.RedisClientService;
+import com.dreamy.lgh.service.iface.ShortMessageService;
 import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.order.OrderService;
+import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
+import com.dreamy.utils.asynchronous.AsynchronousService;
+import com.dreamy.utils.asynchronous.ObjectCallable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,12 @@ public class WxServiceImpl implements WxService {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private ShortMessageService shortMessageService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public Map<String, String> getWxTokenInfo(String code) {
@@ -121,6 +132,15 @@ public class WxServiceImpl implements WxService {
 
                 members.wxOrderId(transactionId).status(MemberStateEnums.active.getStatus()).endedAt(calendar.getTime());
                 memberService.updateByRecord(members);
+
+                User user = userService.getUserById(members.getUserId());
+                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
+                    @Override
+                    public Object run() throws Exception {
+                        shortMessageService.send(name, "【龙光汇】尊敬的VIP用户，欢迎加入龙光汇");
+                        return null;
+                    }
+                });
             } else {
                 log.error("update member info failed" + JsonUtils.toString(map));
             }
