@@ -37,7 +37,7 @@ public class WxServiceImpl implements WxService {
     private final static String WX_APP_SECRET = "926bb90270acf93aabc8b390fd5300b6";
     private final static String WX_MC_ID = "1320298201";
     private final static String PAY_KEY = "jkdir003jk03e0fi3h2jkdjd93kekci9";
-    private final static String NOTIFY_URL = "http://dev.xingyifengji.com/pay/wx/trade/notify";
+    private final static String NOTIFY_URL = "http://wx.longguanghui.net/pay/wx/trade/notify";
     private final static String VIP_FEE = "1";
 
     @Autowired
