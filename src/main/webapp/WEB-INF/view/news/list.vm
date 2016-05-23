@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="carousel">
+        <ul>
+            <li>
+                <a href="#"><img src="http://o6qhdb7kv.bkt.clouddn.com/ddy03.png"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="news_list">
+        <ul>
+            <li>
+                <img class="pic" src="http://o6qhdb7kv.bkt.clouddn.com/ddy03.png">
+                <h3 class="title">龙光汇4月探班</h3>
+                <a href="#" class="summary">走进《西游记》剧组，这是一段描述文字，走进《西游记》剧组，这是一段描述文字。</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    Zepto(function($) {
+        var height = document.body.clientHeight;
+        $(".news_list").css({height: height - 150 + 'px'})
+        window.pageSlide = new mo.Slide({
+            target: $('.carousel li'),
+            direction: 'x',
+            circle: true,
+            controller: true,
+            autoPlay: true,
+        });
+    });
+</script>
