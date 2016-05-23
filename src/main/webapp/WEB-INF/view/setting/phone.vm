@@ -1,0 +1,78 @@
+<div class="page-heading">
+    <h3>
+        会员管理
+    </h3>
+    <ul class="breadcrumb">
+        <li><a href="#">会员管理</a></li>
+        <li><a href="#">新增会员</a></li>
+    </ul>
+</div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <section class="panel">
+                <header class="panel-heading">
+                    基本信息
+                    <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                    <a href="javascript:;" class="fa fa-times"></a>
+                 </span>
+                </header>
+                <div class="panel-body">
+                    <form class="form-horizontal dt-form" role="form"
+                        #if($!checkCode != "")
+                          action="/member/doAdd"
+                        #else
+                          action="/setting/service/phone/code"
+                        #end
+                          method="post">
+
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">手机号</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" class="required validate[required] form-control" value="$!phone"
+                                       name="phone" placeholder="手机号">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">验证码</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" class="form-control" value=""
+                                       name="checkCode">
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                #if($!checkCode != "")
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-check"></i>
+
+                                        提交
+                                    </button>
+                                    <button class="btn btn-default" type="button">取消</button>
+                                #else
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="fa fa-check"></i>
+
+                                        获取验证码
+                                    </button>
+                                #end
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

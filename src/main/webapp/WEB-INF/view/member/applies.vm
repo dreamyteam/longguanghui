@@ -23,7 +23,7 @@
                 ##                    搜索框
                     <div class="well searchBox">
                         <form id="pagerForm" class="form-inline dt-form dt-datatable-search-form" method="post"
-                              action="/member/list">
+                              action="/member/apply">
 
                             <div class="searchContent">
                                 <div class="form-group">
