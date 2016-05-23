@@ -7,9 +7,11 @@ import com.dreamy.lgh.domain.user.Members;
 import com.dreamy.lgh.domain.user.Orders;
 import com.dreamy.lgh.domain.user.User;
 import com.dreamy.lgh.enums.MemberEnums;
+import com.dreamy.lgh.enums.SysSettingEnums;
 import com.dreamy.lgh.service.iface.ShortMessageService;
 import com.dreamy.lgh.service.iface.member.MemberService;
 import com.dreamy.lgh.service.iface.order.OrderService;
+import com.dreamy.lgh.service.iface.setting.SettingService;
 import com.dreamy.lgh.service.iface.user.UserService;
 import com.dreamy.lgh.service.iface.wx.WxService;
 import com.dreamy.utils.*;
@@ -57,6 +59,9 @@ public class PayController extends LghController {
 
     @Autowired
     private ShortMessageService shortMessageService;
+
+    @Autowired
+    private SettingService settingService;
 
     @Override
     public boolean checkLogin() {
@@ -188,6 +193,14 @@ public class PayController extends LghController {
             Members members = memberService.getByUserId(userSession.getUserId());
             User user = userService.getUserById(members.getUserId());
             type = members.getType();
+
+            MemberEnums[] enums = MemberEnums.values();
+            for (MemberEnums memberEnums : enums) {
+                if (members.getType().equals(memberEnums.getType())) {
+                    memberTypeStr = memberEnums.getDescription();
+                }
+            }
+
             if (type.equals(1)) {
                 Orders orders = orderService.getByOrderIdAndWxId(members.getWxOrderId(), members.getWxId());
                 if (orders != null) {
@@ -198,21 +211,16 @@ public class PayController extends LghController {
                 }
             } else {
                 message = "申请成功";
-                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
+                AsynchronousService.submit(new ObjectCallable(user.getUserName()) {
                     @Override
                     public Object run() throws Exception {
-                        shortMessageService.send(name, "【龙光汇】尊敬的VIP用户，欢迎加入龙光汇");
+                        String servicePhone = settingService.getValue(SysSettingEnums.apply_note_phone.getKey());
+                        shortMessageService.send(servicePhone, "【龙光汇】有新的会员申请，客户联系电话" + name);
                         return null;
                     }
                 });
             }
 
-            MemberEnums[] enums = MemberEnums.values();
-            for (MemberEnums memberEnums : enums) {
-                if (members.getType().equals(memberEnums.getType())) {
-                    memberTypeStr = memberEnums.getDescription();
-                }
-            }
 
             modelMap.put("memberType", memberTypeStr);
             modelMap.put("time", TimeUtils.toString(

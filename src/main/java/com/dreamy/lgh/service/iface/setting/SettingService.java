@@ -23,4 +23,13 @@ public interface SettingService {
      * @return
      */
     Integer updateByRecord(Setting setting);
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    String getValue(String key);
+
+
 }
