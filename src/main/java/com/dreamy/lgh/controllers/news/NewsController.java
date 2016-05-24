@@ -2,6 +2,7 @@ package com.dreamy.lgh.controllers.news;
 
 import com.dreamy.beans.Page;
 import com.dreamy.lgh.beans.InterfaceBean;
+import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.domain.news.News;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
@@ -34,6 +35,11 @@ public class NewsController extends LghController {
 
     @Autowired
     private BannerService bannerService;
+
+    @Override
+    public boolean checkLogin() {
+        return false;
+    }
 
     @RequestMapping("/add")
     public String add(ModelMap modelMap,

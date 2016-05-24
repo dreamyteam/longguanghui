@@ -35,4 +35,12 @@ public interface OrderService {
      * @return
      */
     Orders getByOrderIdAndWxId(String orderId,String wxId);
+
+    /**
+     *
+     * @param transactionId
+     * @param wxId
+     * @return
+     */
+    Orders getByTransactionIdAndWxId(String transactionId,String wxId);
 }

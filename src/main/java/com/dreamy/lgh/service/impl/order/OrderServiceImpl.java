@@ -57,4 +57,21 @@ public class OrderServiceImpl implements OrderService {
 
         return null;
     }
+
+    @Override
+    public Orders getByTransactionIdAndWxId(String transactionId, String wxId) {
+        OrdersConditions conditions = new OrdersConditions();
+        conditions.createCriteria().andTransactionIdEqualTo(transactionId).andWxIdEqualTo(wxId);
+
+        Page page = new Page();
+        page.setPageSize(1);
+        conditions.setPage(page);
+
+        List<Orders> ordersList = ordersDao.selectByExample(conditions);
+        if (CollectionUtils.isNotEmpty(ordersList)) {
+            return ordersList.get(0);
+        }
+
+        return null;
+    }
 }

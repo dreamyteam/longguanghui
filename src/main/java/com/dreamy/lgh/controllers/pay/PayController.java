@@ -182,8 +182,7 @@ public class PayController extends LghController {
     }
 
     @RequestMapping("/result")
-    public String result(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "prepayOrderId", required = false) String orderId,
-                         @RequestParam(value = "orderStatus", defaultValue = "0") String status) {
+    public String result(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "pay") String result) {
 
         String message;
         Integer type = 0;
@@ -202,9 +201,9 @@ public class PayController extends LghController {
             }
 
             if (type.equals(1)) {
-                Orders orders = orderService.getByOrderIdAndWxId(members.getWxOrderId(), members.getWxId());
-                if (orders != null) {
-                    modelMap.put("fee", (double) orders.getTotalFee() / 100);
+//                Orders orders = orderService.getByTransactionIdAndWxId(members.getWxOrderId(), members.getWxId());
+                if (result.equals("1")) {
+//                    modelMap.put("fee", (double) orders.getTotalFee() / 100);
                     message = "支付成功";
                 } else {
                     message = "支付失败";
