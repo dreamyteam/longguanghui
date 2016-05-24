@@ -201,23 +201,14 @@ public class PayController extends LghController {
             }
 
             if (type.equals(1)) {
-//                Orders orders = orderService.getByTransactionIdAndWxId(members.getWxOrderId(), members.getWxId());
                 if (result.equals("1")) {
-//                    modelMap.put("fee", (double) orders.getTotalFee() / 100);
                     message = "支付成功";
                 } else {
                     message = "支付失败";
                 }
             } else {
                 message = "申请成功";
-                AsynchronousService.submit(new ObjectCallable(user.getUserName()) {
-                    @Override
-                    public Object run() throws Exception {
-                        String servicePhone = settingService.getValue(SysSettingEnums.apply_note_phone.getKey());
-                        shortMessageService.send(servicePhone, "【龙光汇】有新的会员申请，客户联系电话" + name);
-                        return null;
-                    }
-                });
+                shortMessageService.applyNote(user);
             }
 
 

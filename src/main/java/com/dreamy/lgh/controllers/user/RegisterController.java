@@ -73,7 +73,7 @@ public class RegisterController extends LghController {
                         String code = verificationCodeService.createVerificationCode(4);
                         if (StringUtils.isNotEmpty(code)) {
                             verificationCodeService.saveCodeToCache(name, code);
-                            shortMessageService.send(name, "【龙光汇】您的验证码是" + code);
+                            shortMessageService.sendCheckCode(name, code);
                         }
 
                         return null;

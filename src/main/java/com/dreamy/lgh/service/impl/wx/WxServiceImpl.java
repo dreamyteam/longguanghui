@@ -132,15 +132,6 @@ public class WxServiceImpl implements WxService {
 
                 members.wxOrderId(transactionId).status(MemberStateEnums.active.getStatus()).endedAt(calendar.getTime());
                 memberService.updateByRecord(members);
-
-                User user = userService.getUserById(members.getUserId());
-                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
-                    @Override
-                    public Object run() throws Exception {
-                        shortMessageService.send(name, "【龙光汇】尊敬的VIP用户，欢迎加入龙光汇");
-                        return null;
-                    }
-                });
             } else {
                 log.error("update member info failed" + JsonUtils.toString(map));
             }

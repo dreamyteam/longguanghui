@@ -141,7 +141,7 @@ public class MemberController extends LghController {
 
     @RequestMapping("/apply/pass")
     public String pass(HttpServletResponse response, @RequestParam(value = "userId") Integer userId) {
-        Members members = memberService.getByUserId(userId);
+        final Members members = memberService.getByUserId(userId);
         if (members != null) {
             members.status(MemberStateEnums.active.getStatus());
             memberService.updateByRecord(members);
@@ -149,18 +149,7 @@ public class MemberController extends LghController {
             User user = userService.getUserById(userId);
 
             if (StringUtils.isNotEmpty(user.getPhone())) {
-                AsynchronousService.submit(new ObjectCallable(user.getPhone()) {
-                    @Override
-                    public Object run() throws Exception {
-                        String code = verificationCodeService.createVerificationCode(4);
-                        if (StringUtils.isNotEmpty(code)) {
-                            verificationCodeService.saveCodeToCache(name, code);
-                            shortMessageService.send(name, "【龙光汇】您申请的会员已通过审核");
-                        }
-
-                        return null;
-                    }
-                });
+                shortMessageService.passNote(members);
             }
             return redirect("/member/apply");
         }

@@ -61,7 +61,7 @@ public class SettingController extends LghController {
                 String code = verificationCodeService.createVerificationCode(4);
                 if (StringUtils.isNotEmpty(code)) {
                     verificationCodeService.saveCodeToCache(name, code);
-                    shortMessageService.send(name, "【龙光汇】您的验证码是" + code);
+                    shortMessageService.modifyMobileCheckCode(name, code);
                 }
 
                 return null;
