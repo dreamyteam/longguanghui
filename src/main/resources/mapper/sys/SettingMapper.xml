@@ -3,7 +3,7 @@
 <mapper namespace="com.dreamy.lgh.mapper.sys.SettingMapper" >
   <resultMap id="BaseResultMap" type="com.dreamy.lgh.domain.sys.Setting" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="sys_key" property="sysKey" jdbcType="VARCHAR" />
     <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, key, value, created_at, updated_at
+    id, sys_key, value, created_at, updated_at
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dreamy.lgh.domain.sys.SettingConditions" >
     select
@@ -101,16 +101,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dreamy.lgh.domain.sys.Setting" useGeneratedKeys="true" keyProperty="id" >
-    insert into sys_setting (key, value, created_at, 
+    insert into sys_setting (sys_key, value, created_at, 
       updated_at)
-    values (#{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+    values (#{sysKey,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
       #{updatedAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dreamy.lgh.domain.sys.Setting" useGeneratedKeys="true" keyProperty="id" >
     insert into sys_setting
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="key != null" >
-        key,
+      <if test="sysKey != null" >
+        sys_key,
       </if>
       <if test="value != null" >
         value,
@@ -123,8 +123,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="key != null" >
-        #{key,jdbcType=VARCHAR},
+      <if test="sysKey != null" >
+        #{sysKey,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
         #{value,jdbcType=VARCHAR},
@@ -149,8 +149,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.key != null" >
-        key = #{record.key,jdbcType=VARCHAR},
+      <if test="record.sysKey != null" >
+        sys_key = #{record.sysKey,jdbcType=VARCHAR},
       </if>
       <if test="record.value != null" >
         value = #{record.value,jdbcType=VARCHAR},
@@ -169,7 +169,7 @@
   <update id="updateByExample" parameterType="map" >
     update sys_setting
     set id = #{record.id,jdbcType=INTEGER},
-      key = #{record.key,jdbcType=VARCHAR},
+      sys_key = #{record.sysKey,jdbcType=VARCHAR},
       value = #{record.value,jdbcType=VARCHAR},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
@@ -180,8 +180,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.dreamy.lgh.domain.sys.Setting" >
     update sys_setting
     <set >
-      <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+      <if test="sysKey != null" >
+        sys_key = #{sysKey,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
         value = #{value,jdbcType=VARCHAR},
@@ -197,7 +197,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dreamy.lgh.domain.sys.Setting" >
     update sys_setting
-    set key = #{key,jdbcType=VARCHAR},
+    set sys_key = #{sysKey,jdbcType=VARCHAR},
       value = #{value,jdbcType=VARCHAR},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       updated_at = #{updatedAt,jdbcType=TIMESTAMP}

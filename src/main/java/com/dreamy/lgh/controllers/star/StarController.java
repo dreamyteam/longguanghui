@@ -33,11 +33,6 @@ public class StarController extends LghController {
     @Autowired
     private StarService starService;
 
-    @Override
-    public boolean checkLogin() {
-        return false;
-    }
-
     @RequestMapping("/list")
     public String list(ModelMap modelMap, HttpServletRequest request) {
         UserSession userSession = userSessionContainer.get(getUserSessionId(request));

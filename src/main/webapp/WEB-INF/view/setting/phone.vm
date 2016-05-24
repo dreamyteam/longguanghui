@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal dt-form" role="form"
                         #if($!checkCode != "")
-                          action="/member/doAdd"
+                          action="/setting/service/phone"
                         #else
                           action="/setting/service/phone/code"
                         #end

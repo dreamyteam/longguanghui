@@ -6,6 +6,7 @@
             <a href="/user/modify?field=name">
                 <span class="icon-icon_huiyuanxinxi"></span>
                 <h6>姓名</h6>
+
                 <p>$!user.userName</p>
                 <span class="icon-icon_arrows"></span>
             </a>
@@ -14,6 +15,7 @@
             <a href="/user/modify?field=phone">
                 <span class="icon-icon_tel"></span>
                 <h6>手机号</h6>
+
                 <p>$!user.phone</p>
                 <span class="icon-icon_arrows"></span>
             </a>
@@ -22,6 +24,7 @@
             <a href="/user/modify?field=dob">
                 <span class="icon-icon_birthday"></span>
                 <h6>生日</h6>
+
                 <p>$!dateUtils.toString(
                     "yyyy-MM-dd",$!user.birthday)</p>
                 <span class="icon-icon_arrows"></span>
@@ -31,7 +34,9 @@
             <a href="/user/modify?field=sex">
                 <span class="icon-icon_gender"></span>
                 <h6>性别</h6>
-                <p>$!user.sex</p>
+
+                <p>#if($!user.sex ==1) 男 #else 女
+                #end</p>
                 <span class="icon-icon_arrows"></span>
             </a>
         </li>

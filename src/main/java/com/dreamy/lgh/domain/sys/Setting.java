@@ -8,7 +8,7 @@ import java.util.Date;
 public class Setting extends BaseDomain<Integer> implements Serializable {
     private Integer id;
 
-    private String key;
+    private String sysKey;
 
     private String value;
 
@@ -26,12 +26,12 @@ public class Setting extends BaseDomain<Integer> implements Serializable {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getSysKey() {
+        return sysKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSysKey(String sysKey) {
+        this.sysKey = sysKey;
     }
 
     public String getValue() {
@@ -71,7 +71,7 @@ public class Setting extends BaseDomain<Integer> implements Serializable {
         }
         Setting other = (Setting) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getKey() == null ? other.getKey() == null : this.getKey().equals(other.getKey()))
+            && (this.getSysKey() == null ? other.getSysKey() == null : this.getSysKey().equals(other.getSysKey()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
             && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()));
@@ -82,7 +82,7 @@ public class Setting extends BaseDomain<Integer> implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getKey() == null) ? 0 : getKey().hashCode());
+        result = prime * result + ((getSysKey() == null) ? 0 : getSysKey().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
@@ -94,8 +94,8 @@ public class Setting extends BaseDomain<Integer> implements Serializable {
         return this;
     }
 
-    public Setting key(String value) {
-        this.key = value;
+    public Setting sysKey(String value) {
+        this.sysKey = value;
         return this;
     }
 

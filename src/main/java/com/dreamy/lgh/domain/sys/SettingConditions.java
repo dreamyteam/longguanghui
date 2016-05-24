@@ -177,73 +177,73 @@ public class SettingConditions {
             return (Criteria) this;
         }
 
-        public Criteria andKeyIsNull() {
-            addCriterion("key is null");
+        public Criteria andSysKeyIsNull() {
+            addCriterion("sys_key is null");
             return (Criteria) this;
         }
 
-        public Criteria andKeyIsNotNull() {
-            addCriterion("key is not null");
+        public Criteria andSysKeyIsNotNull() {
+            addCriterion("sys_key is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKeyEqualTo(String value) {
-            addCriterion("key =", value, "key");
+        public Criteria andSysKeyEqualTo(String value) {
+            addCriterion("sys_key =", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNotEqualTo(String value) {
-            addCriterion("key <>", value, "key");
+        public Criteria andSysKeyNotEqualTo(String value) {
+            addCriterion("sys_key <>", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyGreaterThan(String value) {
-            addCriterion("key >", value, "key");
+        public Criteria andSysKeyGreaterThan(String value) {
+            addCriterion("sys_key >", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyGreaterThanOrEqualTo(String value) {
-            addCriterion("key >=", value, "key");
+        public Criteria andSysKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("sys_key >=", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyLessThan(String value) {
-            addCriterion("key <", value, "key");
+        public Criteria andSysKeyLessThan(String value) {
+            addCriterion("sys_key <", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyLessThanOrEqualTo(String value) {
-            addCriterion("key <=", value, "key");
+        public Criteria andSysKeyLessThanOrEqualTo(String value) {
+            addCriterion("sys_key <=", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyLike(String value) {
-            addCriterion("key like", value, "key");
+        public Criteria andSysKeyLike(String value) {
+            addCriterion("sys_key like", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNotLike(String value) {
-            addCriterion("key not like", value, "key");
+        public Criteria andSysKeyNotLike(String value) {
+            addCriterion("sys_key not like", value, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyIn(List<String> values) {
-            addCriterion("key in", values, "key");
+        public Criteria andSysKeyIn(List<String> values) {
+            addCriterion("sys_key in", values, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNotIn(List<String> values) {
-            addCriterion("key not in", values, "key");
+        public Criteria andSysKeyNotIn(List<String> values) {
+            addCriterion("sys_key not in", values, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyBetween(String value1, String value2) {
-            addCriterion("key between", value1, value2, "key");
+        public Criteria andSysKeyBetween(String value1, String value2) {
+            addCriterion("sys_key between", value1, value2, "sysKey");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNotBetween(String value1, String value2) {
-            addCriterion("key not between", value1, value2, "key");
+        public Criteria andSysKeyNotBetween(String value1, String value2) {
+            addCriterion("sys_key not between", value1, value2, "sysKey");
             return (Criteria) this;
         }
 
@@ -437,8 +437,8 @@ public class SettingConditions {
             return (Criteria) this;
         }
 
-        public Criteria andKeyLikeInsensitive(String value) {
-            addCriterion("upper(key) like", value.toUpperCase(), "key");
+        public Criteria andSysKeyLikeInsensitive(String value) {
+            addCriterion("upper(sys_key) like", value.toUpperCase(), "sysKey");
             return (Criteria) this;
         }
 

@@ -39,7 +39,7 @@ public class SettingController extends LghController {
                             @RequestParam(value = "phone", defaultValue = "") String phone,
                             @RequestParam(value = "checkCode", defaultValue = "") String checkCode) {
         if (StringUtils.isNotEmpty(phone)) {
-            Setting setting = new Setting().key(SysSettingEnums.apply_note_phone.getKey()).value(phone);
+            Setting setting = new Setting().sysKey(SysSettingEnums.apply_note_phone.getKey()).value(phone);
             String checkCodeFromCache = verificationCodeService.getCodeFromCache(phone);
             modelMap.put("checkCode", checkCode);
 

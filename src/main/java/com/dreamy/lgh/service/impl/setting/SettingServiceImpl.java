@@ -36,7 +36,7 @@ public class SettingServiceImpl implements SettingService {
     @Override
     public String getValue(String key) {
         SettingConditions conditions = new SettingConditions();
-        conditions.createCriteria().andKeyEqualTo(key);
+        conditions.createCriteria().andSysKeyEqualTo(key);
 
         Page page = new Page();
         page.setPageSize(1);

@@ -98,6 +98,13 @@ public class StarServiceImpl implements StarService {
                 starFollowDao.save(starFollow);
                 errorCodeEnums = ErrorCodeEnums.success;
             }
+        } else {
+            StarFollow starFollow = new StarFollow();
+            starFollow.userId(userId);
+            starFollow.starId(starId);
+
+            starFollowDao.save(starFollow);
+            errorCodeEnums = ErrorCodeEnums.success;
         }
 
         return errorCodeEnums;
