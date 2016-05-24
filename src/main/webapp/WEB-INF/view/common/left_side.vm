@@ -13,14 +13,20 @@
             <li class="menu-list  nav-active">
                 <a class="pjax-url" href="javascript:void(0);">
                     <i class="fa fa-list"></i>
-                    <span>banner管理</span>
+                    <span>最新资讯</span>
                 </a>
                 <ul class="sub-menu-list">
-                    <li #if($!pageName=="banneradd") class="active" #end>
-                        <a href="/banner/add?pageName=banneradd">添加banner</a>
+                    <li #if($!pageName=="banneradd0") class="active" #end>
+                        <a href="/banner/add?pageName=banneradd0">添加banner</a>
                     </li>
-                    <li #if($!pageName=="bannerlist") class="active" #end>
-                        <a href="/banner/list?pageName=bannerlist">banner列表</a>
+                    <li #if($!pageName=="bannerlist0") class="active" #end>
+                        <a href="/banner/list?pageName=bannerlist0">banner列表</a>
+                    </li>
+                    <li #if($!pageName=="newsadd0") class="active" #end>
+                        <a href="/news/add?pageName=newsadd0">新增资讯</a>
+                    </li>
+                    <li #if($!pageName=="newslist0") class="active" #end>
+                        <a href="/news/list?pageName=newslist0">资讯管理</a>
                     </li>
                 </ul>
             </li>
@@ -28,14 +34,41 @@
             <li class="menu-list  nav-active">
                 <a class="pjax-url" href="javascript:void(0);">
                     <i class="fa fa-list"></i>
-                    <span>新闻管理</span>
+                    <span>明星动态</span>
                 </a>
                 <ul class="sub-menu-list">
-                    <li #if($!pageName=="newsadd") class="active" #end>
-                        <a href="/news/add?pageName=newsadd">新增动态</a>
+                    <li #if($!pageName=="banneradd1") class="active" #end>
+                        <a href="/banner/add?type=1&pageName=banneradd1">添加banner</a>
                     </li>
-                    <li #if($!pageName=="newslist") class="active" #end>
-                        <a href="/news/list?pageName=newslist">新闻管理</a>
+                    <li #if($!pageName=="bannerlist1") class="active" #end>
+                        <a href="/banner/list?type=1&pageName=bannerlist1">banner列表</a>
+                    </li>
+                    <li #if($!pageName=="newsadd1") class="active" #end>
+                        <a href="/news/add?type=1&pageName=newsadd1">新增动态</a>
+                    </li>
+                    <li #if($!pageName=="newslist1") class="active" #end>
+                        <a href="/news/list?type=1&pageName=newslist1">动态管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-list  nav-active">
+                <a class="pjax-url" href="javascript:void(0);">
+                    <i class="fa fa-list"></i>
+                    <span>视讯频道</span>
+                </a>
+                <ul class="sub-menu-list">
+                    <li #if($!pageName=="banneradd2") class="active" #end>
+                        <a href="/banner/add?type=2&pageName=banneradd2">添加banner</a>
+                    </li>
+                    <li #if($!pageName=="bannerlist2") class="active" #end>
+                        <a href="/banner/list?type=2&pageName=bannerlist2">banner列表</a>
+                    </li>
+                    <li #if($!pageName=="newsadd2") class="active" #end>
+                        <a href="/news/add?type=2&pageName=newsadd2">新增视讯</a>
+                    </li>
+                    <li #if($!pageName=="newslist2") class="active" #end>
+                        <a href="/news/list?type=2&pageName=newslist2">视讯管理</a>
                     </li>
                 </ul>
             </li>

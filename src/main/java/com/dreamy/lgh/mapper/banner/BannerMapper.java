@@ -2,13 +2,12 @@ package com.dreamy.lgh.mapper.banner;
 
 import com.dreamy.lgh.domain.banner.Banner;
 import com.dreamy.lgh.domain.banner.BannerConditions;
-
 import java.util.List;
 
 import com.dreamy.lgh.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface BannerMapper extends BaseMapper<Banner, Integer, BannerConditions> {
+public interface BannerMapper extends BaseMapper<Banner,Integer,BannerConditions> {
     int countByExample(BannerConditions example);
 
     int deleteByExample(BannerConditions example);

@@ -2,7 +2,6 @@ package com.dreamy.lgh.controllers.news;
 
 import com.dreamy.beans.Page;
 import com.dreamy.lgh.beans.InterfaceBean;
-import com.dreamy.lgh.beans.UserSession;
 import com.dreamy.lgh.controllers.LghController;
 import com.dreamy.lgh.domain.news.News;
 import com.dreamy.lgh.enums.ErrorCodeEnums;
@@ -46,32 +45,34 @@ public class NewsController extends LghController {
                       @RequestParam(value = "title", required = false) String title,
                       @RequestParam(value = "href", required = false) String href,
                       @RequestParam(value = "info", required = false) String info,
+                      @RequestParam(value = "type", defaultValue = "0") Integer type,
                       @RequestParam(value = "imageUrl", required = false) String imageUrl) {
 
         if (StringUtils.isNotEmpty(title) && StringUtils.isNotEmpty(href) && StringUtils.isNotEmpty(imageUrl) && StringUtils.isNotEmpty(info)) {
             News news = new News();
-            news.title(title).href(href).imageUrl(imageUrl).info(info);
+            news.title(title).href(href).imageUrl(imageUrl).info(info).type(type);
 
             newsService.save(news);
-            return redirect("/news/list");
+            return redirect("/news/list?type="+type+"&pageName=newslist"+type);
         }
 
+        modelMap.put("type",type);
         return "/news/add";
     }
 
     @RequestMapping(value = "/list/wx")
-    public String listWx(ModelMap modelMap, Page page) {
+    public String listWx(ModelMap modelMap, Page page, @RequestParam(value = "type", defaultValue = "0") Integer type) {
 
-        modelMap.put("newsList", newsService.getByPageAndOrder(page, "id desc"));
-        modelMap.put("bannerList", bannerService.getAllByOrder("id desc"));
+        modelMap.put("newsList", newsService.getByPageAndOrderAndType(page, "id desc",type));
+        modelMap.put("bannerList", bannerService.getAllByOrderAndType("id desc", type));
 
         return "/news/list";
     }
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, Page page) {
+    public String list(ModelMap modelMap, Page page,@RequestParam(value = "type", defaultValue = "0") Integer type) {
 
-        modelMap.put("newsList", newsService.getByPageAndOrder(page, "id desc"));
+        modelMap.put("newsList", newsService.getByPageAndOrderAndType(page, "id desc",type));
         return "/news/admin_list";
     }
 
@@ -94,7 +95,7 @@ public class NewsController extends LghController {
         if (news != null) {
             news.title(title).href(href).info(info).imageUrl(imageUrl);
             newsService.updateByRecord(news);
-            return redirect("/news/list");
+            return redirect("/news/list?type="+news.getType()+"&pageName=newslist="+news.getType());
         }
 
         return "/news/edit";

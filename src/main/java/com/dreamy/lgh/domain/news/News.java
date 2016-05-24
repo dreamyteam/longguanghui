@@ -22,6 +22,8 @@ public class News extends BaseDomain<Integer> implements Serializable {
 
     private Date updatedAt;
 
+    private Integer type;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -88,6 +90,14 @@ public class News extends BaseDomain<Integer> implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -107,7 +117,8 @@ public class News extends BaseDomain<Integer> implements Serializable {
             && (this.getInfo() == null ? other.getInfo() == null : this.getInfo().equals(other.getInfo()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-            && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()));
+            && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -122,6 +133,7 @@ public class News extends BaseDomain<Integer> implements Serializable {
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -162,6 +174,11 @@ public class News extends BaseDomain<Integer> implements Serializable {
 
     public News updatedAt(Date value) {
         this.updatedAt = value;
+        return this;
+    }
+
+    public News type(Integer value) {
+        this.type = value;
         return this;
     }
 }

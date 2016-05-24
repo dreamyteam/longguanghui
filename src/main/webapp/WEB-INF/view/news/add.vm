@@ -90,7 +90,6 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="albumId" value="$!content.albumId">
                         <input type="hidden" name="type" value="$!type">
 
                     </form>

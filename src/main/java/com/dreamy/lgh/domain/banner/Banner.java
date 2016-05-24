@@ -10,15 +10,17 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
 
     private String title;
 
-    private String imageUrl;
-
     private String href;
+
+    private String imageUrl;
 
     private Integer status;
 
     private Date createdAt;
 
     private Date updatedAt;
+
+    private Integer type;
 
     private static final long serialVersionUID = 1L;
 
@@ -38,20 +40,20 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
         this.title = title;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getHref() {
         return href;
     }
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getStatus() {
@@ -78,6 +80,14 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -92,11 +102,12 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
         Banner other = (Banner) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getImageUrl() == null ? other.getImageUrl() == null : this.getImageUrl().equals(other.getImageUrl()))
             && (this.getHref() == null ? other.getHref() == null : this.getHref().equals(other.getHref()))
+            && (this.getImageUrl() == null ? other.getImageUrl() == null : this.getImageUrl().equals(other.getImageUrl()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
-            && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()));
+            && (this.getUpdatedAt() == null ? other.getUpdatedAt() == null : this.getUpdatedAt().equals(other.getUpdatedAt()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -105,11 +116,12 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
-        result = prime * result + ((getImageUrl() == null) ? 0 : getImageUrl().hashCode());
         result = prime * result + ((getHref() == null) ? 0 : getHref().hashCode());
+        result = prime * result + ((getImageUrl() == null) ? 0 : getImageUrl().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         result = prime * result + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -123,13 +135,13 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
         return this;
     }
 
-    public Banner imageUrl(String value) {
-        this.imageUrl = value;
+    public Banner href(String value) {
+        this.href = value;
         return this;
     }
 
-    public Banner href(String value) {
-        this.href = value;
+    public Banner imageUrl(String value) {
+        this.imageUrl = value;
         return this;
     }
 
@@ -145,6 +157,11 @@ public class Banner extends BaseDomain<Integer> implements Serializable {
 
     public Banner updatedAt(Date value) {
         this.updatedAt = value;
+        return this;
+    }
+
+    public Banner type(Integer value) {
+        this.type = value;
         return this;
     }
 }

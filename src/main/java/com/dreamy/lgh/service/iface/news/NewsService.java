@@ -24,7 +24,7 @@ public interface NewsService {
      * @param order
      * @return
      */
-    List<News> getByPageAndOrder(Page page, String order);
+    List<News> getByPageAndOrderAndType(Page page, String order,Integer type);
 
     /**
      * @param id

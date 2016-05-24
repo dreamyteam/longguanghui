@@ -28,6 +28,7 @@
                     <form class="form-horizontal  dt-form" role="form" action="/banner/add"
                           method="post">
 
+                        <input type="hidden" name="type" value="$!type">
                         <div class="form-group">
                             <label for="Content_title" class="col-lg-2 col-sm-2 control-label">标题</label>
 
@@ -80,9 +81,6 @@
                                 </button>
                             </div>
                         </div>
-
-                        <input type="hidden" name="albumId" value="$!content.albumId">
-                        <input type="hidden" name="type" value="$!type">
 
                     </form>
 

@@ -27,9 +27,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<Banner> getAllByOrder(String order) {
+    public List<Banner> getAllByOrderAndType(String order,Integer type) {
         BannerConditions conditions = new BannerConditions();
-        conditions.createCriteria().andStatusEqualTo(0);
+        conditions.createCriteria().andStatusEqualTo(0).andTypeEqualTo(type);
 
         return bannerDao.selectByExample(conditions);
     }

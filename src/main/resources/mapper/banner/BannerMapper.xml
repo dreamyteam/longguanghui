@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.dreamy.lgh.domain.banner.Banner" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
     <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, image_url, href, status, created_at, updated_at
+    id, title, href, image_url, status, created_at, updated_at, type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dreamy.lgh.domain.banner.BannerConditions" >
     select
@@ -103,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dreamy.lgh.domain.banner.Banner" useGeneratedKeys="true" keyProperty="id" >
-    insert into banner (title, image_url, href, 
-      status, created_at, updated_at
-      )
-    values (#{title,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
-      )
+    insert into banner (title, href, image_url, 
+      status, created_at, updated_at, 
+      type)
+    values (#{title,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dreamy.lgh.domain.banner.Banner" useGeneratedKeys="true" keyProperty="id" >
     insert into banner
@@ -116,11 +117,11 @@
       <if test="title != null" >
         title,
       </if>
-      <if test="imageUrl != null" >
-        image_url,
-      </if>
       <if test="href != null" >
         href,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
       </if>
       <if test="status != null" >
         status,
@@ -131,16 +132,19 @@
       <if test="updatedAt != null" >
         updated_at,
       </if>
+      <if test="type != null" >
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null" >
-        #{imageUrl,jdbcType=VARCHAR},
-      </if>
       <if test="href != null" >
         #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -150,6 +154,9 @@
       </if>
       <if test="updatedAt != null" >
         #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -168,11 +175,11 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.imageUrl != null" >
-        image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      </if>
       <if test="record.href != null" >
         href = #{record.href,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageUrl != null" >
+        image_url = #{record.imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -183,6 +190,9 @@
       <if test="record.updatedAt != null" >
         updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,11 +202,12 @@
     update banner
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      image_url = #{record.imageUrl,jdbcType=VARCHAR},
       href = #{record.href,jdbcType=VARCHAR},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
-      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -207,11 +218,11 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null" >
-        image_url = #{imageUrl,jdbcType=VARCHAR},
-      </if>
       <if test="href != null" >
         href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -222,17 +233,21 @@
       <if test="updatedAt != null" >
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dreamy.lgh.domain.banner.Banner" >
     update banner
     set title = #{title,jdbcType=VARCHAR},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
       href = #{href,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
-      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <sql id="paginationSql" >

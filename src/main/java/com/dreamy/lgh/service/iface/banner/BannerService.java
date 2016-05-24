@@ -22,7 +22,7 @@ public interface BannerService {
      * @param order
      * @return
      */
-    List<Banner> getAllByOrder(String order);
+    List<Banner> getAllByOrderAndType(String order,Integer type);
 
     /**
      *

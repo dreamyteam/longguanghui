@@ -2,13 +2,12 @@ package com.dreamy.lgh.mapper.news;
 
 import com.dreamy.lgh.domain.news.News;
 import com.dreamy.lgh.domain.news.NewsConditions;
-
 import java.util.List;
 
 import com.dreamy.lgh.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface NewsMapper extends BaseMapper<News, Integer, NewsConditions> {
+public interface NewsMapper extends BaseMapper<News,Integer,NewsConditions>{
     int countByExample(NewsConditions example);
 
     int deleteByExample(NewsConditions example);

@@ -9,16 +9,13 @@ import com.dreamy.utils.JsonUtils;
 import com.dreamy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -35,20 +32,24 @@ public class BannerController extends LghController {
     private BannerService bannerService;
 
     @RequestMapping("/add")
-    public String add(ModelMap modelMap, @RequestParam(value = "title", required = false) String title, @RequestParam(value = "href", required = false) String href,
+    public String add(ModelMap modelMap,
+                      @RequestParam(value = "title", required = false) String title,
+                      @RequestParam(value = "type", defaultValue = "0") Integer type,
+                      @RequestParam(value = "href", required = false) String href,
                       @RequestParam(value = "imageUrl", required = false) String imageUrl) {
         if (StringUtils.isNotEmpty(title) && StringUtils.isNotEmpty(href) && StringUtils.isNotEmpty(imageUrl)) {
 
             Banner banner = new Banner();
-            banner.title(title).href(href).imageUrl(imageUrl);
+            banner.title(title).href(href).imageUrl(imageUrl).type(type);
             bannerService.save(banner);
 
-            return redirect("/banner/list");
+            return redirect("/banner/list?type=" + type + "&pageName=bannerlist" + type);
         }
 
         modelMap.put("title", title);
         modelMap.put("href", href);
         modelMap.put("imageUrl", imageUrl);
+        modelMap.put("type", type);
 
         return "/banner/add";
     }
@@ -68,15 +69,15 @@ public class BannerController extends LghController {
         if (banner != null) {
             banner.title(title).href(href).imageUrl(imageUrl);
             bannerService.updateByRecord(banner);
-            return redirect("/banner/list");
+            return redirect("/banner/list?type="+banner.getType()+"&pageName=bannerlist"+banner.getType());
         }
 
         return null;
     }
 
     @RequestMapping("/list")
-    public String list(ModelMap modelMap) {
-        List<Banner> bannerList = bannerService.getAllByOrder("id desc");
+    public String list(ModelMap modelMap, @RequestParam(value = "type", defaultValue = "0") Integer type) {
+        List<Banner> bannerList = bannerService.getAllByOrderAndType("id desc", type);
 
         modelMap.put("bannerList", bannerList);
         return "/banner/list";

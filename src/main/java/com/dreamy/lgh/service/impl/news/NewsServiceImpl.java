@@ -28,8 +28,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getByPageAndOrder(Page page, String order) {
+    public List<News> getByPageAndOrderAndType(Page page, String order, Integer type) {
         NewsConditions conditions = new NewsConditions();
+        conditions.createCriteria().andTypeEqualTo(type);
         conditions.setPage(page);
         conditions.setOrderByClause(order);
         return newsDao.selectByExample(conditions);
